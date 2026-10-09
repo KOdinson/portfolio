@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Status, plainly | An outage page for the person locked out</title>
+<meta name="description" content="Concept site for a service status page that gives scope, impact and next steps in plain language.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="../base.css?v=1">
+<style>
+:root { --bg: #F3F5F4; --surface: #FFFFFF; --ink: #141A18; --ink-2: #56615D; --brand: #1D4E89; --on-brand: #FFFFFF; --radius: 10px; --font-d: "Sora", system-ui, sans-serif; --font-b: "Sora", system-ui, sans-serif; color-scheme: light; }
+.hero h1 { font-weight: 800; font-size: clamp(2.1rem, 5.4vw, 3.8rem); }
+.vs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 34px; }
+@media (max-width: 700px) { .vs { grid-template-columns: minmax(0, 1fr); } }
+.vs div { border-radius: 14px; padding: 20px; display: grid; gap: 8px; align-content: start; }
+.vs .old { background: var(--bg); border: 1px dashed var(--ink-2); font-family: ui-monospace, Consolas, monospace; font-size: 15px; color: var(--ink-2); }
+.vs .new { background: #FFF2D1; border: 2px solid #7A5200; }
+.vs .new b { font-size: 1.3rem; line-height: 1.25; }
+.vs small { font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; font-size: 12.5px; }
+.four { margin-top: 34px; display: grid; gap: 0; border-top: 3px solid var(--ink); }
+.four div { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 8px 20px; padding: 14px 0; border-bottom: 1px solid #D4DAD7; }
+.four b { color: var(--ink-2); }
+@media (max-width: 600px) { .four div { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+
+<div class="concept"><div class="wrap"><span>Concept site. Status, plainly is a design exercise, not a real product or company.</span><a href="../../work/status-page.html">Read the case study</a></div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#top">Status, plainly</a>
+  <a href="#how">How it works</a><a href="#try">Try it</a><a href="../../work/status-page.html">Case study</a>
+</div></header>
+
+<main id="top">
+  <section class="hero stack"><div class="wrap">
+    <div class="text">
+      
+      <h1>Some card payments are failing. Everything else is working.</h1>
+      <p class="sub">That sentence is a status page headline. Someone who reads only that line knows the scope. This concept rewrites the outage page for the person on the other side of it.</p>
+      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
+    </div>
+    <div id="try"><div class="browser"><iframe src="../../prototypes/status-page/" title="status-page interactive prototype"></iframe></div><p class="cap" style="margin-top:12px">Live prototype with an invented service. Switch between the four moments, and untick a part you do not use.</p></div>
+  </div></section>
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">The same outage, written twice</span>
+    <h2>Status pages are usually written for engineers.</h2>
+    <div class="vs">
+      <div class="old"><small>Typical</small><span>● payments-api — Degraded Performance</span><span>Investigating — We are currently investigating this issue.</span></div>
+      <div class="new"><small>▲ Partial outage</small><b>Some card payments are failing. Everything else is working.</b><span>Try the payment again. A second attempt usually goes through.</span></div>
+    </div>
+  </div></section>
+
+  <section class="band" id="how"><div class="wrap">
+    <span class="kicker">Four fixed questions</span>
+    <h2>Always these four, always in this order.</h2>
+    <div class="four">
+      <div><b>What is happening</b><span>In terms the customer can see, with the time it began.</span></div>
+      <div><b>Who is affected</b><span>And, just as useful, who is not.</span></div>
+      <div><b>What you can do</b><span>Including what will not help: "Resetting your password will not help."</span></div>
+      <div><b>When it will be fixed</b><span>Or an honest "we do not know yet", with a committed time for the next update.</span></div>
+    </div>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">Does this affect me?</span>
+    <h2>The same outage is urgent for one reader and irrelevant for the next.</h2>
+    <div class="three">
+      <div class="item"><h3>A line of your own</h3><p>Tick the parts you use and the page says "This affects you: payments", or "This does not affect anything you use".</p></div>
+      <div class="item"><h3>Knock-on effects, named</h3><p>When sign-in is down, payments read "Unreachable until sign-in returns". One problem, not four.</p></div>
+      <div class="item"><h3>After the fix, the same shape</h3><p>How long it lasted, a plain statement of the cause, and a date for the full account.</p></div>
+    </div>
+  </div></section>
+
+
+</main>
+
+<footer class="foot"><div class="wrap">
+  <b>Status, plainly</b>
+  <p>Designed and built by Keith Sanders II as a portfolio concept. There is no product for sale behind this page and no customers are claimed. The prototype runs in your browser with invented data and saves nothing.</p>
+  <div class="links"><a href="../../prototypes/status-page/">Open the prototype</a><a href="../../work/status-page.html">Case study</a><a href="../../">Keith's portfolio</a></div>
+</div></footer>
+<script src="../base.js?v=1"></script>
+</body>
+</html>

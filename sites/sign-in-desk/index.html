@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign-In Desk | A visitor log that works in an emergency</title>
+<meta name="description" content="Concept site for Sign-In Desk, a lobby visitor tablet whose list doubles as the emergency headcount.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="../base.css?v=1">
+<style>
+:root { --bg: #E8ECEF; --surface: #FFFFFF; --ink: #10202B; --ink-2: #4E5E69; --brand: #0B5E6B; --on-brand: #FFFFFF; --radius: 12px; --font-d: "Lexend", system-ui, sans-serif; --font-b: "Lexend", system-ui, sans-serif; color-scheme: light; }
+.hero h1 { font-weight: 800; }
+.count { margin-top: 34px; border: 3px solid #A3211B; background: #FBEAE8; border-radius: 16px; padding: 22px; display: grid; gap: 8px; max-width: 640px; }
+.count b { font-size: clamp(1.4rem, 3.4vw, 2rem); }
+.count span { font-size: 1.15rem; }
+.count s { color: var(--ink-2); }
+</style>
+</head>
+<body>
+
+<div class="concept"><div class="wrap"><span>Concept site. Sign-In Desk is a design exercise, not a real product or company.</span><a href="../../work/sign-in-desk.html">Read the case study</a></div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#top">Sign-In Desk</a>
+  <a href="#how">How it works</a><a href="#try">Try it</a><a href="../../work/sign-in-desk.html">Case study</a>
+</div></header>
+
+<main id="top">
+  <section class="hero stack"><div class="wrap">
+    <div class="text">
+      
+      <h1>Who is still in the building?</h1>
+      <p class="sub">Sign-In Desk is a lobby tablet for visitors and a live list for the guard. A visitor is through in thirty seconds. In an emergency, one button turns the same list into a floor-by-floor headcount.</p>
+      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
+    </div>
+    <div id="try"><div class="browser"><iframe src="../../prototypes/sign-in-desk/" title="sign-in-desk interactive prototype"></iframe></div><p class="cap" style="margin-top:12px">Live prototype with an invented building. Sign in, switch to Guard view, then open the Emergency list.</p></div>
+  </div></section>
+  <section class="band tint" id="how"><div class="wrap">
+    <span class="kicker">For the visitor</span>
+    <h2>Thirty seconds, four taps and a name.</h2>
+    <ol class="steps">
+      <li><b>Why you are here</b><span>Three large tiles: visiting, delivering, or working.</span></li>
+      <li><b>Your name</b><span>The only typing in the flow, alone on its screen.</span></li>
+      <li><b>Who you are seeing</b><span>Pick the tenant. They are told you have arrived.</span></li>
+      <li><b>One safety rule</b><span>Follow the green signs, do not use the lift, meet in the north car park.</span></li>
+    </ol>
+  </div></section>
+
+  <section class="band"><div class="wrap">
+    <span class="kicker">For the guard</span>
+    <h2>One button turns the log into a headcount.</h2>
+    <p class="intro">The same people, regrouped by floor, in large type with a tick box each. Built to be used outdoors, in a hurry, by someone holding a radio.</p>
+    <div class="count"><b>Emergency headcount: 3 of 4 visitors not yet found</b><span><s>S. Brandt · Building management</s></span><span>J. Whitcombe · Harlow Dental</span><span>M. Oyelaran · Northline Freight</span></div>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">Design choices</span>
+    <h2>A list is only useful if it is current.</h2>
+    <div class="three">
+      <div class="item"><h3>The badge is the sign-out</h3><p>Visitors hand the badge back on the way out, "so we know you are out".</p></div>
+      <div class="item"><h3>Say why, on the first screen</h3><p>"It is how we know who to look for if the building has to be cleared."</p></div>
+      <div class="item"><h3>State what the list does not cover</h3><p>"Tenants keep their own staff lists. This one is visitors only." A headcount that looks complete and is not would be dangerous.</p></div>
+    </div>
+  </div></section>
+
+
+</main>
+
+<footer class="foot"><div class="wrap">
+  <b>Sign-In Desk</b>
+  <p>Designed and built by Keith Sanders II as a portfolio concept. There is no product for sale behind this page and no customers are claimed. The prototype runs in your browser with invented data and saves nothing.</p>
+  <div class="links"><a href="../../prototypes/sign-in-desk/">Open the prototype</a><a href="../../work/sign-in-desk.html">Case study</a><a href="../../">Keith's portfolio</a></div>
+</div></footer>
+<script src="../base.js?v=1"></script>
+</body>
+</html>

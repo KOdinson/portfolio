@@ -22,5 +22,5 @@ Then open http://localhost:4173/
 
 ## Concept product sites
 
-`sites/` holds five product landing pages (Punchlist, Triage, Rounds, Swap, Degree Map). Each embeds its live prototype and is marked as a concept.
+`sites/` holds fifteen product landing pages, one per concept, generated from shared mechanics in `sites/base.css`. Each embeds its live prototype and is marked as a concept.
 

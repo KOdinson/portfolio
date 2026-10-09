@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Front Desk | See every dollar before you join</title>
+<meta name="description" content="Concept site for Front Desk, a gym membership signup that shows the whole first year up front.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap">
+<link rel="stylesheet" href="../base.css?v=1">
+<style>
+:root { --bg: #F6F6F3; --surface: #E8ECFD; --ink: #15171C; --ink-2: #555A66; --brand: #1F3FD6; --on-brand: #FFFFFF; --font-d: "Archivo", system-ui, sans-serif; --font-b: "Archivo", system-ui, sans-serif; color-scheme: light; }
+.hero h1 { font-weight: 800; font-stretch: 112%; }
+.hero h1 mark { background: #FFE45C; color: inherit; padding: 0 0.1em; }
+.four { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-top: 34px; }
+.four div { background: var(--bg); border: 2px solid var(--ink); border-radius: 12px; padding: 16px; display: grid; gap: 4px; }
+.four small { color: var(--ink-2); }
+.four b { font-size: 1.5rem; font-weight: 800; }
+.four .shown { background: #FFE45C; }
+</style>
+</head>
+<body>
+
+<div class="concept"><div class="wrap"><span>Concept site. Front Desk is a design exercise, not a real product or company.</span><a href="../../work/front-desk.html">Read the case study</a></div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#top">Front Desk</a>
+  <a href="#how">How it works</a><a href="#try">Try it</a><a href="../../work/front-desk.html">Case study</a>
+</div></header>
+
+<main id="top">
+  <section class="hero stack"><div class="wrap">
+    <div class="text">
+      
+      <h1>Pick a membership. See <mark>every dollar</mark> first.</h1>
+      <p class="sub">Front Desk is a gym signup page that shows what you pay today, each month and once a year, the first-year total, and how leaving works. All of it before the pay button.</p>
+      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
+    </div>
+    <div id="try"><div class="browser"><iframe src="../../prototypes/front-desk/" title="front-desk interactive prototype"></iframe></div><p class="cap" style="margin-top:12px">Live prototype with sample prices. Switch plans and add extras, and watch the receipt.</p></div>
+  </div></section>
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">The problem</span>
+    <h2>A membership has four prices. Most signup pages show one.</h2>
+    <p class="intro">The headline number is the monthly rate. The other three live in the agreement and surface in month three.</p>
+    <div class="four">
+      <div class="shown"><small>Shown in the ad</small><b>Monthly rate</b></div>
+      <div><small>In the agreement</small><b>Fee to join</b></div>
+      <div><small>In the agreement</small><b>Annual fee</b></div>
+      <div><small>In the agreement</small><b>Cost to leave</b></div>
+    </div>
+  </div></section>
+
+  <section class="band" id="how"><div class="wrap">
+    <span class="kicker">How it works</span>
+    <h2>A receipt that never leaves the screen.</h2>
+    <div class="three">
+      <div class="item"><h3>Prices by when they hit</h3><p>Three rows named for timing: today, each month after, once a year. That is how a person budgets.</p></div>
+      <div class="item"><h3>One number to compare</h3><p>The first-year total is the only highlighted figure. Two plans with different fees cannot be compared by monthly rate. Their totals can.</p></div>
+      <div class="item"><h3>It argues against itself</h3><p>Under the total, the receipt says what the other plan would cost, even when the other plan is cheaper.</p></div>
+    </div>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">Before you pay</span>
+    <h2>Leaving is explained before joining.</h2>
+    <p class="intro">"How leaving works" sits directly above the payment button: how much notice, what it costs, whether you can pause. And the annual fee comes with a date, "first charged in your third month", so it arrives as a charge and not as a surprise.</p>
+  </div></section>
+
+
+</main>
+
+<footer class="foot"><div class="wrap">
+  <b>Front Desk</b>
+  <p>Designed and built by Keith Sanders II as a portfolio concept. There is no product for sale behind this page and no customers are claimed. The prototype runs in your browser with invented data and saves nothing.</p>
+  <div class="links"><a href="../../prototypes/front-desk/">Open the prototype</a><a href="../../work/front-desk.html">Case study</a><a href="../../">Keith's portfolio</a></div>
+</div></footer>
+<script src="../base.js?v=1"></script>
+</body>
+</html>

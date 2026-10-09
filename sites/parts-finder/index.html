@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parts Finder | Start from the symptom</title>
+<meta name="description" content="Concept site for Parts Finder, an appliance parts search that starts from what the machine is doing.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="../base.css?v=1">
+<style>
+:root { --bg: #EFF1EE; --surface: #FFFFFF; --ink: #161A17; --ink-2: #57605A; --brand: #B4480F; --on-brand: #FFFFFF; --radius: 8px; --font-d: "Barlow", system-ui, sans-serif; --font-b: "Barlow", system-ui, sans-serif; color-scheme: light; }
+.hero h1 { font-weight: 800; text-transform: uppercase; letter-spacing: 0; }
+.fit { display: grid; gap: 12px; margin-top: 34px; font-weight: 600; font-size: 1.1rem; max-width: 720px; }
+.fit div { border-radius: 10px; padding: 14px 16px; display: grid; gap: 2px; }
+.fit small { font-weight: 400; color: var(--ink-2); font-size: 15px; }
+.fit .y { background: #E3F0E7; color: #17603A; } .fit .m { background: #FFF2D1; color: #7A5200; } .fit .n { background: #E7E9E7; color: #4E534F; }
+.free { margin-top: 34px; border: 2px solid #17603A; background: #E3F0E7; border-radius: 12px; padding: 20px; display: grid; gap: 4px; max-width: 620px; }
+.free b { font-size: 1.3rem; }
+</style>
+</head>
+<body>
+
+<div class="concept"><div class="wrap"><span>Concept site. Parts Finder is a design exercise, not a real shop. The repair advice is invented and should not be used on a real appliance.</span><a href="../../work/parts-finder.html">Read the case study</a></div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#top">Parts Finder</a>
+  <a href="#how">How it works</a><a href="#try">Try it</a><a href="../../work/parts-finder.html">Case study</a>
+</div></header>
+
+<main id="top">
+  <section class="hero stack"><div class="wrap">
+    <div class="text">
+      
+      <h1>You know the symptom. Start there.</h1>
+      <p class="sub">Parts Finder is a parts search for people who know what the machine is doing and not what is broken. It leads with the free fix and tells the truth about what fits.</p>
+      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
+    </div>
+    <div id="try"><div class="browser"><iframe src="../../prototypes/parts-finder/" title="parts-finder interactive prototype"></iframe></div><p class="cap" style="margin-top:12px">Live prototype with invented models, parts and prices. Change the model, then try "Nothing happens at all".</p></div>
+  </div></section>
+  <section class="band tint" id="how"><div class="wrap">
+    <span class="kicker">Step one costs nothing</span>
+    <h2>A shop that tells you not to buy yet.</h2>
+    <p class="intro">Every result list opens with something free that takes minutes, above the parts.</p>
+    <div class="free"><span style="color: var(--ink-2)">Step 1 · costs nothing</span><b>Clean the filter first</b><span>Twist out the filter in the floor of the tub and rinse it. About 5 minutes, no tools.</span></div>
+  </div></section>
+
+  <section class="band"><div class="wrap">
+    <span class="kicker">Three kinds of fit</span>
+    <h2>Most sites round "maybe" up to "yes".</h2>
+    <div class="fit">
+      <div class="y">✓ Fits your DW-420<small>Confirmed for your exact model.</small></div>
+      <div class="m">? Fits some 400-series. Check the part number on your old one.<small>The honest middle state.</small></div>
+      <div class="n">✕ Does not fit DW-420<small>Hidden by default, with a count, so you can see nothing is being concealed.</small></div>
+    </div>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">Design choices</span>
+    <h2>Listings that help you decide whether to do it at all.</h2>
+    <div class="three">
+      <div class="item"><h3>Symptoms in your words</h3><p>"Water stays in the bottom", not "drain fault".</p></div>
+      <div class="item"><h3>Effort is part of the listing</h3><p>"20 minutes · screwdriver" sits beside the price.</p></div>
+      <div class="item"><h3>Some repairs end with "call someone"</h3><p>For a machine that will not power on, the page stops at the safe checks and says so: "We sell the parts, and we would rather you did not fit them yourself."</p></div>
+    </div>
+  </div></section>
+
+
+</main>
+
+<footer class="foot"><div class="wrap">
+  <b>Parts Finder</b>
+  <p>Designed and built by Keith Sanders II as a portfolio concept. There is no product for sale behind this page and no customers are claimed. The prototype runs in your browser with invented data and saves nothing.</p>
+  <div class="links"><a href="../../prototypes/parts-finder/">Open the prototype</a><a href="../../work/parts-finder.html">Case study</a><a href="../../">Keith's portfolio</a></div>
+</div></footer>
+<script src="../base.js?v=1"></script>
+</body>
+</html>

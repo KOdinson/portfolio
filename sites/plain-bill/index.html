@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plain Bill | Why is it higher this month?</title>
+<meta name="description" content="Concept site for Plain Bill, a utility bill that explains the change from last month in dollars.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="../base.css?v=1">
+<style>
+:root { --bg: #EFEEE9; --surface: #FCFCFB; --ink: #0B0B0B; --ink-2: #52514E; --brand: #1F63B8; --on-brand: #FFFFFF; --font-d: "Inter Tight", system-ui, sans-serif; --font-b: "Inter Tight", system-ui, sans-serif; color-scheme: light; }
+.hero h1 { font-weight: 800; }
+.sum { margin-top: 34px; display: grid; gap: 10px; max-width: 520px; font-size: 1.2rem; }
+.sum div { display: flex; justify-content: space-between; gap: 14px; padding: 10px 0; border-bottom: 1px solid #C3C2B7; font-variant-numeric: tabular-nums; }
+.sum .t { font-weight: 800; border-bottom: 3px solid var(--ink); }
+.sum small { display: block; color: var(--ink-2); font-size: 15px; }
+</style>
+</head>
+<body>
+
+<div class="concept"><div class="wrap"><span>Concept site. Plain Bill is a design exercise, not a real product or company.</span><a href="../../work/plain-bill.html">Read the case study</a></div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#top">Plain Bill</a>
+  <a href="#how">How it works</a><a href="#try">Try it</a><a href="../../work/plain-bill.html">Case study</a>
+</div></header>
+
+<main id="top">
+  <section class="hero stack"><div class="wrap">
+    <div class="text">
+      
+      <h1>Why is it higher this month?</h1>
+      <p class="sub">Plain Bill answers the question people really bring to a bill. It states the change from last month, gives the reasons in dollars, and makes them add up.</p>
+      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
+    </div>
+    <div id="try"><div class="browser"><iframe src="../../prototypes/plain-bill/" title="plain-bill interactive prototype"></iframe></div><p class="cap" style="margin-top:12px">Live prototype with an invented account. Hover the bars, or switch the chart to a table.</p></div>
+  </div></section>
+  <section class="band tint" id="how"><div class="wrap">
+    <span class="kicker">The reasons reconcile</span>
+    <h2>Three causes. One total. No remainder.</h2>
+    <p class="intro">A partial explanation invites suspicion. One that adds up exactly closes the question.</p>
+    <div class="sum">
+      <div><span>A longer billing period<small>33 days this time, 30 last time</small></span><span>+ $14</span></div>
+      <div><span>More electricity per day<small>Cold nights, heating came on</small></span><span>+ $10</span></div>
+      <div><span>A higher rate<small>Continues every month from now on</small></span><span>+ $9</span></div>
+      <div class="t"><span>Change from September</span><span>+ $33</span></div>
+    </div>
+  </div></section>
+
+  <section class="band"><div class="wrap">
+    <span class="kicker">Design choices</span>
+    <h2>Written for the person, not the meter.</h2>
+    <div class="three">
+      <div class="item"><h3>Dollars, not kilowatt-hours</h3><p>Every figure is money. The conversion from technical units is done once, by the system.</p></div>
+      <div class="item"><h3>One bar in colour</h3><p>Twelve months, with only the current one highlighted. The chart has one point to make.</p></div>
+      <div class="item"><h3>Which reasons repeat</h3><p>A long billing period is a one-off. A rate rise is permanent. The page says which is which, then forecasts the next two bills.</p></div>
+    </div>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">The honest limit</span>
+    <h2>An estimate to the dollar can mislead.</h2>
+    <p class="intro">Splitting a bill change into exact causes is harder than a prototype makes it look. Weather and behaviour overlap. A real version would need to show ranges and say when it is unsure.</p>
+  </div></section>
+
+
+</main>
+
+<footer class="foot"><div class="wrap">
+  <b>Plain Bill</b>
+  <p>Designed and built by Keith Sanders II as a portfolio concept. There is no product for sale behind this page and no customers are claimed. The prototype runs in your browser with invented data and saves nothing.</p>
+  <div class="links"><a href="../../prototypes/plain-bill/">Open the prototype</a><a href="../../work/plain-bill.html">Case study</a><a href="../../">Keith's portfolio</a></div>
+</div></footer>
+<script src="../base.js?v=1"></script>
+</body>
+</html>

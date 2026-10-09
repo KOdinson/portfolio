@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WASP Ground Station v2 | An operator display for supervised autonomy</title>
+<meta name="description" content="Concept site for a redesigned operator display for the WASP counter-drone system.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Public+Sans:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="../base.css?v=1">
+<style>
+:root { --bg: #0A111B; --surface: #111B29; --ink: #E4EAF1; --ink-2: #93A4BA; --brand: #FFC857; --on-brand: #1A1203; --radius: 4px; --font-d: "Public Sans", system-ui, sans-serif; --font-b: "Public Sans", system-ui, sans-serif; color-scheme: dark; }
+.hero h1 { font-weight: 800; }
+.simtag { font: 500 13px "IBM Plex Mono", monospace; letter-spacing: 0.08em; color: #1A1203; padding: 6px 10px; background: repeating-linear-gradient(-45deg, #FFC857 0 10px, #E5AE35 10px 20px); }
+.q { display: grid; gap: 14px; margin-top: 34px; }
+.q div { border-left: 4px solid var(--brand); padding: 6px 0 6px 18px; }
+.q b { font-size: 1.4rem; display: block; }
+.q span { color: var(--ink-2); }
+.sym { display: flex; flex-wrap: wrap; gap: 26px; margin-top: 30px; }
+.sym div { display: grid; gap: 8px; justify-items: center; font-size: 15px; color: var(--ink-2); }
+.browser { border-color: #24344A; }
+</style>
+</head>
+<body>
+
+<div class="concept"><div class="wrap"><span>Concept display. A design study for the WASP ground station with simulated data, not fielded software.</span><a href="../../work/wasp-ground-station.html">Read the case study</a></div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#top">WASP Ground Station</a>
+  <a href="#how">How it works</a><a href="#try">Try it</a><a href="../../work/wasp-ground-station.html">Case study</a>
+</div></header>
+
+<main id="top">
+  <section class="hero stack"><div class="wrap">
+    <div class="text">
+      <span class="simtag">SIMULATION ONLY</span>
+      <h1>What arrives first, and is something handling it?</h1>
+      <p class="sub">A redesigned operator display for an autonomous counter-drone swarm. The interceptors decide what to chase. The operator supervises, and stops the system when it is wrong. This screen is built for that job.</p>
+      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
+    </div>
+    <div id="try"><div class="browser"><iframe src="../../prototypes/ground-station/" title="ground-station interactive prototype"></iframe></div><p class="cap" style="margin-top:12px">Live prototype with simulated tracks. Select a threat and hold its intercept, or press and hold Abort.</p></div>
+  </div></section>
+  <section class="band tint" id="how"><div class="wrap">
+    <span class="kicker">Organised around a decision</span>
+    <h2>Three questions, each with a fixed place on the screen.</h2>
+    <div class="q">
+      <div><b>What arrives first?</b><span>A threat queue sorted by seconds to the perimeter, with the time as the largest number on each row.</span></div>
+      <div><b>Is something handling it?</b><span>Each row states its pairing in a sentence: "W2 intercepting, 6 s to contact", or "Waiting for a free interceptor".</span></div>
+      <div><b>Do I need to step in?</b><span>One control per threat to hold the intercept, and one guarded control to stop everything.</span></div>
+    </div>
+  </div></section>
+
+  <section class="band"><div class="wrap">
+    <span class="kicker">Shape first, colour second</span>
+    <h2>Every state reads in greyscale.</h2>
+    <p class="intro">Hostile tracks are diamonds and interceptors are circles. A held track or a recharging interceptor turns hollow. Colour confirms what the shape has already said.</p>
+    <div class="sym" aria-label="Symbol key">
+      <div><svg width="54" height="54" viewBox="-14 -14 28 28"><path d="M0 -11L11 0L0 11L-11 0Z" fill="#FF7566"/></svg>Hostile</div>
+      <div><svg width="54" height="54" viewBox="-14 -14 28 28"><path d="M0 -11L11 0L0 11L-11 0Z" fill="none" stroke="#FF7566" stroke-width="2.5" stroke-dasharray="4 3"/></svg>On hold</div>
+      <div><svg width="54" height="54" viewBox="-14 -14 28 28"><circle r="8" fill="#62C6FF"/></svg>Interceptor</div>
+      <div><svg width="54" height="54" viewBox="-14 -14 28 28"><circle r="8" fill="none" stroke="#62C6FF" stroke-width="2.5"/></svg>Recharging</div>
+    </div>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">Guarding the irreversible</span>
+    <h2>Routine actions are one click. Abort takes a deliberate hold.</h2>
+    <div class="three">
+      <div class="item"><h3>Hold to abort</h3><p>A 1.2 second press, by pointer or by key. The button fills as you hold, so the delay explains itself.</p></div>
+      <div class="item"><h3>Autonomy you can overrule</h3><p>Holding a threat stops any interceptor engaging it. The log records it as "You put T3 on hold", so operator and system actions are never confused.</p></div>
+      <div class="item"><h3>Simulation you cannot miss</h3><p>A hazard-striped marker sits beside the title on every frame, where a live build would carry the opposite marker.</p></div>
+    </div>
+  </div></section>
+
+
+</main>
+
+<footer class="foot"><div class="wrap">
+  <b>WASP Ground Station</b>
+  <p>Designed and built by Keith Sanders II as a portfolio concept. There is no product for sale behind this page and no customers are claimed. The prototype runs in your browser with invented data and saves nothing.</p>
+  <div class="links"><a href="../../prototypes/ground-station/">Open the prototype</a><a href="../../work/wasp-ground-station.html">Case study</a><a href="../../">Keith's portfolio</a></div>
+</div></footer>
+<script src="../base.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Second Step | Two-step sign-in people finish setting up</title>
+<meta name="description" content="Concept site for Second Step, a two-step sign-in setup that is honest about trade-offs and builds recovery in.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Manrope:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="../base.css?v=1">
+<style>
+:root { --bg: #E9EDF2; --surface: #FFFFFF; --ink: #111827; --ink-2: #4B5565; --brand: #0E5A8A; --on-brand: #FFFFFF; --radius: 10px; --font-d: "Manrope", system-ui, sans-serif; --font-b: "Manrope", system-ui, sans-serif; color-scheme: light; }
+.hero h1 { font-weight: 800; }
+.opts { display: grid; gap: 12px; margin-top: 34px; max-width: 680px; }
+.opts div { background: var(--bg); border: 1.5px solid #CDD4DE; border-radius: 12px; padding: 16px; display: grid; gap: 4px; }
+.opts .rec { border: 2px solid var(--brand); background: #E3F0F8; }
+.opts small { justify-self: start; font-weight: 800; font-size: 12.5px; background: #E3F0E7; color: #17603A; padding: 2px 8px; border-radius: 99px; }
+.opts span { color: var(--ink-2); }
+.errs { margin-top: 30px; display: grid; gap: 10px; font: 500 16px "IBM Plex Mono", monospace; max-width: 680px; }
+.errs div { background: var(--surface); border-left: 5px solid #A4161A; padding: 12px 16px; border-radius: 0 8px 8px 0; }
+</style>
+</head>
+<body>
+
+<div class="concept"><div class="wrap"><span>Concept site. Second Step is a design exercise, not a real product or company.</span><a href="../../work/second-step.html">Read the case study</a></div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#top">Second Step</a>
+  <a href="#how">How it works</a><a href="#try">Try it</a><a href="../../work/second-step.html">Case study</a>
+</div></header>
+
+<main id="top">
+  <section class="hero stack"><div class="wrap">
+    <div class="text">
+      
+      <h1>A second step that people finish.</h1>
+      <p class="sub">Second Step is a two-step sign-in setup that tells the truth about each option, writes errors you can act on, and will not let you finish without a way back in.</p>
+      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
+    </div>
+    <div id="try"><div class="browser"><iframe src="../../prototypes/second-step/" title="second-step interactive prototype"></iframe></div><p class="cap" style="margin-top:12px">Live prototype. Nothing in it is real. Any six digits work as the code.</p></div>
+  </div></section>
+  <section class="band tint" id="how"><div class="wrap">
+    <span class="kicker">Honest options</span>
+    <h2>Three choices, with their real weaknesses.</h2>
+    <p class="intro">Three equal choices is a quiz. A marked default with honest alternatives is advice.</p>
+    <div class="opts">
+      <div class="rec"><small>Recommended</small><b>Authenticator app</b><span>Works with no signal, and codes cannot be redirected to someone else.</span></div>
+      <div><b>Text message</b><span>Easiest to start. Weaker, because a phone number can be taken over. Still far better than a password alone.</span></div>
+      <div><b>Security key</b><span>The strongest option. You need to buy a small device and keep it with you.</span></div>
+    </div>
+  </div></section>
+
+  <section class="band"><div class="wrap">
+    <span class="kicker">Errors that count for you</span>
+    <h2>Each message says what the system saw.</h2>
+    <div class="errs"><div>Error: Codes are 6 digits. You entered 4.</div><div>Error: Codes are numbers only. Check for a letter or symbol.</div></div>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">Recovery is part of setup</span>
+    <h2>The day you lose your phone should not be the day you lose your account.</h2>
+    <div class="three">
+      <div class="item"><h3>Backup codes cannot be skipped</h3><p>Finish stays disabled until you confirm the codes are saved somewhere other than this phone.</p></div>
+      <div class="item"><h3>The warning names the likely mistake</h3><p>"Do not keep them only on the phone you just set up."</p></div>
+      <div class="item"><h3>The last screen answers three questions</h3><p>What changes, what if you lose your phone, and what if you lose the codes too. The third admits a wait of days and explains why.</p></div>
+    </div>
+  </div></section>
+
+
+</main>
+
+<footer class="foot"><div class="wrap">
+  <b>Second Step</b>
+  <p>Designed and built by Keith Sanders II as a portfolio concept. There is no product for sale behind this page and no customers are claimed. The prototype runs in your browser with invented data and saves nothing.</p>
+  <div class="links"><a href="../../prototypes/second-step/">Open the prototype</a><a href="../../work/second-step.html">Case study</a><a href="../../">Keith's portfolio</a></div>
+</div></footer>
+<script src="../base.js?v=1"></script>
+</body>
+</html>

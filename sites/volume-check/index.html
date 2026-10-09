@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volume Check | A gate before the deadline</title>
+<meta name="description" content="Concept site for Volume Check, a pre-submission check for proposals that shows each rule beside your own number.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Libre+Franklin:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="../base.css?v=1">
+<style>
+:root { --bg: #F1F0EC; --surface: #E4E2DA; --ink: #1B1B1F; --ink-2: #55555F; --brand: #1D3F8F; --on-brand: #FFFFFF; --radius: 8px; --font-d: "Libre Franklin", system-ui, sans-serif; --font-b: "Libre Franklin", system-ui, sans-serif; color-scheme: light; }
+.hero h1 { font-weight: 800; }
+.ryg { display: grid; gap: 0; margin-top: 34px; border: 2px solid var(--ink); border-radius: 12px; overflow: hidden; background: var(--bg); max-width: 640px; }
+.ryg div { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 14px; padding: 16px 18px; border-top: 1px solid #C9C7BF; font-size: 1.15rem; }
+.ryg div:first-child { border-top: 0; }
+.ryg small { font: 500 13px "IBM Plex Mono", monospace; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); padding-top: 5px; }
+.ryg .g { background: #FBEAE8; font-weight: 800; }
+.states { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; font: 500 15px "IBM Plex Mono", monospace; }
+.states span { padding: 10px 14px; border-radius: 8px; background: var(--surface); border-left: 5px solid; }
+</style>
+</head>
+<body>
+
+<div class="concept"><div class="wrap"><span>Concept site. Volume Check is a design exercise, not a real product or company.</span><a href="../../work/volume-check.html">Read the case study</a></div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#top">Volume Check</a>
+  <a href="#how">How it works</a><a href="#try">Try it</a><a href="../../work/volume-check.html">Case study</a>
+</div></header>
+
+<main id="top">
+  <section class="hero stack"><div class="wrap">
+    <div class="text">
+      
+      <h1>A page over is a proposal unread.</h1>
+      <p class="sub">Volume Check puts every submission rule next to your own number and tells you the gap. The send button stays shut until nothing blocks it.</p>
+      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
+    </div>
+    <div id="try"><div class="browser"><iframe src="../../prototypes/volume-check/" title="volume-check interactive prototype"></iframe></div><p class="cap" style="margin-top:12px">Live prototype with sample rules. Trim the pages, upload the report, sign the form.</p></div>
+  </div></section>
+  <section class="band tint" id="how"><div class="wrap">
+    <span class="kicker">Rule, yours, gap</span>
+    <h2>Every line reads the same way.</h2>
+    <p class="intro">A checklist records that someone looked. This shows what they saw.</p>
+    <div class="ryg">
+      <div><small>Rule</small><span>20 pages at most, including figures.</span></div>
+      <div><small>Yours</small><span>22 pages.</span></div>
+      <div class="g"><small>Gap</small><span>Cut 2 pages.</span></div>
+    </div>
+  </div></section>
+
+  <section class="band"><div class="wrap">
+    <span class="kicker">Three states</span>
+    <h2>Red is spent only on what gets you rejected.</h2>
+    <div class="states"><span style="border-color:#A3211B; color:#A3211B">■ Blocks sending</span><span style="border-color:#7A5200; color:#7A5200">▲ Fix if you can</span><span style="border-color:#1E6B3A; color:#1E6B3A">✓ Ready</span></div>
+    <div class="three">
+      <div class="item"><h3>The button explains itself</h3><p>While anything blocks, it reads "Cannot send yet" and the panel beside it lists exactly what stands in the way.</p></div>
+      <div class="item"><h3>Worst news first</h3><p>Blockers, then warnings, then everything that is fine. The top of the list is always the next thing to do.</p></div>
+      <div class="item"><h3>Every rule cites its source</h3><p>Each rule ends with the section it came from, so you can check the original wording when it matters.</p></div>
+    </div>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">The honest limit</span>
+    <h2>A tool that states a rule wrongly is worse than no tool.</h2>
+    <p class="intro">The hard part of a real version is turning a new set of instructions into rules correctly. That step needs a person to confirm it, every time. The rules in this prototype are samples, not any real solicitation.</p>
+  </div></section>
+
+
+</main>
+
+<footer class="foot"><div class="wrap">
+  <b>Volume Check</b>
+  <p>Designed and built by Keith Sanders II as a portfolio concept. There is no product for sale behind this page and no customers are claimed. The prototype runs in your browser with invented data and saves nothing.</p>
+  <div class="links"><a href="../../prototypes/volume-check/">Open the prototype</a><a href="../../work/volume-check.html">Case study</a><a href="../../">Keith's portfolio</a></div>
+</div></footer>
+<script src="../base.js?v=1"></script>
+</body>
+</html>
