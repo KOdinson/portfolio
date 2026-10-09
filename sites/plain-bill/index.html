@@ -10,12 +10,27 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;800&display=swap">
 <link rel="stylesheet" href="../base.css?v=1">
 <style>
-:root { --bg: #EFEEE9; --surface: #FCFCFB; --ink: #0B0B0B; --ink-2: #52514E; --brand: #1F63B8; --on-brand: #FFFFFF; --font-d: "Inter Tight", system-ui, sans-serif; --font-b: "Inter Tight", system-ui, sans-serif; color-scheme: light; }
-.hero h1 { font-weight: 800; }
-.sum { margin-top: 34px; display: grid; gap: 10px; max-width: 520px; font-size: 1.2rem; }
-.sum div { display: flex; justify-content: space-between; gap: 14px; padding: 10px 0; border-bottom: 1px solid #C3C2B7; font-variant-numeric: tabular-nums; }
-.sum .t { font-weight: 800; border-bottom: 3px solid var(--ink); }
-.sum small { display: block; color: var(--ink-2); font-size: 15px; }
+:root { --bg: #FCFCFB; --surface: #EFEEE9; --ink: #0B0B0B; --ink-2: #52514E; --brand: #1F63B8; --on-brand: #FFFFFF; --radius: 99px; --font-d: "Inter Tight", system-ui, sans-serif; --font-b: "Inter Tight", system-ui, sans-serif; color-scheme: light; }
+.hero .wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(16px, 4vw, 50px); align-items: end; }
+.amount { font: 800 clamp(5.5rem, 21vw, 15rem)/0.8 var(--font-d); letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
+.amount sup { font-size: 0.4em; vertical-align: top; position: relative; top: 0.12em; letter-spacing: 0; }
+.ask { display: grid; gap: 18px; justify-items: start; padding-bottom: 0.6rem; }
+.ask h1 { font-size: clamp(1.8rem, 4.4vw, 3.2rem); font-weight: 800; line-height: 1.05; }
+.ask h1 span { color: var(--brand); }
+@media (max-width: 760px) { .hero .wrap { grid-template-columns: minmax(0, 1fr); } }
+.eq { display: flex; flex-wrap: wrap; align-items: stretch; gap: 12px; margin-top: 34px; }
+.eq .t { flex: 1 1 150px; background: var(--bg); border-radius: 18px; padding: 20px; display: grid; gap: 6px; align-content: start; }
+.eq .t b { font: 800 clamp(2.2rem, 5vw, 3.4rem)/1 var(--font-d); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+.eq .t span { font-weight: 600; } .eq .t small { color: var(--ink-2); font-size: 14.5px; }
+.eq .op { align-self: center; font: 800 2.2rem var(--font-d); color: var(--ink-2); }
+.eq .res { background: var(--ink); color: #fff; } .eq .res small { color: #C9C8C2; }
+.eq .new b { color: var(--brand); }
+.notes { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 40px; align-items: start; }
+.notes h2 { position: sticky; top: 20px; }
+.notes ul { list-style: none; margin: 0; padding: 0; display: grid; }
+.notes li { padding: 18px 0; border-top: 2px solid var(--ink); display: grid; gap: 4px; }
+.notes li b { font-size: 1.25rem; } .notes li span { color: var(--ink-2); }
+@media (max-width: 760px) { .notes { grid-template-columns: minmax(0, 1fr); } .notes h2 { position: static; } }
 </style>
 </head>
 <body>
@@ -28,44 +43,47 @@
 </div></header>
 
 <main id="top">
-  <section class="hero stack"><div class="wrap">
-    <div class="text">
-      
-      <h1>Why is it higher this month?</h1>
-      <p class="sub">Plain Bill answers the question people really bring to a bill. It states the change from last month, gives the reasons in dollars, and makes them add up.</p>
-      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
+  <section class="hero"><div class="wrap">
+    <div class="amount" aria-label="164 dollars"><sup>$</sup>164</div>
+    <div class="ask">
+      <h1>this month. <span>Why is it higher?</span></h1>
+      <p class="sub">Plain Bill answers the question people really bring to a bill, in dollars, with reasons that add up.</p>
+      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">See the sum</a></div>
     </div>
-    <div id="try"><div class="browser"><iframe src="../../prototypes/plain-bill/" title="plain-bill interactive prototype"></iframe></div><p class="cap" style="margin-top:12px">Live prototype with an invented account. Hover the bars, or switch the chart to a table.</p></div>
   </div></section>
+
   <section class="band tint" id="how"><div class="wrap">
     <span class="kicker">The reasons reconcile</span>
-    <h2>Three causes. One total. No remainder.</h2>
+    <h2>Last month, plus three things, equals this month.</h2>
+    <div class="eq" aria-label="131 dollars plus 14 plus 10 plus 9 equals 164 dollars">
+      <div class="t"><b>$131</b><span>September</span><small>Where you started</small></div>
+      <span class="op" aria-hidden="true">+</span>
+      <div class="t new"><b>$14</b><span>A longer billing period</span><small>33 days this time, 30 last time</small></div>
+      <span class="op" aria-hidden="true">+</span>
+      <div class="t new"><b>$10</b><span>More electricity per day</span><small>Cold nights, heating came on</small></div>
+      <span class="op" aria-hidden="true">+</span>
+      <div class="t new"><b>$9</b><span>A higher rate</span><small>Continues from now on</small></div>
+      <span class="op" aria-hidden="true">=</span>
+      <div class="t res"><b>$164</b><span>October</span><small>No remainder</small></div>
+    </div>
     <p class="intro">A partial explanation invites suspicion. One that adds up exactly closes the question.</p>
-    <div class="sum">
-      <div><span>A longer billing period<small>33 days this time, 30 last time</small></span><span>+ $14</span></div>
-      <div><span>More electricity per day<small>Cold nights, heating came on</small></span><span>+ $10</span></div>
-      <div><span>A higher rate<small>Continues every month from now on</small></span><span>+ $9</span></div>
-      <div class="t"><span>Change from September</span><span>+ $33</span></div>
-    </div>
   </div></section>
 
-  <section class="band"><div class="wrap">
-    <span class="kicker">Design choices</span>
+  <section class="band" id="try"><div class="wrap">
+    <div class="browser"><iframe src="../../prototypes/plain-bill/" title="Plain Bill interactive prototype"></iframe></div>
+    <p class="cap" style="margin-top:12px">Live prototype with an invented account. Hover the bars, or switch the chart to a table.</p>
+  </div></section>
+
+  <section class="band tint"><div class="wrap notes">
     <h2>Written for the person, not the meter.</h2>
-    <div class="three">
-      <div class="item"><h3>Dollars, not kilowatt-hours</h3><p>Every figure is money. The conversion from technical units is done once, by the system.</p></div>
-      <div class="item"><h3>One bar in colour</h3><p>Twelve months, with only the current one highlighted. The chart has one point to make.</p></div>
-      <div class="item"><h3>Which reasons repeat</h3><p>A long billing period is a one-off. A rate rise is permanent. The page says which is which, then forecasts the next two bills.</p></div>
-    </div>
+    <ul>
+      <li><b>Dollars, not kilowatt-hours</b><span>Every figure is money. The conversion from technical units is done once, by the system.</span></li>
+      <li><b>"None of them is a mistake on your bill"</b><span>The page answers the worry directly, then earns the claim with the three reasons.</span></li>
+      <li><b>One bar in colour</b><span>Twelve months, with only the current one highlighted. The chart has one point to make.</span></li>
+      <li><b>Which reasons repeat</b><span>A long billing period is a one-off. A rate rise is permanent. The page says which is which, then forecasts the next two bills.</span></li>
+      <li><b>The honest limit</b><span>Splitting a change into exact causes is an estimate. A real version would show ranges and say when it is unsure.</span></li>
+    </ul>
   </div></section>
-
-  <section class="band tint"><div class="wrap">
-    <span class="kicker">The honest limit</span>
-    <h2>An estimate to the dollar can mislead.</h2>
-    <p class="intro">Splitting a bill change into exact causes is harder than a prototype makes it look. Weather and behaviour overlap. A real version would need to show ranges and say when it is unsure.</p>
-  </div></section>
-
-
 </main>
 
 <footer class="foot"><div class="wrap">

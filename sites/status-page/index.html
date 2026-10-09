@@ -11,18 +11,25 @@
 <link rel="stylesheet" href="../base.css?v=1">
 <style>
 :root { --bg: #F3F5F4; --surface: #FFFFFF; --ink: #141A18; --ink-2: #56615D; --brand: #1D4E89; --on-brand: #FFFFFF; --radius: 10px; --font-d: "Sora", system-ui, sans-serif; --font-b: "Sora", system-ui, sans-serif; color-scheme: light; }
-.hero h1 { font-weight: 800; font-size: clamp(2.1rem, 5.4vw, 3.8rem); }
-.vs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 34px; }
-@media (max-width: 700px) { .vs { grid-template-columns: minmax(0, 1fr); } }
-.vs div { border-radius: 14px; padding: 20px; display: grid; gap: 8px; align-content: start; }
-.vs .old { background: var(--bg); border: 1px dashed var(--ink-2); font-family: ui-monospace, Consolas, monospace; font-size: 15px; color: var(--ink-2); }
-.vs .new { background: #FFF2D1; border: 2px solid #7A5200; }
-.vs .new b { font-size: 1.3rem; line-height: 1.25; }
-.vs small { font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; font-size: 12.5px; }
-.four { margin-top: 34px; display: grid; gap: 0; border-top: 3px solid var(--ink); }
-.four div { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 8px 20px; padding: 14px 0; border-bottom: 1px solid #D4DAD7; }
-.four b { color: var(--ink-2); }
-@media (max-width: 600px) { .four div { grid-template-columns: minmax(0, 1fr); } }
+.col { max-width: 780px; margin-inline: auto; padding-inline: 20px; display: grid; gap: 18px; }
+.incident { border: 2px solid #7A5200; background: #FFF2D1; border-radius: 16px; padding: clamp(22px, 4vw, 34px); display: grid; gap: 14px; margin-top: 26px; }
+.incident .st { font-weight: 800; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #7A5200; }
+.incident h1 { font: 800 clamp(1.8rem, 4.6vw, 2.9rem)/1.15 var(--font-d); letter-spacing: -0.01em; }
+.incident p { color: #4A3A12; }
+.panel { background: #fff; border: 1px solid #D4DAD7; border-radius: 16px; padding: 22px; display: grid; gap: 14px; }
+.panel h2 { font-size: 1.15rem; font-weight: 800; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips span { font-weight: 600; font-size: 14.5px; padding: 6px 12px; border-radius: 99px; }
+.ok { background: #E3F0E7; color: #17603A; } .warn { background: #FFF2D1; color: #7A5200; } .down { background: #FBEAE8; color: #A3211B; }
+.svc div { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid #D4DAD7; }
+.svc div:first-child { border-top: 0; }
+.svc b { font-weight: 600; font-size: 14.5px; white-space: nowrap; }
+.up { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+.up li { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 14px; }
+.up time, .up .k { font-weight: 600; color: var(--ink-2); }
+.up .old { font-family: ui-monospace, Consolas, monospace; font-size: 14.5px; color: var(--ink-2); text-decoration: line-through; display: block; margin-bottom: 4px; }
+@media (max-width: 560px) { .up li { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+.wide { max-width: 1120px; margin: 10px auto 0; padding-inline: 20px; }
 </style>
 </head>
 <body>
@@ -35,46 +42,54 @@
 </div></header>
 
 <main id="top">
-  <section class="hero stack"><div class="wrap">
-    <div class="text">
-      
+  <div class="col">
+    <div class="incident">
+      <span class="st">▲ Partial outage · this is what a headline should do</span>
       <h1>Some card payments are failing. Everything else is working.</h1>
-      <p class="sub">That sentence is a status page headline. Someone who reads only that line knows the scope. This concept rewrites the outage page for the person on the other side of it.</p>
-      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
+      <p>Someone who reads only that sentence knows the scope. This concept rewrites the outage page for the person on the other side of it, and this site is laid out the way that page would be.</p>
+      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">The four questions</a></div>
     </div>
-    <div id="try"><div class="browser"><iframe src="../../prototypes/status-page/" title="status-page interactive prototype"></iframe></div><p class="cap" style="margin-top:12px">Live prototype with an invented service. Switch between the four moments, and untick a part you do not use.</p></div>
-  </div></section>
-  <section class="band tint"><div class="wrap">
-    <span class="kicker">The same outage, written twice</span>
-    <h2>Status pages are usually written for engineers.</h2>
-    <div class="vs">
-      <div class="old"><small>Typical</small><span>● payments-api — Degraded Performance</span><span>Investigating — We are currently investigating this issue.</span></div>
-      <div class="new"><small>▲ Partial outage</small><b>Some card payments are failing. Everything else is working.</b><span>Try the payment again. A second attempt usually goes through.</span></div>
+
+    <div class="panel">
+      <h2>Three states, each a shape and a word</h2>
+      <div class="chips"><span class="ok">✓ Working</span><span class="warn">▲ Limited</span><span class="down">■ Down</span></div>
+      <div class="svc">
+        <div><span>Signing in</span><b style="color:#17603A">✓ Working</b></div>
+        <div><span>Payments · about 1 in 5 card payments fail</span><b style="color:#7A5200">▲ Limited</b></div>
+        <div><span>File uploads</span><b style="color:#17603A">✓ Working</b></div>
+      </div>
     </div>
-  </div></section>
 
-  <section class="band" id="how"><div class="wrap">
-    <span class="kicker">Four fixed questions</span>
-    <h2>Always these four, always in this order.</h2>
-    <div class="four">
-      <div><b>What is happening</b><span>In terms the customer can see, with the time it began.</span></div>
-      <div><b>Who is affected</b><span>And, just as useful, who is not.</span></div>
-      <div><b>What you can do</b><span>Including what will not help: "Resetting your password will not help."</span></div>
-      <div><b>When it will be fixed</b><span>Or an honest "we do not know yet", with a committed time for the next update.</span></div>
+    <div class="panel" id="how">
+      <h2>What we know: four fixed questions</h2>
+      <ol class="up">
+        <li><span class="k">What is happening</span><span>In terms the customer can see, with the time it began.</span></li>
+        <li><span class="k">Who is affected</span><span>And, just as useful, who is not. Tick the parts you use and the page says "This affects you: payments" or "This does not affect anything you use".</span></li>
+        <li><span class="k">What you can do</span><span>Including what will not help: "Resetting your password will not help."</span></li>
+        <li><span class="k">When it will be fixed</span><span>Or an honest "We do not know yet", with a committed time for the next update.</span></li>
+      </ol>
     </div>
-  </div></section>
 
-  <section class="band tint"><div class="wrap">
-    <span class="kicker">Does this affect me?</span>
-    <h2>The same outage is urgent for one reader and irrelevant for the next.</h2>
-    <div class="three">
-      <div class="item"><h3>A line of your own</h3><p>Tick the parts you use and the page says "This affects you: payments", or "This does not affect anything you use".</p></div>
-      <div class="item"><h3>Knock-on effects, named</h3><p>When sign-in is down, payments read "Unreachable until sign-in returns". One problem, not four.</p></div>
-      <div class="item"><h3>After the fix, the same shape</h3><p>How long it lasted, a plain statement of the cause, and a date for the full account.</p></div>
+    <div class="panel">
+      <h2>Updates, rewritten</h2>
+      <ol class="up">
+        <li><time>2:04 pm</time><span><span class="old">Identified — The issue has been identified and a fix is being implemented.</span>The processor has confirmed the fault is on their side and is working on it. We have no time for a fix yet.</span></li>
+        <li><time>1:51 pm</time><span><span class="old">Investigating — We are currently investigating this issue.</span>We are seeing card payments fail and are finding out why.</span></li>
+      </ol>
     </div>
-  </div></section>
+  </div>
 
+  <div class="wide" id="try">
+    <div class="browser"><iframe src="../../prototypes/status-page/" title="Status page interactive prototype"></iframe></div>
+    <p class="cap" style="margin: 12px 0 50px">Live prototype with an invented service. Switch between the four moments, and untick a part you do not use.</p>
+  </div>
 
+  <div class="col" style="padding-bottom: 60px">
+    <div class="panel">
+      <h2>After the fix, the same shape</h2>
+      <p style="color: var(--ink-2)">How long it lasted, a plain statement that the cause was the company's own update, and a date for the full account. The honest limit of all this: a template cannot get accurate information out of a team that is busy fixing the problem. Someone has to own keeping the page true.</p>
+    </div>
+  </div>
 </main>
 
 <footer class="foot"><div class="wrap">

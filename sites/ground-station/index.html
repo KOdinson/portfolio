@@ -11,15 +11,39 @@
 <link rel="stylesheet" href="../base.css?v=1">
 <style>
 :root { --bg: #0A111B; --surface: #111B29; --ink: #E4EAF1; --ink-2: #93A4BA; --brand: #FFC857; --on-brand: #1A1203; --radius: 4px; --font-d: "Public Sans", system-ui, sans-serif; --font-b: "Public Sans", system-ui, sans-serif; color-scheme: dark; }
-.hero h1 { font-weight: 800; }
-.simtag { font: 500 13px "IBM Plex Mono", monospace; letter-spacing: 0.08em; color: #1A1203; padding: 6px 10px; background: repeating-linear-gradient(-45deg, #FFC857 0 10px, #E5AE35 10px 20px); }
-.q { display: grid; gap: 14px; margin-top: 34px; }
-.q div { border-left: 4px solid var(--brand); padding: 6px 0 6px 18px; }
-.q b { font-size: 1.4rem; display: block; }
-.q span { color: var(--ink-2); }
-.sym { display: flex; flex-wrap: wrap; gap: 26px; margin-top: 30px; }
-.sym div { display: grid; gap: 8px; justify-items: center; font-size: 15px; color: var(--ink-2); }
-.browser { border-color: #24344A; }
+.nav { display: none; }
+.shell { display: grid; grid-template-columns: 290px minmax(0, 1fr); max-width: 1360px; margin-inline: auto; }
+.rail { position: sticky; top: 0; align-self: start; min-height: 100vh; padding: 30px 24px; border-right: 1px solid #24344A; display: grid; gap: 20px; align-content: start; }
+.rail .simtag { justify-self: start; font: 500 12.5px "IBM Plex Mono", monospace; letter-spacing: 0.08em; color: #1A1203; padding: 6px 10px; background: repeating-linear-gradient(-45deg, #FFC857 0 10px, #E5AE35 10px 20px); }
+.rail h1 { font-size: 2rem; line-height: 1.08; font-weight: 800; }
+.rail p { color: var(--ink-2); font-size: 15.5px; }
+.rail ol { list-style: none; margin: 0; padding: 0; display: grid; font: 500 13px "IBM Plex Mono", monospace; }
+.rail ol a { display: block; padding: 9px 12px; text-decoration: none; color: var(--ink-2); border-left: 2px solid #24344A; }
+.rail ol a:hover { color: var(--ink); border-color: var(--brand); }
+.main { min-width: 0; padding: 30px clamp(18px, 3vw, 44px) 70px; display: grid; gap: 64px; }
+.panel { display: grid; gap: 18px; min-width: 0; }
+.panel .no { font: 500 13px "IBM Plex Mono", monospace; letter-spacing: 0.1em; color: var(--brand); }
+.panel h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); line-height: 1.1; max-width: 24ch; }
+.panel > p { color: var(--ink-2); max-width: 62ch; }
+.browser { border-color: #24344A; box-shadow: none; }
+.qt { border: 1px solid #24344A; display: grid; }
+.qt div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 6px 24px; padding: 16px 18px; border-top: 1px solid #24344A; }
+.qt div:first-child { border-top: 0; }
+.qt b { font-size: 1.2rem; }
+.qt span { color: var(--ink-2); }
+.qt code { font: 500 14px "IBM Plex Mono", monospace; color: var(--ink); background: var(--surface); padding: 2px 6px; }
+.key { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid #24344A; }
+.key div { padding: 18px 10px; display: grid; gap: 8px; justify-items: center; text-align: center; font-size: 14.5px; color: var(--ink-2); border-left: 1px solid #24344A; }
+.key div:first-child { border-left: 0; }
+.guards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #24344A; border: 1px solid #24344A; }
+.guards div { background: var(--bg); padding: 18px; display: grid; gap: 6px; align-content: start; }
+.guards span { color: var(--ink-2); font-size: 15.5px; }
+@media (max-width: 900px) {
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .rail { position: static; min-height: 0; border-right: 0; border-bottom: 1px solid #24344A; }
+  .qt div, .guards { grid-template-columns: minmax(0, 1fr); }
+  .key { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 </style>
 </head>
 <body>
@@ -32,48 +56,60 @@
 </div></header>
 
 <main id="top">
-  <section class="hero stack"><div class="wrap">
-    <div class="text">
+  <div class="shell">
+    <aside class="rail">
       <span class="simtag">SIMULATION ONLY</span>
       <h1>What arrives first, and is something handling it?</h1>
-      <p class="sub">A redesigned operator display for an autonomous counter-drone swarm. The interceptors decide what to chase. The operator supervises, and stops the system when it is wrong. This screen is built for that job.</p>
-      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
-    </div>
-    <div id="try"><div class="browser"><iframe src="../../prototypes/ground-station/" title="ground-station interactive prototype"></iframe></div><p class="cap" style="margin-top:12px">Live prototype with simulated tracks. Select a threat and hold its intercept, or press and hold Abort.</p></div>
-  </div></section>
-  <section class="band tint" id="how"><div class="wrap">
-    <span class="kicker">Organised around a decision</span>
-    <h2>Three questions, each with a fixed place on the screen.</h2>
-    <div class="q">
-      <div><b>What arrives first?</b><span>A threat queue sorted by seconds to the perimeter, with the time as the largest number on each row.</span></div>
-      <div><b>Is something handling it?</b><span>Each row states its pairing in a sentence: "W2 intercepting, 6 s to contact", or "Waiting for a free interceptor".</span></div>
-      <div><b>Do I need to step in?</b><span>One control per threat to hold the intercept, and one guarded control to stop everything.</span></div>
-    </div>
-  </div></section>
+      <p>A redesigned operator display for an autonomous counter-drone swarm. The interceptors decide what to chase. The operator supervises, and stops the system when it is wrong.</p>
+      <ol aria-label="On this page">
+        <li><a href="#try">01 / THE DISPLAY</a></li>
+        <li><a href="#how">02 / THREE QUESTIONS</a></li>
+        <li><a href="#symbols">03 / SYMBOLS</a></li>
+        <li><a href="#guards">04 / GUARDS</a></li>
+      </ol>
+      <a class="btn" href="../../prototypes/ground-station/">Open full screen</a>
+    </aside>
 
-  <section class="band"><div class="wrap">
-    <span class="kicker">Shape first, colour second</span>
-    <h2>Every state reads in greyscale.</h2>
-    <p class="intro">Hostile tracks are diamonds and interceptors are circles. A held track or a recharging interceptor turns hollow. Colour confirms what the shape has already said.</p>
-    <div class="sym" aria-label="Symbol key">
-      <div><svg width="54" height="54" viewBox="-14 -14 28 28"><path d="M0 -11L11 0L0 11L-11 0Z" fill="#FF7566"/></svg>Hostile</div>
-      <div><svg width="54" height="54" viewBox="-14 -14 28 28"><path d="M0 -11L11 0L0 11L-11 0Z" fill="none" stroke="#FF7566" stroke-width="2.5" stroke-dasharray="4 3"/></svg>On hold</div>
-      <div><svg width="54" height="54" viewBox="-14 -14 28 28"><circle r="8" fill="#62C6FF"/></svg>Interceptor</div>
-      <div><svg width="54" height="54" viewBox="-14 -14 28 28"><circle r="8" fill="none" stroke="#62C6FF" stroke-width="2.5"/></svg>Recharging</div>
+    <div class="main">
+      <section class="panel" id="try">
+        <span class="no">01 / THE DISPLAY</span>
+        <div class="browser"><iframe src="../../prototypes/ground-station/" title="Ground station interactive prototype"></iframe></div>
+        <p>Live prototype with simulated tracks. Select a threat and hold its intercept, or press and hold Abort.</p>
+      </section>
+
+      <section class="panel" id="how">
+        <span class="no">02 / THREE QUESTIONS</span>
+        <h2>The screen is organised around a decision, not around the system.</h2>
+        <div class="qt">
+          <div><b>What arrives first?</b><span>A queue sorted by seconds to the perimeter. The time is the largest number on each row.</span></div>
+          <div><b>Is something handling it?</b><span>Each row states its pairing as a sentence: <code>W2 intercepting, 6 s to contact</code></span></div>
+          <div><b>Do I need to step in?</b><span>One control per threat to hold the intercept. One guarded control to stop everything.</span></div>
+        </div>
+      </section>
+
+      <section class="panel" id="symbols">
+        <span class="no">03 / SYMBOLS</span>
+        <h2>Every state reads in greyscale.</h2>
+        <p>Shape carries affiliation and state. Colour confirms what the shape has already said.</p>
+        <div class="key" aria-label="Symbol key">
+          <div><svg width="46" height="46" viewBox="-14 -14 28 28" aria-hidden="true"><path d="M0 -11L11 0L0 11L-11 0Z" fill="#FF7566"/></svg>Hostile</div>
+          <div><svg width="46" height="46" viewBox="-14 -14 28 28" aria-hidden="true"><path d="M0 -11L11 0L0 11L-11 0Z" fill="none" stroke="#FF7566" stroke-width="2.5" stroke-dasharray="4 3"/></svg>Hostile, on hold</div>
+          <div><svg width="46" height="46" viewBox="-14 -14 28 28" aria-hidden="true"><circle r="8" fill="#62C6FF"/></svg>Interceptor</div>
+          <div><svg width="46" height="46" viewBox="-14 -14 28 28" aria-hidden="true"><circle r="8" fill="none" stroke="#62C6FF" stroke-width="2.5"/></svg>Recharging</div>
+        </div>
+      </section>
+
+      <section class="panel" id="guards">
+        <span class="no">04 / GUARDS</span>
+        <h2>Routine actions are one click. Abort takes a deliberate hold.</h2>
+        <div class="guards">
+          <div><b>Hold to abort</b><span>A 1.2 second press, by pointer or by key. The button fills as you hold, so the delay explains itself.</span></div>
+          <div><b>Autonomy you can overrule</b><span>Holding a threat stops any interceptor engaging it. The log reads "You put T3 on hold", so operator and system actions are never confused.</span></div>
+          <div><b>Simulation you cannot miss</b><span>A hazard-striped marker beside the title on every frame, where a live build would carry the opposite marker.</span></div>
+        </div>
+      </section>
     </div>
-  </div></section>
-
-  <section class="band tint"><div class="wrap">
-    <span class="kicker">Guarding the irreversible</span>
-    <h2>Routine actions are one click. Abort takes a deliberate hold.</h2>
-    <div class="three">
-      <div class="item"><h3>Hold to abort</h3><p>A 1.2 second press, by pointer or by key. The button fills as you hold, so the delay explains itself.</p></div>
-      <div class="item"><h3>Autonomy you can overrule</h3><p>Holding a threat stops any interceptor engaging it. The log records it as "You put T3 on hold", so operator and system actions are never confused.</p></div>
-      <div class="item"><h3>Simulation you cannot miss</h3><p>A hazard-striped marker sits beside the title on every frame, where a live build would carry the opposite marker.</p></div>
-    </div>
-  </div></section>
-
-
+  </div>
 </main>
 
 <footer class="foot"><div class="wrap">

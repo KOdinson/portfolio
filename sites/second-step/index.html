@@ -11,14 +11,25 @@
 <link rel="stylesheet" href="../base.css?v=1">
 <style>
 :root { --bg: #E9EDF2; --surface: #FFFFFF; --ink: #111827; --ink-2: #4B5565; --brand: #0E5A8A; --on-brand: #FFFFFF; --radius: 10px; --font-d: "Manrope", system-ui, sans-serif; --font-b: "Manrope", system-ui, sans-serif; color-scheme: light; }
-.hero h1 { font-weight: 800; }
-.opts { display: grid; gap: 12px; margin-top: 34px; max-width: 680px; }
-.opts div { background: var(--bg); border: 1.5px solid #CDD4DE; border-radius: 12px; padding: 16px; display: grid; gap: 4px; }
-.opts .rec { border: 2px solid var(--brand); background: #E3F0F8; }
-.opts small { justify-self: start; font-weight: 800; font-size: 12.5px; background: #E3F0E7; color: #17603A; padding: 2px 8px; border-radius: 99px; }
-.opts span { color: var(--ink-2); }
-.errs { margin-top: 30px; display: grid; gap: 10px; font: 500 16px "IBM Plex Mono", monospace; max-width: 680px; }
-.errs div { background: var(--surface); border-left: 5px solid #A4161A; padding: 12px 16px; border-radius: 0 8px 8px 0; }
+.hero { text-align: center; }
+.hero .card { max-width: 620px; margin: 0 auto; background: #fff; border-radius: 20px; padding: clamp(26px, 5vw, 48px); display: grid; gap: 18px; justify-items: center; box-shadow: 0 20px 50px rgba(17, 24, 39, 0.1); }
+.hero h1 { font-size: clamp(2rem, 5.4vw, 3.4rem); font-weight: 800; }
+.dots { display: flex; gap: 10px; font: 500 1.6rem "IBM Plex Mono", monospace; }
+.dots span { width: 2.2ch; height: 2.6ch; border: 2px solid var(--ink-2); border-radius: 8px; display: grid; place-items: center; }
+.dots span.on { border-color: var(--brand); background: #E3F0F8; }
+.line { position: relative; max-width: 780px; margin: 40px auto 0; display: grid; gap: 30px; padding-left: 74px; }
+.line::before { content: ""; position: absolute; left: 25px; top: 10px; bottom: 30px; width: 4px; background: var(--brand); border-radius: 2px; }
+.node { position: relative; background: #fff; border-radius: 16px; padding: 24px; display: grid; gap: 12px; }
+.node::before { content: attr(data-n); position: absolute; left: -74px; top: 0; width: 54px; height: 54px; border-radius: 50%; background: var(--brand); color: #fff; display: grid; place-items: center; font: 800 1.4rem var(--font-d); box-shadow: 0 0 0 6px var(--bg); }
+.node.end::before { background: #17603A; }
+.node h2 { font-size: 1.5rem; line-height: 1.2; max-width: none; }
+.node p { color: var(--ink-2); }
+.opt { border: 1.5px solid #CDD4DE; border-radius: 10px; padding: 12px 14px; display: grid; gap: 2px; }
+.opt.rec { border: 2px solid var(--brand); background: #E3F0F8; }
+.opt small { color: var(--ink-2); font-size: 14.5px; }
+.err { font: 500 15px "IBM Plex Mono", monospace; border-left: 5px solid #A4161A; background: var(--bg); padding: 10px 14px; border-radius: 0 8px 8px 0; }
+.codes { font: 500 15px "IBM Plex Mono", monospace; background: var(--bg); border-radius: 10px; padding: 14px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 16px; color: var(--ink-2); }
+@media (max-width: 560px) { .line { padding-left: 56px; } .line::before { left: 18px; } .node::before { left: -56px; width: 40px; height: 40px; font-size: 1.1rem; } }
 </style>
 </head>
 <body>
@@ -31,43 +42,52 @@
 </div></header>
 
 <main id="top">
-  <section class="hero stack"><div class="wrap">
-    <div class="text">
-      
+  <section class="hero"><div class="wrap">
+    <div class="card">
+      <div class="dots" aria-hidden="true"><span class="on">4</span><span class="on">1</span><span class="on">7</span><span>·</span><span>·</span><span>·</span></div>
       <h1>A second step that people finish.</h1>
-      <p class="sub">Second Step is a two-step sign-in setup that tells the truth about each option, writes errors you can act on, and will not let you finish without a way back in.</p>
-      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
-    </div>
-    <div id="try"><div class="browser"><iframe src="../../prototypes/second-step/" title="second-step interactive prototype"></iframe></div><p class="cap" style="margin-top:12px">Live prototype. Nothing in it is real. Any six digits work as the code.</p></div>
-  </div></section>
-  <section class="band tint" id="how"><div class="wrap">
-    <span class="kicker">Honest options</span>
-    <h2>Three choices, with their real weaknesses.</h2>
-    <p class="intro">Three equal choices is a quiz. A marked default with honest alternatives is advice.</p>
-    <div class="opts">
-      <div class="rec"><small>Recommended</small><b>Authenticator app</b><span>Works with no signal, and codes cannot be redirected to someone else.</span></div>
-      <div><b>Text message</b><span>Easiest to start. Weaker, because a phone number can be taken over. Still far better than a password alone.</span></div>
-      <div><b>Security key</b><span>The strongest option. You need to buy a small device and keep it with you.</span></div>
+      <p class="sub" style="max-width:44ch">A two-step sign-in setup that tells the truth about each option, writes errors you can act on, and will not let you finish without a way back in.</p>
+      <div class="cta" style="justify-content:center"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">Walk the four steps</a></div>
     </div>
   </div></section>
 
-  <section class="band"><div class="wrap">
-    <span class="kicker">Errors that count for you</span>
-    <h2>Each message says what the system saw.</h2>
-    <div class="errs"><div>Error: Codes are 6 digits. You entered 4.</div><div>Error: Codes are numbers only. Check for a letter or symbol.</div></div>
-  </div></section>
-
-  <section class="band tint"><div class="wrap">
-    <span class="kicker">Recovery is part of setup</span>
-    <h2>The day you lose your phone should not be the day you lose your account.</h2>
-    <div class="three">
-      <div class="item"><h3>Backup codes cannot be skipped</h3><p>Finish stays disabled until you confirm the codes are saved somewhere other than this phone.</p></div>
-      <div class="item"><h3>The warning names the likely mistake</h3><p>"Do not keep them only on the phone you just set up."</p></div>
-      <div class="item"><h3>The last screen answers three questions</h3><p>What changes, what if you lose your phone, and what if you lose the codes too. The third admits a wait of days and explains why.</p></div>
+  <section class="band" id="how" style="padding-top:10px"><div class="wrap">
+    <div class="line">
+      <div class="node" data-n="1">
+        <h2>Choose, knowing the trade-offs</h2>
+        <div class="opt rec"><b>Authenticator app · Recommended</b><small>Works with no signal, and codes cannot be redirected to someone else.</small></div>
+        <div class="opt"><b>Text message</b><small>Easiest to start. Weaker, because a phone number can be taken over. Still far better than a password alone.</small></div>
+        <div class="opt"><b>Security key</b><small>The strongest option. You need to buy a small device and keep it with you.</small></div>
+        <p>Three equal choices is a quiz. A marked default with honest alternatives is advice.</p>
+      </div>
+      <div class="node" data-n="2">
+        <h2>Connect it</h2>
+        <p>Scan with the app, or type the key if the camera will not cooperate. The button repeats your choice back to you: "Continue with text message".</p>
+      </div>
+      <div class="node" data-n="3">
+        <h2>Prove it worked</h2>
+        <div class="err">Error: Codes are 6 digits. You entered 4.</div>
+        <div class="err">Error: Codes are numbers only. Check for a letter or symbol.</div>
+        <p>Each message says what the system saw, which tells you what to fix.</p>
+      </div>
+      <div class="node" data-n="4">
+        <h2>Save your way back in</h2>
+        <div class="codes" aria-hidden="true"><span>XXXX-XXXX</span><span>XXXX-XXXX</span><span>XXXX-XXXX</span><span>XXXX-XXXX</span></div>
+        <p>Finish stays disabled until you confirm the backup codes are saved "somewhere other than this phone". The reason sits beside the button: "This is the one step people regret skipping."</p>
+      </div>
+      <div class="node end" data-n="✓">
+        <h2>Done, with three questions answered</h2>
+        <p>What changes. What happens if you lose your phone. And what happens if you lose the codes too, which admits a wait of days and explains it: "That delay is deliberate. It is what stops someone else doing it."</p>
+      </div>
     </div>
   </div></section>
 
-
+  <section class="band tint" id="try"><div class="wrap">
+    <span class="kicker">Try it</span>
+    <h2>Any six digits work. Try four first.</h2>
+    <div class="browser" style="margin-top:30px"><iframe src="../../prototypes/second-step/" title="Second Step interactive prototype"></iframe></div>
+    <p class="cap" style="margin-top:12px">Live prototype. Nothing in it is real: the scan pattern is decorative and the codes are random.</p>
+  </div></section>
 </main>
 
 <footer class="foot"><div class="wrap">

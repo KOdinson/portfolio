@@ -7,17 +7,32 @@
 <meta name="description" content="Concept site for Parts Finder, an appliance parts search that starts from what the machine is doing.">
 <link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;600&display=swap">
 <link rel="stylesheet" href="../base.css?v=1">
 <style>
-:root { --bg: #EFF1EE; --surface: #FFFFFF; --ink: #161A17; --ink-2: #57605A; --brand: #B4480F; --on-brand: #FFFFFF; --radius: 8px; --font-d: "Barlow", system-ui, sans-serif; --font-b: "Barlow", system-ui, sans-serif; color-scheme: light; }
-.hero h1 { font-weight: 800; text-transform: uppercase; letter-spacing: 0; }
-.fit { display: grid; gap: 12px; margin-top: 34px; font-weight: 600; font-size: 1.1rem; max-width: 720px; }
-.fit div { border-radius: 10px; padding: 14px 16px; display: grid; gap: 2px; }
-.fit small { font-weight: 400; color: var(--ink-2); font-size: 15px; }
-.fit .y { background: #E3F0E7; color: #17603A; } .fit .m { background: #FFF2D1; color: #7A5200; } .fit .n { background: #E7E9E7; color: #4E534F; }
-.free { margin-top: 34px; border: 2px solid #17603A; background: #E3F0E7; border-radius: 12px; padding: 20px; display: grid; gap: 4px; max-width: 620px; }
-.free b { font-size: 1.3rem; }
+:root { --bg: #EFF1EE; --surface: #FFFFFF; --ink: #161A17; --ink-2: #57605A; --brand: #B4480F; --on-brand: #FFFFFF; --radius: 4px; --font-d: "Barlow Condensed", "Arial Narrow", sans-serif; --font-b: "Barlow", system-ui, sans-serif; color-scheme: light; }
+.nav .brand { text-transform: uppercase; letter-spacing: 0.03em; }
+.hero h1 { font-weight: 800; text-transform: uppercase; letter-spacing: 0; font-size: clamp(3rem, 9vw, 6.4rem); line-height: 0.92; }
+.hero h1 span { color: var(--brand); }
+.sym { display: grid; gap: 10px; }
+.sym .q { font-weight: 600; color: var(--ink-2); }
+.sym a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; text-decoration: none; background: #fff; border: 2px solid var(--ink); padding: 16px 18px; font: 700 1.5rem/1.1 var(--font-d); text-transform: uppercase; }
+.sym a:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
+.manual { border-top: 5px solid var(--ink); margin-top: 30px; }
+.st { display: grid; grid-template-columns: minmax(80px, 150px) minmax(0, 1fr) minmax(0, 1fr); gap: 26px; padding: 30px 0; border-bottom: 1px solid #C2C8C2; align-items: start; }
+.st .num { font: 800 clamp(4.5rem, 11vw, 8rem)/0.78 var(--font-d); color: var(--brand); }
+.st h2 { font: 800 clamp(1.8rem, 4vw, 2.6rem)/1 var(--font-d); text-transform: uppercase; max-width: none; margin-bottom: 10px; }
+.st p { color: var(--ink-2); }
+.tag { display: block; padding: 12px 14px; font-weight: 600; margin-bottom: 8px; }
+.tag small { display: block; font-weight: 400; color: var(--ink-2); font-size: 14.5px; }
+.y { background: #E3F0E7; color: #17603A; } .m { background: #FFF2D1; color: #7A5200; } .n { background: #E2E5E2; color: #4E534F; }
+.free { border: 2px solid #17603A; background: #E3F0E7; padding: 16px; display: grid; gap: 4px; }
+.card { background: #fff; border: 2px solid var(--ink); padding: 16px; display: grid; gap: 8px; }
+.card .row { display: flex; justify-content: space-between; gap: 10px; font: 700 1.5rem var(--font-d); text-transform: uppercase; }
+.card .eff { justify-self: start; background: var(--bg); padding: 4px 10px; font-weight: 600; font-size: 15px; }
+.stop { border: 2px solid #A3211B; background: #FBEAE8; padding: 16px; }
+.stop b { color: #A3211B; }
+@media (max-width: 820px) { .st { grid-template-columns: minmax(0, 1fr); gap: 12px; } }
 </style>
 </head>
 <body>
@@ -30,43 +45,47 @@
 </div></header>
 
 <main id="top">
-  <section class="hero stack"><div class="wrap">
+  <section class="hero split"><div class="wrap">
     <div class="text">
-      
-      <h1>You know the symptom. Start there.</h1>
-      <p class="sub">Parts Finder is a parts search for people who know what the machine is doing and not what is broken. It leads with the free fix and tells the truth about what fits.</p>
-      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
+      <h1>You know the <span>symptom.</span> Start there.</h1>
+      <p class="sub">Parts Finder is a parts search for people who know what the machine is doing and not what is broken.</p>
+      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">Read the manual</a></div>
     </div>
-    <div id="try"><div class="browser"><iframe src="../../prototypes/parts-finder/" title="parts-finder interactive prototype"></iframe></div><p class="cap" style="margin-top:12px">Live prototype with invented models, parts and prices. Change the model, then try "Nothing happens at all".</p></div>
-  </div></section>
-  <section class="band tint" id="how"><div class="wrap">
-    <span class="kicker">Step one costs nothing</span>
-    <h2>A shop that tells you not to buy yet.</h2>
-    <p class="intro">Every result list opens with something free that takes minutes, above the parts.</p>
-    <div class="free"><span style="color: var(--ink-2)">Step 1 · costs nothing</span><b>Clean the filter first</b><span>Twist out the filter in the floor of the tub and rinse it. About 5 minutes, no tools.</span></div>
-  </div></section>
-
-  <section class="band"><div class="wrap">
-    <span class="kicker">Three kinds of fit</span>
-    <h2>Most sites round "maybe" up to "yes".</h2>
-    <div class="fit">
-      <div class="y">✓ Fits your DW-420<small>Confirmed for your exact model.</small></div>
-      <div class="m">? Fits some 400-series. Check the part number on your old one.<small>The honest middle state.</small></div>
-      <div class="n">✕ Does not fit DW-420<small>Hidden by default, with a count, so you can see nothing is being concealed.</small></div>
+    <div class="sym">
+      <span class="q">What is it doing?</span>
+      <a href="#try">Water stays in the bottom<span aria-hidden="true">→</span></a>
+      <a href="#try">Water on the floor<span aria-hidden="true">→</span></a>
+      <a href="#try">Nothing happens at all<span aria-hidden="true">→</span></a>
+      <a href="#try">Dishes come out dirty<span aria-hidden="true">→</span></a>
     </div>
   </div></section>
 
-  <section class="band tint"><div class="wrap">
-    <span class="kicker">Design choices</span>
-    <h2>Listings that help you decide whether to do it at all.</h2>
-    <div class="three">
-      <div class="item"><h3>Symptoms in your words</h3><p>"Water stays in the bottom", not "drain fault".</p></div>
-      <div class="item"><h3>Effort is part of the listing</h3><p>"20 minutes · screwdriver" sits beside the price.</p></div>
-      <div class="item"><h3>Some repairs end with "call someone"</h3><p>For a machine that will not power on, the page stops at the safe checks and says so: "We sell the parts, and we would rather you did not fit them yourself."</p></div>
+  <section class="band tint" id="how" style="padding-top: 30px"><div class="wrap">
+    <span class="kicker">Every result page, in this order</span>
+    <div class="manual">
+      <div class="st"><span class="num">1</span>
+        <div><h2>Try the free fix</h2><p>Every result list opens with something that costs nothing and takes minutes, above the parts. A shop that tells you not to buy yet is a shop you come back to.</p></div>
+        <div class="free"><span style="color: var(--ink-2)">Step 1 · costs nothing</span><b style="font-size:1.2rem">Clean the filter first</b><span>Twist out the filter in the floor of the tub and rinse it. About 5 minutes, no tools.</span></div>
+      </div>
+      <div class="st"><span class="num">2</span>
+        <div><h2>Check the fit</h2><p>Three states, said plainly. The middle one matters most, and most sites round it up to yes. Parts that do not fit are hidden by default, with a count, so you can see nothing is being concealed.</p></div>
+        <div><span class="tag y">✓ Fits your DW-420<small>Confirmed for your exact model.</small></span><span class="tag m">? Fits some 400-series<small>Check the part number on your old one.</small></span><span class="tag n">✕ Does not fit DW-420</span></div>
+      </div>
+      <div class="st"><span class="num">3</span>
+        <div><h2>Weigh the effort</h2><p>Price alone does not tell you whether this is a job you can do. Time and tools sit beside it on every part.</p></div>
+        <div class="card"><div class="row"><span>Drain pump</span><span>$38</span></div><span class="eff">20 minutes · screwdriver</span><span style="color: var(--ink-2)">The usual culprit if the filter is clean and you hear humming but no water moves.</span></div>
+      </div>
+      <div class="st"><span class="num">4</span>
+        <div><h2>Know when to stop</h2><p>For a machine that will not power on, the page stops at the safe checks. It names its own conflict of interest while it does.</p></div>
+        <div class="stop"><b>After that, this one needs a technician.</b><br>"We sell the parts, and we would rather you did not fit them yourself."</div>
+      </div>
     </div>
   </div></section>
 
-
+  <section class="band" id="try"><div class="wrap">
+    <div class="browser"><iframe src="../../prototypes/parts-finder/" title="Parts Finder interactive prototype"></iframe></div>
+    <p class="cap" style="margin-top:12px">Live prototype with invented models, parts and prices. Change the model, then try "Nothing happens at all".</p>
+  </div></section>
 </main>
 
 <footer class="foot"><div class="wrap">

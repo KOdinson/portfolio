@@ -11,14 +11,28 @@
 <link rel="stylesheet" href="../base.css?v=1">
 <style>
 :root { --bg: #F2F0F5; --surface: #FFFFFF; --ink: #1A1523; --ink-2: #5E586B; --brand: #6B2FB3; --on-brand: #FFFFFF; --radius: 99px; --font-d: "Outfit", system-ui, sans-serif; --font-b: "Outfit", system-ui, sans-serif; color-scheme: light; }
-.hero h1 { font-weight: 800; font-size: clamp(2rem, 5vw, 3.4rem); }
-.hero .n { font: 800 clamp(5rem, 16vw, 10rem)/0.8 var(--font-d); color: var(--brand); }
-.pre { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 34px; }
-@media (max-width: 700px) { .pre { grid-template-columns: minmax(0, 1fr); } }
-.pre div { background: var(--bg); border-radius: 16px; padding: 20px; display: grid; gap: 4px; }
-.pre b { font: 800 3rem/1 var(--font-d); color: var(--brand); }
-.pre span { font-weight: 600; }
-.pre small { color: var(--ink-2); }
+.hero { text-align: center; padding-bottom: 0; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; justify-items: center; }
+.hero .wrap > * { min-width: 0; max-width: 100%; }
+.hero h1 { font-weight: 800; font-size: clamp(2.2rem, 6vw, 4.2rem); max-width: 16ch; }
+.cols { display: flex; align-items: flex-end; justify-content: center; gap: clamp(14px, 5vw, 60px); height: 380px; margin-top: 26px; width: 100%; border-bottom: 3px solid var(--ink); }
+.col { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; width: min(27vw, 200px); gap: 8px; }
+.col b { font: 800 clamp(2rem, 6vw, 3.4rem)/1 var(--font-d); color: var(--brand); }
+.col small { font-weight: 600; font-size: clamp(0.8rem, 2.2vw, 1rem); line-height: 1.2; }
+.col i { display: block; width: 100%; background: var(--brand); border-radius: 4px 4px 0 0; min-height: 3px; }
+.axis { color: var(--ink-2); font-size: 14.5px; padding-top: 10px; }
+.night { background: #1A1523; color: #F2F0F5; }
+.night .wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(20px, 5vw, 60px); align-items: center; }
+.night .clock { font: 800 clamp(2.4rem, 8vw, 5.4rem)/0.95 var(--font-d); color: #C9B2EE; }
+.night p { color: #C8C2D6; font-size: 1.15rem; max-width: 50ch; }
+.night h2 { color: #fff; margin-bottom: 12px; }
+@media (max-width: 720px) { .night .wrap { grid-template-columns: minmax(0, 1fr); } }
+.rows { display: grid; gap: 0; margin-top: 34px; border-radius: 22px; overflow: hidden; background: var(--bg); }
+.rows div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; padding: 16px 22px; border-top: 1px solid #DAD6E2; align-items: center; }
+.rows div:first-child { border-top: 0; }
+.rows small { display: block; color: var(--ink-2); }
+.pill { font-weight: 600; font-size: 14.5px; padding: 7px 14px; border-radius: 99px; background: var(--brand); color: #fff; white-space: nowrap; }
+.pill.s { background: #A99BC0; } .pill.o { background: #E7E4EE; color: var(--ink); } .pill.l { background: none; border: 1.5px solid var(--ink-2); color: var(--ink-2); }
 </style>
 </head>
 <body>
@@ -31,43 +45,43 @@
 </div></header>
 
 <main id="top">
-  <section class="hero stack"><div class="wrap">
-    <div class="text">
-      <span class="n" aria-hidden="true">15</span>
-      <h1>interruptions a week. You choose the number.</h1>
-      <p class="sub">Quiet Hours is a notification settings page that shows what your choices add up to: how many times a week your phone will buzz.</p>
-      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
+  <section class="hero"><div class="wrap">
+    <h1>How often should your phone interrupt you?</h1>
+    <p class="sub">Quiet Hours is a notification settings page that shows what your choices add up to. Same account, three presets, three very different weeks:</p>
+    <div class="cols" role="img" aria-label="Interruptions per week by preset: everything right away 40, only what needs me 15, nearly silent 1">
+      <div class="col"><b>40</b><small>Everything, right away</small><i style="height: 68%"></i></div>
+      <div class="col"><b>15</b><small>Only what needs me</small><i style="height: 25.5%"></i></div>
+      <div class="col"><b>1</b><small>Nearly silent</small><i style="height: 1.7%"></i></div>
     </div>
-    <div id="try"><div class="browser"><iframe src="../../prototypes/quiet-hours/" title="quiet-hours interactive prototype"></iframe></div><p class="cap" style="margin-top:12px">Live prototype with sample volumes. Try the three presets, then change one row.</p></div>
+    <p class="axis">Interruptions per week, drawn to scale. Sample volumes for one invented account.</p>
+    <div class="cta" style="justify-content:center; padding-bottom: clamp(30px, 6vw, 60px)"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
   </div></section>
+
+  <section class="band night"><div class="wrap">
+    <div class="clock" aria-hidden="true">10 pm<br>7 am</div>
+    <div>
+      <h2>Overnight, everything waits.</h2>
+      <p>With quiet hours on, anything that arrives at night is held for a 7 am summary. Security alerts still come through, and the setting says so.</p>
+    </div>
+  </div></section>
+
   <section class="band tint" id="how"><div class="wrap">
-    <span class="kicker">Presets named by intent</span>
-    <h2>Same account, three very different weeks.</h2>
-    <p class="intro">Each preset sets every category at once, and the preview shows the result before you commit.</p>
-    <div class="pre">
-      <div><b>40</b><span>Everything, right away</span><small>About 6 a day</small></div>
-      <div><b>15</b><span>Only what needs me</span><small>About 2 a day</small></div>
-      <div><b>1</b><span>Nearly silent</span><small>One a week</small></div>
+    <span class="kicker">How it works</span>
+    <h2>Each row has three choices and shows its own volume.</h2>
+    <div class="rows">
+      <div><span><b>Security alerts</b><small>About 1 a week · always sent, and the row says why</small></span><span class="pill l">Locked on</span></div>
+      <div><span><b>Mentions and replies</b><small>About 14 a week</small></span><span class="pill">Right away</span></div>
+      <div><span><b>Activity on things you follow</b><small>About 31 a week · the biggest source of noise</small></span><span class="pill s">Morning summary</span></div>
+      <div><span><b>Product news and tips</b><small>About 3 a week</small></span><span class="pill o">Off</span></div>
     </div>
+    <p class="intro">The middle option is the point. Most notifications are worth knowing about and not worth being interrupted for.</p>
   </div></section>
 
-  <section class="band"><div class="wrap">
-    <span class="kicker">Design choices</span>
-    <h2>Twenty switches, one number.</h2>
-    <div class="three">
-      <div class="item"><h3>Every row carries its volume</h3><p>"About 31 a week" sits under the category name, so the biggest source of noise is obvious before anything changes.</p></div>
-      <div class="item"><h3>Three choices, with a middle</h3><p>Right away, Morning summary, or Off. Most notifications are worth knowing about and not worth being interrupted for.</p></div>
-      <div class="item"><h3>One thing you cannot turn off</h3><p>Security alerts have no control, and the row says why. With the reason, a locked setting reads as protection.</p></div>
-    </div>
+  <section class="band" id="try"><div class="wrap">
+    <div class="browser"><iframe src="../../prototypes/quiet-hours/" title="Quiet Hours interactive prototype"></iframe></div>
+    <p class="cap" style="margin-top:12px">Live prototype with sample volumes. Try the three presets, then change one row and watch the number.</p>
+    <p class="intro" style="margin-inline:auto; text-align:center">The honest limit: a preview is only as good as the history behind it. A new account would need a starting estimate and a way to say "based on very little so far".</p>
   </div></section>
-
-  <section class="band tint"><div class="wrap">
-    <span class="kicker">The honest limit</span>
-    <h2>A preview is only as good as the history behind it.</h2>
-    <p class="intro">A new account has no history, and a typical week is a poor guide to an unusual one. A real version would need a sensible starting estimate and a way to say "based on very little so far".</p>
-  </div></section>
-
-
 </main>
 
 <footer class="foot"><div class="wrap">
