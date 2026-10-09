@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Defense Opportunity Intel | Keith Sanders II</title>
+<meta name="description" content="Case study: a ranked feed of federal contract opportunities that explains each score.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="cs-head">
+    <p class="label">Sheet 6 of 7 · <span class="tag shipped">Built · web dashboard</span></p>
+    <h1>Defense Opportunity Intel: a feed that explains its ranking</h1>
+    <p class="lede">Federal contract notices are public, and there are far too many of them. I built a tool that pulls them every morning, scores each one for fit against my company, and shows me the short list. The interface question was how to make a machine's ranking something a person can check in five seconds.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Daily dashboard, signup and onboarding flow</dd></div>
+      <div><dt>When</dt><dd>June 2026</dd></div>
+      <div><dt>Status</dt><dd>Dashboard built for my own use. Multi-user version runs locally, not launched.</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">Try the idea</p>
+    <div class="content">
+      <figure>
+        <div class="feed">
+          <fieldset>
+            <legend>Your capability areas</legend>
+            <label><input type="checkbox" id="cat-cuas" value="cuas" checked> Counter-UAS / Counter-drone</label>
+            <label><input type="checkbox" id="cat-isr" value="isr" checked> ISR / Sensors / Surveillance</label>
+            <label><input type="checkbox" id="cat-fusion" value="fusion"> Sensor / Data Fusion</label>
+            <label><input type="checkbox" id="cat-ew" value="ew"> Electronic Warfare / Signals</label>
+            <label><input type="checkbox" id="cat-cyber" value="cyber"> Cyber</label>
+          </fieldset>
+          <span class="count" id="feedCount" aria-live="polite"></span>
+          <div class="opp" data-cats="cuas isr">
+            <span class="top"><span class="score hi">72</span><span class="t">Counter-UAS sensing for dismounted units</span></span>
+            <span class="m">Department of the Navy · due 2026-11-14 · NAICS 334511</span>
+            <span class="w">Direct match to the counter-drone focus, and open to small businesses.</span>
+          </div>
+          <div class="opp" data-cats="fusion isr">
+            <span class="top"><span class="score mid">58</span><span class="t">Multi-sensor track fusion prototype</span></span>
+            <span class="m">Department of the Army · due 2026-12-02 · NAICS 541715</span>
+            <span class="w">Related sensing work, but asks for fielded radar experience the profile does not show.</span>
+          </div>
+          <div class="opp" data-cats="ew">
+            <span class="top"><span class="score mid">44</span><span class="t">Spectrum monitoring trade study</span></span>
+            <span class="m">Department of the Air Force · due 2026-11-30 · NAICS 541330</span>
+            <span class="w">Adjacent field. A study contract, with no prototype component.</span>
+          </div>
+          <div class="opp" data-cats="cyber">
+            <span class="top"><span class="score lo">31</span><span class="t">Zero-trust network assessment</span></span>
+            <span class="m">Department of Homeland Security · due 2026-11-21 · NAICS 541512</span>
+            <span class="w">Outside the core capability areas.</span>
+          </div>
+        </div>
+        <figcaption>A working miniature of the onboarding idea. Check or uncheck areas and the feed filters. The area names are from the real product. The four notices are samples I wrote for this page, not real solicitations.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">The design problem</p>
+    <div class="content">
+      <div class="prose">
+        <p>Most tools in this market are built around search. They hand you a query box and a long list of results, and the work of deciding what matters stays with you. I wanted the opposite: no query, a short list, already sorted.</p>
+        <p>That only works if the person trusts the sort. A score of 72 means nothing by itself. So the unit of the interface became a score with its reason attached, and everything else was arranged around reading that pair quickly.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>Score, then one sentence of why</h3>
+          <p>Each card leads with the fit score in a coloured square, then the title, then a single line explaining the score in ordinary words. If the reason is wrong, I can see that it is wrong and discount the score. A number alone gives me nothing to argue with.</p>
+        </div>
+        <div class="prose">
+          <h3>Checkboxes instead of a search box</h3>
+          <p>Onboarding is one screen: ten capability areas, tick the ones your company works in. Each notice is tagged once against the same ten areas, so the feed is a filter and not a search. Nobody has to learn query syntax or guess keywords.</p>
+        </div>
+        <div class="prose">
+          <h3>Tabs that carry their counts</h3>
+          <p>Top Picks, one tab per source, and three views of past awards: largest, mid-size firms worth teaming with, and contracts ending within 18 months. Every tab shows how many items are behind it, so an empty source is visible before you click.</p>
+        </div>
+        <div class="prose">
+          <h3>Tell me when the data is thin</h3>
+          <p>A line under the header lists each source with a check and item count, or a cross if it failed that morning. When two government systems went down for maintenance, the dashboard said so. A short list then read as "sources are down", not "nothing is out there".</p>
+        </div>
+        <div class="prose">
+          <h3>Empty states that explain</h3>
+          <p>No panel is ever blank. "Nothing has scored 35+ yet. The feed refreshes every morning." tells me what the threshold is and when to look again. With no areas picked, the feed shows everything and says that it is doing so.</p>
+        </div>
+        <div class="prose">
+          <h3>Always one click to the source</h3>
+          <p>Every card ends with a link to the full government notice. The summary is a convenience. The notice is the authority, and the design never asks anyone to act on the summary alone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Critique of v1</p>
+    <div class="content">
+      <div class="prose">
+        <ul>
+          <li><strong>The thresholds disagree.</strong> A notice enters Top Picks at 35. The score square turns from grey to amber at 40. So a "top pick" can wear the colour that means low. One scale, used everywhere, fixes it.</li>
+          <li><strong>The score has no scale.</strong> Nothing on the card says the number is out of 100, or what a good one looks like.</li>
+          <li><strong>Deadlines are dates, not time.</strong> "Due 2026-11-14" makes the reader subtract. "Due in 9 days" does not, and lets urgent items stand out.</li>
+          <li><strong>No way to disagree.</strong> When a score is wrong there is no "not relevant" control. Without that, the ranking cannot improve and the user has no voice.</li>
+          <li><strong>Seven tabs in a row.</strong> They work on a desktop and will wrap badly on a phone. The three award views belong behind one tab.</li>
+          <li><strong>Colour carries the tier.</strong> The number is always present, which helps, but green and amber squares need a second cue.</li>
+        </ul>
+      </div>
+      <p class="note">I am the only user. The multi-user version was built and smoke-tested locally and then parked before any outside signup. What I would do first if it restarted: sit with five people who chase contracts for small firms, show them twenty scored notices, and record where they disagree with the ranking and whether the reason line changes their mind.</p>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Next sheet</span>
+    <a class="big" href="voxelheim.html">Voxelheim: a game HUD, audited →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js"></script>
+<script>
+// Filter the sample feed by checked capability areas; none checked shows everything.
+const boxes = [...document.querySelectorAll('.feed input')];
+function filterFeed() {
+  const on = boxes.filter((b) => b.checked).map((b) => b.value);
+  let shown = 0;
+  document.querySelectorAll('.feed .opp').forEach((card) => {
+    const match = !on.length || card.dataset.cats.split(' ').some((c) => on.includes(c));
+    card.hidden = !match;
+    if (match) shown++;
+  });
+  document.getElementById('feedCount').textContent = on.length
+    ? shown + ' of 4 sample notices match your areas'
+    : 'No areas picked, so showing everything';
+}
+boxes.forEach((b) => b.addEventListener('change', filterFeed));
+filterFeed();
+</script>
+</body>
+</html>

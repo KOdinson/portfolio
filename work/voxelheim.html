@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voxelheim HUD audit | Keith Sanders II</title>
+<meta name="description" content="Case study: auditing the heads-up display of a first-person game I am building.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="cs-head">
+    <p class="label">Sheet 7 of 7 · <span class="tag shipped">In development · game UI</span></p>
+    <h1>Voxelheim: a game HUD, audited</h1>
+    <p class="lede">Voxelheim is a first-person voxel role-playing game I am building in Python. Its heads-up display grew one feature at a time until it had seventeen elements on it. This is the audit I ran on my own screen, and the plan that came out of it.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and developer</dd></div>
+      <div><dt>Scope</dt><dd>HUD, inventory, skill tree, crafting, character creator, menus</dd></div>
+      <div><dt>When</dt><dd>2026, ongoing</dd></div>
+      <div><dt>Status</dt><dd>In development. Audit done, redesign not yet built.</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">The screen today</p>
+    <div class="content">
+      <figure>
+        <div class="hud-fig">
+          <svg viewBox="0 0 178 100" role="img" aria-label="Diagram of the current HUD layout: status bars bottom left, hotbar bottom centre, weapon and ammo bottom right, location top left, clock and frame rate top right, quest tracker on the right edge, crosshair in the centre.">
+            <rect width="178" height="100" fill="#0a0d14"/>
+            <g fill="none" stroke="#3a4558" stroke-width="0.3" stroke-dasharray="1.5 1.5"><rect x="9" y="5" width="160" height="90"/></g>
+            <g font-family="IBM Plex Mono, monospace" font-size="2.7" fill="#c9d3e0">
+              <path d="M87 50h4M89 48v4" stroke="#e6ecf2" stroke-width="0.4"/>
+              <text x="92" y="49">crosshair</text>
+
+              <text x="4" y="6.5">Biome</text>
+              <text x="4" y="9.5">Position x, y, z</text>
+              <text x="4" y="12.5">Moral score</text>
+
+              <text x="152" y="4.5" fill="#f0843f">FPS</text>
+              <text x="152" y="7.5">Time of day</text>
+
+              <text x="132" y="16">Active quest</text>
+              <text x="132" y="19">Objective</text>
+
+              <text x="80" y="79">RELOADING...</text>
+
+              <rect x="6.5" y="92.9" width="25" height="2.2" fill="#c0392b"/>
+              <text x="33" y="94.8">200/200</text>
+              <text x="1.5" y="94.8">HP</text>
+              <rect x="12" y="95.6" width="18" height="1.6" fill="#5b7fb5"/>
+              <rect x="12" y="97.6" width="18" height="1.4" fill="#d4a72c"/>
+              <text x="33" y="91" font-size="2.2" fill="#93a4ba">health, armor, stamina</text>
+              <text x="6" y="99.7" font-size="2.2" fill="#f0843f">HNG 100  THR 100</text>
+
+              <g fill="none" stroke="#93a4ba" stroke-width="0.35">
+                <rect x="49" y="93" width="7" height="6"/><rect x="58" y="93" width="7" height="6"/><rect x="67" y="93" width="7" height="6"/>
+                <rect x="76" y="93" width="7" height="6"/><rect x="85" y="93" width="7" height="6"/><rect x="94" y="93" width="7" height="6"/>
+                <rect x="103" y="93" width="7" height="6"/><rect x="112" y="93" width="7" height="6"/><rect x="121" y="93" width="7" height="6"/>
+              </g>
+              <text x="80" y="91">hotbar, 9 slots</text>
+
+              <text x="157" y="94.5">INF</text>
+              <text x="147" y="97.5">Iron Sword</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption>The current HUD, drawn to scale from the position values in the game's code. The dashed line marks a 5% safe margin. Orange marks the two elements the audit flags first.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">How it got this way</p>
+    <div class="content">
+      <div class="prose">
+        <p>Nobody designs a seventeen-element HUD. You add a health bar, then the game gets armour, so you add a bar. Then stamina, hunger, thirst, a quest, a clock, a morality system. Each addition is reasonable. I was also the one testing it, and I already knew what every number meant.</p>
+        <p>The audit used one question per element, borrowed from how I reviewed the WASP ground station: does the player need this during a fight, between fights, or only when they go looking?</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Findings</p>
+    <div class="content">
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th></th><th>Finding</th><th>Why it matters</th><th>Plan</th></tr></thead>
+          <tbody>
+            <tr><td class="n">1</td><td>Hunger and thirst are text labels placed 0.4% of the screen height above the bottom edge.</td><td>On any display that crops its edges, they are cut off. They are also the two values that kill you slowly if you miss them.</td><td>Move inside a 5% safe margin. Show as icons that appear only when low.</td></tr>
+            <tr><td class="n">2</td><td>A frames-per-second counter is on the player's screen.</td><td>It is a developer's number. It tells a player nothing they can act on.</td><td>Move behind a debug key.</td></tr>
+            <tr><td class="n">3</td><td>Health, armour and stamina are three thin bars stacked 2% apart, told apart by colour.</td><td>In peripheral vision during a fight they merge into one stripe. Colour-blind players lose the distinction entirely.</td><td>Health keeps its bar and number. Armour becomes segments on the health bar. Stamina moves near the crosshair and shows only while draining.</td></tr>
+            <tr><td class="n">4</td><td>Labels are abbreviations: HNG, THR, ARM, INF.</td><td>I know them because I typed them. A new player has to decode each one.</td><td>Icons with a text label on first appearance.</td></tr>
+            <tr><td class="n">5</td><td>Raw x, y, z coordinates sit in the top-left corner at all times.</td><td>Useful for me placing dungeons. Noise for a player, who needs a direction and a place name.</td><td>Replace with a compass strip, which the HUD file's own header lists and I never built. Keep the biome name, fade it after entering a new area.</td></tr>
+            <tr><td class="n">6</td><td>Everything is always visible.</td><td>The centre of the screen is the game. Seventeen permanent elements frame it like a dashboard.</td><td>Three tiers: always on (health, crosshair, hotbar), contextual (stamina, reload, low-need warnings), on demand (quest, clock, morality).</td></tr>
+            <tr><td class="n">7</td><td>No setting for HUD size, opacity or colour mode.</td><td>Text sized for my monitor is unreadable on a small laptop and oversized on a television.</td><td>Add a scale slider and a colour-blind palette to the settings menu.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">What already works</p>
+    <div class="content">
+      <div class="prose">
+        <p>Not everything needs fixing. A few choices from the rest of the interface that I would keep:</p>
+        <ul>
+          <li><strong>Health shows both bar and number.</strong> The bar is for glancing and the "200/200" is for deciding whether to use a potion.</li>
+          <li><strong>Getting hit flashes the whole screen.</strong> Damage is felt at the edge of vision without looking away from the fight.</li>
+          <li><strong>The character creator states trade-offs in plain numbers.</strong> Each class card gives a one-line identity and its exact bonuses and penalties, such as "+30 Mana, +15 Spell Power, -5 HP". The choice is informed before it is permanent.</li>
+          <li><strong>Inventory tooltips carry the stats.</strong> Hovering an item shows what it does, so the player is not choosing gear by its name.</li>
+          <li><strong>Reloading announces itself in the centre.</strong> It appears below the crosshair, where the eyes already are, and disappears when done.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Limits and next steps</p>
+    <div class="content">
+      <p class="note">This is an audit and a plan. The redesigned HUD is not built yet, and the game has had no structured playtest. The tiers in finding 6 are my judgement about what players need, which is exactly the kind of judgement a developer gets wrong about their own game.</p>
+      <div class="prose">
+        <ul>
+          <li>Build the three-tier HUD behind a toggle so old and new can be compared in the same session.</li>
+          <li>First-time-player test: five people, twenty minutes each, no instructions. Afterward ask them to draw the HUD from memory. What they leave out was not needed, or was not seen.</li>
+          <li>Record each session and mark every time a player dies with a low resource they had not noticed.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Back to the start</span>
+    <a class="big" href="wasp-ground-station.html">Ground station for an autonomous swarm →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

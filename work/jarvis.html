@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JARVIS | Keith Sanders II</title>
+<meta name="description" content="Case study: consent and control design for a desktop AI assistant that can write files and run commands.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="cs-head">
+    <p class="label">Sheet 5 of 7 · <span class="tag shipped">Built · desktop app</span></p>
+    <h1>JARVIS: an assistant that asks before it acts</h1>
+    <p class="lede">I built a voice and text assistant for my own desktop. It can search the web, remember things about me, read files, write files and run commands. The last two are where the design work was: how much should software be allowed to do on your behalf before it has to stop and ask?</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Conversation window, voice input, permission flow</dd></div>
+      <div><dt>When</dt><dd>June to July 2026</dd></div>
+      <div><dt>Status</dt><dd>Working app. One user so far: me.</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">The two windows</p>
+    <div class="content">
+      <figure>
+        <div class="spec-pair">
+          <div class="jv">
+            <div class="hd"><b>J.A.R.V.I.S.</b><span class="chip">Brain: Claude</span><span class="sys" style="font-style: normal;">☑ Speak replies</span></div>
+            <div class="log">
+              <span class="you"><b>You:</b> Put today's notes in a file on my desktop.</span>
+              <span class="jar"><b>JARVIS:</b> I can do that, Commander. I'll need your approval to write the file.</span>
+              <span class="sys">Switched to LOCAL brain — private/offline. Context cleared.</span>
+            </div>
+            <div class="in"><span class="f">Type a message</span><span class="send">Send</span><span class="mic">🎤</span></div>
+            <span class="st">Ready</span>
+          </div>
+          <div class="jv">
+            <span class="ask">JARVIS wants to:</span>
+            <span class="cmd">Write file:
+C:\Users\you\Desktop\notes.txt
+
+(412 characters)</span>
+            <div class="btns"><span class="allow">Allow</span><span class="deny">Deny</span></div>
+          </div>
+        </div>
+        <figcaption>The main window and the confirmation dialog, redrawn from the app with its real labels and colours. The conversation and file path are illustrative.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">The design problem</p>
+    <div class="content">
+      <div class="prose">
+        <p>An assistant that only talks is safe and limited. An assistant that can act is useful and dangerous. The model decides what command to run, and models are sometimes wrong. I wanted the usefulness without ever being surprised by something it did.</p>
+        <p>I split its abilities into three groups and gave each a different rule.</p>
+      </div>
+      <div class="rows">
+        <div><span>Free</span><div><b>Look, search, remember</b><small>Reading a file, listing a folder, searching the web, saving a note about me. These happen without asking, because none of them changes anything.</small></div></div>
+        <div><span>Ask first</span><div><b>Write a file, run a command</b><small>Every one of these stops and shows a confirmation dialog. Nothing happens until I answer.</small></div></div>
+        <div><span>Never</span><div><b>Certain folders</b><small>A short list of folders holding sensitive project files is walled off completely. The assistant cannot read, list or search inside them, and there is no dialog that would let it.</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>Show the exact action</h3>
+          <p>The dialog prints the literal command or the full file path in a monospace box, in a different colour from everything else. It does not show the assistant's summary of what it plans to do. A summary can be wrong in a way the real command cannot.</p>
+        </div>
+        <div class="prose">
+          <h3>Every exit means no</h3>
+          <p>Closing the dialog with the window's X counts as Deny. Not answering for three minutes counts as Deny. If the app starts without its dialog attached, every write and command is refused outright. There is no path where silence becomes permission.</p>
+        </div>
+        <div class="prose">
+          <h3>The dialog blocks</h3>
+          <p>The confirmation is modal and sits on top of the conversation. Interface guidelines usually say to avoid that. Here it is right: the assistant is paused mid-action and waiting, and the screen should say so.</p>
+        </div>
+        <div class="prose">
+          <h3>Say where your words go</h3>
+          <p>A button in the header switches between an online model and one that runs on my own machine. Switching posts a line in the conversation in plain terms: "private/offline" or "smart/online", and that the context was cleared.</p>
+        </div>
+        <div class="prose">
+          <h3>Voice goes through the text box</h3>
+          <p>Push-to-talk transcribes what I said into the same entry field, then sends it. I see what it heard before I see the reply, so a mishearing is obvious and does not turn into a confusing answer.</p>
+        </div>
+        <div class="prose">
+          <h3>Three voices in the transcript</h3>
+          <p>My lines, the assistant's lines and system notices each have their own colour, and system notices are smaller and italic. An error from the microphone never reads as something the assistant said.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Critique of v1</p>
+    <div class="content">
+      <div class="prose">
+        <ul>
+          <li><strong>Every request looks equally serious.</strong> Creating a text file and deleting a folder get the same dialog. After enough harmless approvals, the hand learns to click Allow. Risk should change the dialog: a plain one for creating, a slower one with the consequence spelled out for deleting or overwriting.</li>
+          <li><strong>Allow and Deny are twins.</strong> Same size, same weight, side by side, with Allow first. The safe choice should be the easy one to hit.</li>
+          <li><strong>The raw command is honest but not enough.</strong> I can read PowerShell. Most people cannot. The dialog needs one plain sentence above the command saying what it will change, with the command kept below as proof.</li>
+          <li><strong>The brain switch warns after the fact.</strong> It clears the conversation and then tells you. It should say so on the button or ask first.</li>
+          <li><strong>Listening has no shape.</strong> Push-to-talk records for a fixed six seconds and the only sign is the word "Listening..." in small grey text. It needs a visible countdown and a way to stop early.</li>
+          <li><strong>The transcript depends on colour.</strong> The name prefixes help, but blue and green on dark navy are close for some readers.</li>
+        </ul>
+      </div>
+      <p class="note">One user, no testing with anyone else. That is fine for a personal tool and not enough to claim the permission flow works for other people. The study I would run: give five people a list of ten requests, two of them quietly destructive, and count how many destructive ones get approved.</p>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Next sheet</span>
+    <a class="big" href="opportunity-intel.html">Defense Opportunity Intel →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>
