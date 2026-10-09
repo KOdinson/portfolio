@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ground station redesign | Keith Sanders II</title>
+<meta name="description" content="Case study: a heuristic review and redesign of an operator display for an autonomous counter-drone swarm.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="cs-head">
+    <p class="label">Sheet 1 of 4 · <span class="tag concept">Redesign · working prototype</span></p>
+    <h1>Ground station for an autonomous swarm</h1>
+    <p class="lede">WASP is a counter-drone system I founded a company to build. Its interceptors decide for themselves which threat to chase. The operator's job is to supervise, and to stop the system when it is wrong. My first display did not help with either.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Expert review, redesign, coded prototype</dd></div>
+      <div><dt>When</dt><dd>v1 spring 2026 · v2 October 2026</dd></div>
+      <div><dt>Status</dt><dd>Concept. Simulated data. Not yet tested with operators.</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">The prototype</p>
+    <div class="content">
+      <figure>
+        <div class="plate live">
+          <iframe src="../prototypes/ground-station/" title="Interactive ground station prototype"></iframe>
+        </div>
+        <div class="plate-cap">
+          <span>Live and interactive. Select a threat, hold its intercept, or press and hold Abort.</span>
+          <a href="../prototypes/ground-station/">Open full screen →</a>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Where it started</p>
+    <div class="content">
+      <div class="prose">
+        <p>I built version 1 as a demonstration for capability briefs. It did that job: it showed swarm status, threat tracks and alerts on one screen. It is also the image on the company website today.</p>
+        <p>When I went back to it as a designer instead of as the engineer who needed a demo, I ran a heuristic review against Nielsen's ten usability heuristics and marked everything that would slow down or mislead someone watching it under time pressure.</p>
+      </div>
+      <figure>
+        <div class="annot">
+          <img src="../assets/img/hud-v1.png" alt="Version 1 ground station display: a tactical map with overlapping labels, a swarm status panel, an alert feed, and a row of four action buttons." width="1600" height="900">
+          <span class="pin" style="left: 47%; top: 50%;">1</span>
+          <span class="pin" style="left: 25.5%; top: 97%;">2</span>
+          <span class="pin" style="left: 97%; top: 14.5%;">3</span>
+          <span class="pin" style="left: 22%; top: 71%;">4</span>
+          <span class="pin" style="left: 86%; top: 11.5%;">5</span>
+          <span class="pin" style="left: 40%; top: 84%;">6</span>
+          <span class="pin" style="left: 93.5%; top: 87.5%;">7</span>
+        </div>
+        <figcaption>Version 1, spring 2026, with the seven findings marked. All data is simulated.</figcaption>
+      </figure>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th></th><th>Finding</th><th>Why it matters</th><th>Severity</th></tr></thead>
+          <tbody>
+            <tr><td class="n">1</td><td>Track labels collide where threats converge. Time markers, range labels and the word FRIENDLY print on top of each other.</td><td>The display is least readable exactly where the operator most needs to read it.</td><td class="sev">Major</td></tr>
+            <tr><td class="n">2</td><td>Abort sits in the same row as Launch and Recall, the same size, one button away, with no guard.</td><td>The one action that cannot be undone is as easy to hit as the routine ones. Error prevention.</td><td class="sev">Major</td></tr>
+            <tr><td class="n">3</td><td>Interceptor state is a colour-coded word in small capitals. Hostile and critical are both red on dark navy.</td><td>About one man in twelve has a colour vision deficiency. Low-contrast red is also the first thing lost in glare.</td><td class="sev">Major</td></tr>
+            <tr><td class="n">4</td><td>The alert feed is a log in arrival order. It reports bearing, range and closing speed, and leaves the arithmetic to the reader.</td><td>The operator's real question is how long they have. Recognition over recall.</td><td class="sev">Major</td></tr>
+            <tr><td class="n">5</td><td>Each interceptor shows raw coordinates and a kill counter with the same weight as battery.</td><td>Position vectors mean nothing at a glance. They crowd out the one figure that limits the mission.</td><td class="sev">Minor</td></tr>
+            <tr><td class="n">6</td><td>A full-width panel holds one line of sensor status. The alert feed above it is cramped into three rows.</td><td>Space goes to the thing that rarely changes.</td><td class="sev">Minor</td></tr>
+            <tr><td class="n">7</td><td>The only sign that this is a simulation is a small amber label in the corner.</td><td>Mistaking a drill for live, or live for a drill, is the worst mode error this screen can produce.</td><td class="sev">Major</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Reframing</p>
+    <div class="content">
+      <div class="prose">
+        <p>Version 1 was organised around the system: here are my drones, here is my map, here are my logs. An operator supervising autonomy needs it organised around a decision. I wrote that decision down as three questions and gave each one a fixed place on the screen.</p>
+        <ul>
+          <li><strong>What arrives first?</strong> A threat queue sorted by seconds to the perimeter, with the time as the largest number on each row.</li>
+          <li><strong>Is something handling it?</strong> Each threat row states its pairing in a sentence: "W2 intercepting, 6 s to contact", or "Waiting for a free interceptor".</li>
+          <li><strong>Do I need to step in?</strong> One control per threat to hold the intercept, and one guarded control to stop everything.</li>
+        </ul>
+        <p>The top bar answers the first two questions in a single line of plain language, so a glance is enough.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>Shape first, colour second</h3>
+          <p>Hostile tracks are diamonds and interceptors are circles, borrowing the frame-shape convention from military map symbology. A held track turns hollow with a dashed outline. A recharging interceptor turns hollow too. Every state reads in greyscale.</p>
+        </div>
+        <div class="prose">
+          <h3>Labels only where you are looking</h3>
+          <p>Tracks carry an ID and nothing else. Range appears on the map only for the selected track, and the full detail lives in the queue. This removes the label pile-up from finding 1 without hiding any data.</p>
+        </div>
+        <div class="prose">
+          <h3>Hold to abort</h3>
+          <p>Abort is separated from routine controls, outlined in the hostile colour, and needs a 1.2 second press. The button fills as you hold, so the delay explains itself. It works the same from the keyboard. Recall, which is reversible, stays a single click.</p>
+        </div>
+        <div class="prose">
+          <h3>Autonomy you can overrule</h3>
+          <p>Selecting a threat offers one action: hold the intercept. The copy says what will happen before you commit, and the log records it as "You put T3 on hold", so operator actions and system actions are never confused afterward.</p>
+        </div>
+        <div class="prose">
+          <h3>Battery as time</h3>
+          <p>"41%" became "5 min of flight left". The bar turns amber and the word "low" appears together, so the warning does not rely on the colour change.</p>
+        </div>
+        <div class="prose">
+          <h3>Simulation you cannot miss</h3>
+          <p>A hazard-striped SIMULATION marker sits beside the title on every frame. In a live build that slot would carry the opposite marker, so the operator learns one place to look.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">What building it taught me</p>
+    <div class="content">
+      <div class="prose">
+        <p>The first coded version re-sorted the queue every frame. Rows jumped while I was reaching for them, which is exactly the kind of fault a static mockup would never have shown me. The list now updates four times a second and keeps each row's identity, so focus and clicks survive a reorder.</p>
+        <p>Putting a threat on hold and watching it reach the perimeter also made the cost of the hold control obvious. The log line for that case now says so directly: "T3 reached the perimeter while on hold."</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Limits and next steps</p>
+    <div class="content">
+      <p class="note">This is an expert review and a concept. No operator has used version 2. The severity ratings are my own judgement, and the simulation uses a simple nearest-available pairing rule for illustration.</p>
+      <div class="prose">
+        <p>What I would do next, in order:</p>
+        <ul>
+          <li>Think-aloud sessions with five people who have operated sensor or air-defense displays, using timed scenarios: find the nearest threat, state whether it is covered, and veto one pairing.</li>
+          <li>Measure time to first correct answer on version 1 against version 2 with the same scenarios.</li>
+          <li>Test the queue at eight or more simultaneous tracks, where a list may stop being enough.</li>
+          <li>Check the palette under night-vision-compatible lighting and in direct sun.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Next sheet</span>
+    <a class="big" href="sanders-air-defense.html">Sanders Air Defense: identity and website →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

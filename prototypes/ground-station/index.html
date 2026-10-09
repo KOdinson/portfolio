@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WASP Ground Station v2 | Concept prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Operator display: one dark theme by choice. Affiliation is carried by shape first, colour second. */
+:root {
+  --bg: #0A111B; --panel: #111B29; --line: #24344A; --text: #E4EAF1; --dim: #93A4BA;
+  --hostile: #FF7566; --friendly: #62C6FF; --caution: #FFC857; --ok: #6EE7A8;
+  --body: "Public Sans", system-ui, "Segoe UI", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 14px/1.4 var(--body); }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--caution); outline-offset: 2px; }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+h2 { margin: 0; font: 600 12px/1 var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); }
+
+.app { height: 100%; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+.top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.top b { font-size: 15px; }
+.sim { font: 500 12px/1 var(--mono); letter-spacing: 0.08em; color: #1A1203; padding: 6px 10px;
+  background: repeating-linear-gradient(-45deg, var(--caution) 0 10px, #E5AE35 10px 20px); }
+.headline { flex: 1 1 280px; font-size: 15px; min-width: 0; }
+.headline strong { color: var(--hostile); }
+.ghost { background: transparent; border: 1px solid var(--line); padding: 7px 12px; border-radius: 4px; }
+.ghost:hover { border-color: var(--dim); }
+
+.main { display: grid; grid-template-columns: 300px minmax(0, 1fr) 270px; grid-template-rows: minmax(0, 1fr); min-height: 0; overflow: hidden; }
+.col { display: flex; flex-direction: column; gap: 10px; padding: 14px; min-height: 0; overflow: auto; }
+.col + .col { border-left: 1px solid var(--line); }
+.map { padding: 10px; position: relative; display: grid; place-items: center; }
+.map svg { width: 100%; height: 100%; max-height: 100%; display: block; }
+
+.list { display: grid; gap: 8px; }
+.row { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 2px 10px; align-items: center; text-align: left;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; width: 100%; }
+.row[aria-pressed="true"] { border-color: var(--text); box-shadow: inset 3px 0 0 var(--text); }
+.row .id { font-weight: 700; font-size: 15px; }
+.row .sub { grid-column: 2 / -1; color: var(--dim); font-size: 13px; }
+.row .eta { font: 500 18px/1 var(--mono); }
+.row .eta small { font-size: 11px; color: var(--dim); margin-left: 3px; }
+.row.urgent .eta { color: var(--hostile); }
+.empty { color: var(--dim); padding: 10px 2px; }
+.detail { margin-top: auto; border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 8px; }
+.detail p { margin: 0; color: var(--dim); font-size: 13px; }
+.act { background: var(--panel); border: 1px solid var(--dim); border-radius: 4px; padding: 9px 12px; font-weight: 600; }
+.act:hover { background: #18263A; }
+
+.unit { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; display: grid; gap: 6px; }
+.unit .line { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.unit .id { font-weight: 700; }
+.unit .state { font-size: 13px; }
+.bar { height: 5px; background: #1D2A3D; border-radius: 3px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--ok); }
+.bar.low i { background: var(--caution); }
+.unit .batt { font-size: 12px; color: var(--dim); }
+
+.bottom { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; padding: 10px 16px; border-top: 1px solid var(--line); align-items: center; }
+.log { display: grid; gap: 2px; font-size: 13px; height: 58px; overflow: hidden; align-content: start; }
+.log div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--dim); }
+.log div:first-child { color: var(--text); }
+.log time { font-family: var(--mono); margin-right: 8px; color: var(--dim); }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 28px; align-items: center; }
+.tally { font-size: 13px; color: var(--dim); }
+.abort { position: relative; overflow: hidden; background: transparent; border: 2px solid var(--hostile); color: var(--hostile);
+  padding: 10px 16px; border-radius: 4px; font-weight: 700; touch-action: none; user-select: none; }
+.abort::before { content: ""; position: absolute; inset: 0; background: var(--hostile); opacity: 0.35; transform: scaleX(0); transform-origin: left; }
+.abort.holding::before { transform: scaleX(1); transition: transform 1.2s linear; }
+.abort span { position: relative; }
+
+.overlay { position: absolute; inset: 10px; display: grid; place-items: center; background: rgba(10, 17, 27, 0.86); text-align: center; padding: 20px; }
+.overlay div { display: grid; gap: 12px; justify-items: center; max-width: 34ch; }
+.overlay b { font-size: 22px; }
+
+@media (max-width: 900px) {
+  html, body { height: auto; }
+  .app { height: auto; }
+  .main { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; overflow: visible; }
+  .map { order: -1; aspect-ratio: 1; }
+  .col + .col { border-left: 0; border-top: 1px solid var(--line); }
+  .col { overflow: visible; }
+  .bottom { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <b>WASP Ground Station</b>
+    <span class="sim">SIMULATION</span>
+    <div class="headline" id="headline" aria-live="polite"></div>
+    <button class="ghost" id="pause" type="button">Pause</button>
+  </div>
+
+  <div class="main">
+    <section class="col" aria-label="Threat queue">
+      <h2>Threats, soonest first</h2>
+      <div class="list" id="queue"></div>
+      <div class="detail" id="detail"></div>
+    </section>
+
+    <section class="map" aria-label="Tactical map">
+      <svg viewBox="-360 -360 720 720" role="img" aria-label="Top-down map. Hostile tracks are diamonds, interceptors are circles.">
+        <g fill="none" stroke="#24344A" stroke-width="1">
+          <circle r="100"/><circle r="200"/><circle r="300"/>
+          <line x1="-340" x2="340"/><line y1="-340" y2="340"/>
+        </g>
+        <g fill="#93A4BA" font-family="IBM Plex Mono, monospace" font-size="13">
+          <text x="6" y="-104">100 m</text><text x="6" y="-204">200 m</text><text x="6" y="-304">300 m</text>
+          <text x="-5" y="-338" font-size="15" fill="#E4EAF1">N</text>
+        </g>
+        <rect x="-7" y="-7" width="14" height="14" fill="none" stroke="#E4EAF1" stroke-width="2"/>
+        <text x="12" y="22" fill="#E4EAF1" font-family="Public Sans, sans-serif" font-size="13" font-weight="600">You</text>
+        <g id="dyn"></g>
+      </svg>
+      <div class="overlay" id="overlay" hidden>
+        <div>
+          <b>Aborted</b>
+          <span>All interceptors are docked and autonomy is off. Nothing will launch until you reset.</span>
+          <button class="act" id="reset" type="button">Reset simulation</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="col" aria-label="Interceptors">
+      <h2>Interceptors</h2>
+      <div class="list" id="roster"></div>
+    </section>
+  </div>
+
+  <div class="bottom">
+    <div class="log" id="log" aria-live="polite" aria-label="Event log"></div>
+    <div class="controls">
+      <span class="tally num" id="tally"></span>
+      <button class="ghost" id="recall" type="button">Recall all</button>
+      <button class="abort" id="abort" type="button" aria-describedby="abortHint"><span id="abortHint">Hold to abort</span></button>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const UNIT_SPEED = 24, RECHARGE = 10, PERIMETER = 20;
+let S;
+
+function reset() {
+  S = { t: 0, paused: false, mode: 'active', threats: [], sel: null, nextId: 1, spawnIn: 0.5, log: [], stopped: 0, reached: 0,
+    units: [1, 2, 3, 4].map((n) => ({ id: 'W' + n, x: 0, y: 0, a: n * 1.57, state: 'loiter', target: null, timer: 0, batt: 480 + n * 70 })) };
+  $('overlay').hidden = true;
+  $('recall').textContent = 'Recall all';
+  $('queue').replaceChildren(); $('roster').replaceChildren();
+  say('Simulation started. Autonomy is on.');
+  // Start mid-engagement so the first frame shows a working display.
+  spawn(250, 1.2); spawn(310, 4.1); spawn(180, 5.6);
+  for (let i = 0; i < 40; i++) step(0.1);
+}
+
+function say(msg) { S.log.unshift({ t: S.t, msg }); S.log.length = Math.min(S.log.length, 3); }
+const clock = (t) => String(Math.floor(t / 60)).padStart(2, '0') + ':' + String(Math.floor(t % 60)).padStart(2, '0');
+const range = (o) => Math.hypot(o.x, o.y);
+const bearing = (o) => String(Math.round((Math.atan2(o.x, -o.y) * 180 / Math.PI + 360) % 360)).padStart(3, '0');
+const eta = (th) => Math.max(0, (range(th) - PERIMETER) / th.speed);
+const unitOf = (th) => S.units.find((u) => u.target === th.id);
+
+function spawn(r, ang) {
+  r = r || 335; ang = ang === undefined ? Math.random() * 6.283 : ang;
+  S.threats.push({ id: 'T' + S.nextId++, x: Math.sin(ang) * r, y: -Math.cos(ang) * r, speed: 7 + Math.random() * 6, held: false });
+}
+
+function moveToward(o, tx, ty, dist) {
+  const dx = tx - o.x, dy = ty - o.y, d = Math.hypot(dx, dy);
+  if (d <= dist) { o.x = tx; o.y = ty; return 0; }
+  o.x += dx / d * dist; o.y += dy / d * dist; return d - dist;
+}
+
+function step(dt) {
+  S.t += dt;
+  if (S.mode === 'active' && (S.spawnIn -= dt) <= 0 && S.threats.length < 6) { spawn(); S.spawnIn = 4 + Math.random() * 4; }
+
+  for (const th of [...S.threats]) {
+    moveToward(th, 0, 0, th.speed * dt);
+    if (range(th) <= PERIMETER) {
+      S.threats.splice(S.threats.indexOf(th), 1); S.reached++;
+      const u = unitOf(th); if (u) { u.target = null; u.state = 'loiter'; }
+      if (S.sel === th.id) S.sel = null;
+      say(th.id + ' reached the perimeter' + (th.held ? ' while on hold.' : '.'));
+    }
+  }
+
+  // Autonomy: soonest threat gets the nearest free interceptor. The operator can hold any pairing.
+  if (S.mode === 'active') {
+    for (const th of [...S.threats].sort((a, b) => eta(a) - eta(b))) {
+      if (th.held || unitOf(th)) continue;
+      const free = S.units.filter((u) => u.state === 'loiter').sort((a, b) => Math.hypot(a.x - th.x, a.y - th.y) - Math.hypot(b.x - th.x, b.y - th.y))[0];
+      if (!free) break;
+      free.state = 'intercept'; free.target = th.id;
+      say(free.id + ' assigned to ' + th.id + ' at ' + Math.round(range(th)) + ' m.');
+    }
+  }
+
+  for (const u of S.units) {
+    if (u.state !== 'docked') u.batt = Math.max(60, u.batt - dt);
+    if (u.state === 'intercept') {
+      const th = S.threats.find((t) => t.id === u.target);
+      if (!th) { u.state = 'loiter'; u.target = null; continue; }
+      if (moveToward(u, th.x, th.y, UNIT_SPEED * dt) < 10) {
+        S.threats.splice(S.threats.indexOf(th), 1); S.stopped++;
+        if (S.sel === th.id) S.sel = null;
+        u.state = 'recharge'; u.timer = RECHARGE; u.target = null;
+        say(u.id + ' stopped ' + th.id + ' at ' + Math.round(range(u)) + ' m. Recharging.');
+      }
+    } else if (u.state === 'recharge') {
+      if ((u.timer -= dt) <= 0) { u.state = S.mode === 'active' ? 'loiter' : 'return'; }
+    } else if (u.state === 'loiter') {
+      u.a += 0.45 * dt;
+      moveToward(u, Math.sin(u.a) * 48, -Math.cos(u.a) * 48, UNIT_SPEED * dt);
+    } else if (u.state === 'return') {
+      if (moveToward(u, 0, 0, UNIT_SPEED * dt) === 0) u.state = 'docked';
+    }
+  }
+}
+
+// ---------- Rendering ----------
+const diamond = (x, y, s) => `M${x} ${y - s}L${x + s} ${y}L${x} ${y + s}L${x - s} ${y}Z`;
+
+function drawMap() {
+  let h = '';
+  for (const th of S.threats) {
+    const u = unitOf(th), sel = S.sel === th.id, r = range(th);
+    const lx = th.x - th.x / r * th.speed * 5, ly = th.y - th.y / r * th.speed * 5;
+    if (u) h += `<line x1="${u.x}" y1="${u.y}" x2="${th.x}" y2="${th.y}" stroke="#62C6FF" stroke-width="1.5" stroke-dasharray="5 5"/>`;
+    h += `<line x1="${th.x}" y1="${th.y}" x2="${lx}" y2="${ly}" stroke="#FF7566" stroke-width="2"/>`;
+    if (sel) h += `<circle cx="${th.x}" cy="${th.y}" r="22" fill="none" stroke="#E4EAF1" stroke-width="1.5"/>`;
+    h += `<path data-id="${th.id}" d="${diamond(th.x, th.y, 11)}" style="cursor:pointer" ${th.held
+      ? 'fill="#0A111B" stroke="#FF7566" stroke-width="2.5" stroke-dasharray="4 3"' : 'fill="#FF7566"'}/>`;
+    h += `<text x="${th.x + 16}" y="${th.y - 10}" fill="#E4EAF1" font-family="Public Sans, sans-serif" font-weight="700" font-size="15">${th.id}${sel ? ' · ' + Math.round(r) + ' m' : ''}</text>`;
+  }
+  for (const u of S.units) {
+    if (u.state === 'docked') continue;
+    h += `<circle cx="${u.x}" cy="${u.y}" r="7" ${u.state === 'recharge' ? 'fill="#0A111B" stroke="#62C6FF" stroke-width="2.5"' : 'fill="#62C6FF"'}/>`;
+    if (u.state !== 'loiter') h += `<text x="${u.x + 11}" y="${u.y + 16}" fill="#62C6FF" font-family="Public Sans, sans-serif" font-weight="600" font-size="13">${u.id}</text>`;
+  }
+  $('dyn').innerHTML = h;
+}
+
+// Keyed rows: update in place so focus and clicks survive the refresh.
+function sync(container, items, make, fill) {
+  const want = items.map((i) => i.id);
+  for (const el of [...container.children]) if (el.dataset.id && !want.includes(el.dataset.id)) el.remove();
+  items.forEach((item) => {
+    let el = container.querySelector(`[data-id="${item.id}"]`);
+    if (!el) { el = make(item); el.dataset.id = item.id; container.append(el); }
+    fill(el, item);
+  });
+  if ([...container.children].map((c) => c.dataset.id).join() !== want.join()) {
+    items.forEach((i) => container.append(container.querySelector(`[data-id="${i.id}"]`)));
+  }
+}
+const set = (el, sel, text) => { const n = el.querySelector(sel); if (n.textContent !== text) n.textContent = text; };
+
+function threatStatus(th) {
+  const u = unitOf(th);
+  if (th.held) return 'On hold by you. No interceptor will engage.';
+  if (u) return u.id + ' intercepting, ' + Math.ceil(Math.hypot(u.x - th.x, u.y - th.y) / (UNIT_SPEED + th.speed)) + ' s to contact';
+  return S.mode === 'active' ? 'Waiting for a free interceptor' : 'Not engaged: interceptors recalled';
+}
+
+function drawLists() {
+  const sorted = [...S.threats].sort((a, b) => eta(a) - eta(b));
+  const q = $('queue');
+  if (!sorted.length && !q.querySelector('.empty')) q.innerHTML = '<div class="empty">No threats tracked.</div>';
+  if (sorted.length && q.querySelector('.empty')) q.replaceChildren();
+  sync(q, sorted, () => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'row';
+    b.innerHTML = '<svg viewBox="-12 -12 24 24" width="22" height="22" aria-hidden="true"><path d="M0 -10L10 0L0 10L-10 0Z"/></svg>' +
+      '<span><span class="id"></span> <span class="num pos"></span></span><span class="eta num"><span class="s"></span><small>s</small></span><span class="sub"></span>';
+    return b;
+  }, (el, th) => {
+    el.setAttribute('aria-pressed', S.sel === th.id);
+    el.classList.toggle('urgent', eta(th) < 10);
+    const p = el.querySelector('path');
+    p.setAttribute('fill', th.held ? 'none' : '#FF7566'); p.setAttribute('stroke', '#FF7566'); p.setAttribute('stroke-width', '2');
+    set(el, '.id', th.id); set(el, '.pos', bearing(th) + '° · ' + Math.round(range(th)) + ' m');
+    set(el, '.s', String(Math.ceil(eta(th)))); set(el, '.sub', threatStatus(th));
+    el.setAttribute('aria-label', `${th.id}, bearing ${bearing(th)}, ${Math.round(range(th))} metres, arrives in ${Math.ceil(eta(th))} seconds. ${threatStatus(th)}`);
+  });
+
+  const words = { loiter: 'Loitering', intercept: 'Intercepting', recharge: 'Recharging', return: 'Returning', docked: 'Docked' };
+  sync($('roster'), S.units, () => {
+    const d = document.createElement('div'); d.className = 'unit';
+    d.innerHTML = '<div class="line"><span class="id"></span><span class="state"></span></div><div class="bar"><i></i></div><div class="batt num"></div>';
+    return d;
+  }, (el, u) => {
+    set(el, '.id', u.id);
+    set(el, '.state', words[u.state] + (u.target ? ' ' + u.target : u.state === 'recharge' ? ' ' + Math.ceil(u.timer) + ' s' : ''));
+    el.querySelector('.bar i').style.width = Math.min(100, u.batt / 7.6) + '%';
+    el.querySelector('.bar').classList.toggle('low', u.batt < 180);
+    set(el, '.batt', Math.floor(u.batt / 60) + ' min of flight left' + (u.batt < 180 ? ' · low' : ''));
+  });
+
+  const d = $('detail'), th = S.threats.find((t) => t.id === S.sel);
+  const key = th ? th.id + th.held : 'none';
+  if (d.dataset.key !== key) {
+    d.dataset.key = key;
+    d.innerHTML = th
+      ? `<h2>${th.id} selected</h2><button class="act" id="hold" type="button">${th.held ? 'Release hold on ' + th.id : 'Hold intercept on ' + th.id}</button>
+         <p>${th.held ? 'Autonomy will reassign an interceptor as soon as you release.' : 'Holding stops any interceptor from engaging this track until you release it.'}</p>`
+      : '<p>Select a threat to review it or hold its intercept.</p>';
+  }
+
+  const first = sorted[0];
+  $('headline').innerHTML = S.mode === 'aborted' ? 'Aborted. Autonomy is off.'
+    : first ? `Nearest threat <strong>${first.id}</strong> arrives in <span class="num">${Math.ceil(eta(first))} s</span>. ${threatStatus(first).replace(/\.$/, '')}.`
+    : 'No threats tracked. ' + (S.mode === 'active' ? 'Interceptors loitering.' : 'Interceptors recalled.');
+  $('tally').textContent = 'Stopped ' + S.stopped + ' · Reached perimeter ' + S.reached + ' · ' + clock(S.t);
+  $('log').innerHTML = S.log.map((l) => `<div><time>${clock(l.t)}</time>${l.msg}</div>`).join('');
+}
+
+// ---------- Input ----------
+$('queue').addEventListener('click', (e) => {
+  const row = e.target.closest('.row'); if (!row) return;
+  S.sel = S.sel === row.dataset.id ? null : row.dataset.id; drawLists();
+});
+$('dyn').addEventListener('pointerdown', (e) => { if (e.target.dataset.id) { S.sel = e.target.dataset.id; drawLists(); } });
+$('detail').addEventListener('click', (e) => {
+  if (e.target.id !== 'hold') return;
+  const th = S.threats.find((t) => t.id === S.sel); if (!th) return;
+  th.held = !th.held;
+  const u = unitOf(th);
+  if (th.held && u) { u.target = null; u.state = 'loiter'; }
+  say(th.held ? 'You put ' + th.id + ' on hold.' : 'You released the hold on ' + th.id + '.');
+  drawLists(); $('hold') && $('hold').focus();
+});
+$('pause').addEventListener('click', () => { S.paused = !S.paused; $('pause').textContent = S.paused ? 'Resume' : 'Pause'; });
+$('recall').addEventListener('click', () => {
+  if (S.mode === 'aborted') return;
+  const recalling = S.mode === 'active';
+  S.mode = recalling ? 'recalled' : 'active';
+  for (const u of S.units) {
+    if (recalling && u.state !== 'recharge') { u.state = 'return'; u.target = null; }
+    if (!recalling && u.state !== 'recharge') u.state = 'loiter';
+  }
+  $('recall').textContent = recalling ? 'Relaunch' : 'Recall all';
+  say(recalling ? 'You recalled all interceptors.' : 'You relaunched. Autonomy is on.');
+});
+
+// Abort is irreversible in the field, so it takes a deliberate 1.2 s hold, by pointer or by key.
+let holdTimer = null;
+function holdStart() {
+  if (holdTimer || S.mode === 'aborted') return;
+  $('abort').classList.add('holding');
+  holdTimer = setTimeout(() => {
+    holdEnd(); S.mode = 'aborted';
+    for (const u of S.units) { u.state = 'docked'; u.target = null; u.x = 0; u.y = 0; }
+    say('You aborted. All interceptors docked.');
+    $('overlay').hidden = false; $('reset').focus();
+  }, 1200);
+}
+function holdEnd() { clearTimeout(holdTimer); holdTimer = null; $('abort').classList.remove('holding'); }
+const abortBtn = $('abort');
+abortBtn.addEventListener('pointerdown', holdStart);
+['pointerup', 'pointerleave', 'pointercancel', 'blur'].forEach((ev) => abortBtn.addEventListener(ev, holdEnd));
+abortBtn.addEventListener('keydown', (e) => { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat) { e.preventDefault(); holdStart(); } });
+abortBtn.addEventListener('keyup', holdEnd);
+$('reset').addEventListener('click', reset);
+
+// ---------- Loop ----------
+let last = performance.now(), listClock = 0;
+function frame(now) {
+  const dt = Math.min(0.1, (now - last) / 1000); last = now;
+  if (!S.paused && S.mode !== 'aborted') step(dt);
+  drawMap();
+  if ((listClock += dt) > 0.25) { listClock = 0; drawLists(); }
+  requestAnimationFrame(frame);
+}
+reset(); drawLists();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

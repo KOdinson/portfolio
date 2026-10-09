@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Punchlist | Concept prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;800&display=swap">
+<style>
+/* A resident-facing app: one light theme by choice. Green is the work-order colour, yellow is flagging tape. */
+:root {
+  --page: #DDE3DF; --bg: #FBFCFA; --card: #FFFFFF; --ink: #14231B; --ink-2: #536359; --line: #D3DBD5;
+  --green: #17603A; --green-soft: #E3F0E7; --tape: #F2C230; --red: #B3261E; --red-soft: #FBE9E7; --amber-soft: #FFF3CC;
+  --font: "Figtree", system-ui, "Segoe UI", Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 400 16px/1.45 var(--font); display: grid; place-items: center; padding: 0 16px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+h1, h2, p { margin: 0; }
+
+.stage { display: flex; gap: 56px; align-items: center; }
+.aside { max-width: 300px; display: grid; gap: 12px; }
+.aside h1 { font-size: 44px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
+.aside .tape { justify-self: start; background: var(--tape); font-weight: 600; font-size: 13px; padding: 4px 9px; }
+.aside p { color: var(--ink-2); }
+@media (max-width: 860px) { .aside { display: none; } }
+
+.phone { width: min(100vw - 32px, 380px); height: min(100vh - 24px, 740px); background: var(--bg); border-radius: 30px; border: 1px solid var(--line);
+  box-shadow: 0 18px 50px rgba(20, 35, 27, 0.18); display: grid; grid-template-rows: auto minmax(0, 1fr) auto; overflow: hidden; }
+.bar { padding: 16px 18px 10px; display: grid; gap: 10px; }
+.bar .rowx { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 30px; }
+.brand { font-weight: 800; letter-spacing: -0.01em; }
+.back { background: none; border: 0; padding: 4px 0; color: var(--green); font-weight: 600; }
+.steps { font-size: 13px; color: var(--ink-2); }
+.progress { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.progress i { display: block; height: 100%; background: var(--green); transition: width 0.2s; }
+@media (prefers-reduced-motion: reduce) { .progress i { transition: none; } }
+
+.body { padding: 6px 18px 18px; overflow: auto; display: grid; gap: 16px; align-content: start; }
+.body h2 { font-size: 25px; font-weight: 800; line-height: 1.12; letter-spacing: -0.01em; text-wrap: balance; }
+.hint { color: var(--ink-2); font-size: 14.5px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { background: var(--card); border: 1.5px solid var(--line); border-radius: 10px; padding: 11px 14px; font-weight: 500; text-align: left; }
+.chip[aria-pressed="true"] { border-color: var(--green); background: var(--green-soft); box-shadow: inset 0 0 0 1px var(--green); }
+.stack { display: grid; gap: 8px; }
+.stack .chip { width: 100%; }
+.group { display: grid; gap: 8px; }
+.group > b { font-size: 14.5px; }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: grid; gap: 6px; }
+.card .t { font-weight: 600; }
+.card .s { font-size: 14px; color: var(--ink-2); }
+.pill { justify-self: start; font-size: 12.5px; font-weight: 600; padding: 3px 9px; border-radius: 99px; background: var(--green-soft); color: var(--green); }
+.pill.emergency { background: var(--red-soft); color: var(--red); }
+.pill.urgent { background: var(--amber-soft); color: #6B4E00; }
+.sample { font-size: 12.5px; color: var(--ink-2); background: var(--tape); color: var(--ink); justify-self: start; padding: 2px 8px; font-weight: 600; }
+
+.banner { border-radius: 14px; padding: 14px; display: grid; gap: 6px; }
+.banner.emergency { background: var(--red-soft); border: 1.5px solid var(--red); }
+.banner.urgent { background: var(--amber-soft); border: 1.5px solid #C99A00; }
+.banner.routine { background: var(--green-soft); border: 1.5px solid var(--green); }
+.banner b { font-size: 17px; }
+.banner .tel { font-size: 22px; font-weight: 800; user-select: all; }
+
+textarea { width: 100%; min-height: 92px; border: 1.5px solid var(--line); border-radius: 10px; padding: 11px 12px; font: inherit; background: var(--card); color: var(--ink); resize: vertical; }
+.photo { border: 1.5px dashed var(--ink-2); background: transparent; border-radius: 12px; padding: 18px; font-weight: 600; width: 100%; }
+.photo.added { border-style: solid; border-color: var(--green); background: var(--green-soft); }
+
+dl { margin: 0; display: grid; gap: 0; }
+dl div { display: grid; grid-template-columns: 6.2rem minmax(0, 1fr); gap: 10px; padding: 10px 0; border-top: 1px solid var(--line); }
+dl div:first-child { border-top: 0; }
+dt { color: var(--ink-2); font-size: 14px; }
+dd { margin: 0; font-weight: 500; }
+
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; }
+.timeline li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; padding-bottom: 16px; position: relative; }
+.timeline li::before { content: ""; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--line); background: var(--bg); margin: 4px 0 0 2px; z-index: 1; }
+.timeline li::after { content: ""; position: absolute; left: 10px; top: 20px; bottom: 0; width: 2px; background: var(--line); }
+.timeline li:last-child::after { display: none; }
+.timeline li.done::before { background: var(--green); border-color: var(--green); }
+.timeline li.now::before { border-color: var(--green); box-shadow: 0 0 0 4px var(--green-soft); }
+.timeline b { display: block; }
+.timeline span { font-size: 14px; color: var(--ink-2); }
+.timeline li.todo b { color: var(--ink-2); font-weight: 500; }
+
+.foot { padding: 12px 18px 18px; border-top: 1px solid var(--line); background: var(--bg); display: grid; gap: 8px; }
+.primary { background: var(--green); color: #fff; border: 0; border-radius: 12px; padding: 15px; font-weight: 600; font-size: 16.5px; width: 100%; }
+.primary:disabled { background: var(--line); color: var(--ink-2); cursor: not-allowed; }
+.why { font-size: 13px; color: var(--ink-2); text-align: center; min-height: 1.3em; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="aside">
+    <span class="tape">Concept prototype · sample data</span>
+    <h1>Punchlist</h1>
+    <p>A maintenance request a resident can file in under a minute, written so the tech arrives with the right part the first time.</p>
+    <p>Try it: report a problem, answer the safety check, and follow the request.</p>
+  </div>
+  <main class="phone" aria-live="polite">
+    <div class="bar" id="bar"></div>
+    <div class="body" id="body"></div>
+    <div class="foot" id="foot"></div>
+  </main>
+</div>
+
+<script>
+const ROOMS = ['Kitchen', 'Bathroom', 'Bedroom', 'Living area', 'Laundry', 'Entry or hall', 'Balcony', 'Whole unit'];
+const KINDS = {
+  'Water or a leak': { symptoms: ['Dripping', 'Pooling on the floor', 'Stain on ceiling or wall', 'Drain is clogged', 'No hot water'],
+    ask: 'Is water still running or spreading right now?', level: 'emergency' },
+  'Power or lights': { symptoms: ['Outlet is dead', 'Light will not turn on', 'Breaker keeps tripping', 'Switch feels warm'],
+    ask: 'Do you see sparks or smoke, or smell burning?', level: 'emergency' },
+  'Heating or cooling': { symptoms: ['No heat', 'No cooling', 'Thermostat is blank', 'Loud or rattling noise'],
+    ask: 'Is it colder than 55°F or hotter than 90°F inside?', level: 'urgent' },
+  'Door, lock or window': { symptoms: ['Lock will not turn', 'Door will not close', 'Window will not shut', 'Glass is cracked'],
+    ask: 'Does this leave your home unable to be locked?', level: 'urgent' },
+  'An appliance': { symptoms: ['Will not start', 'Leaking', 'Not heating or cooling', 'Strange noise'] },
+  'Pests': { symptoms: ['Ants', 'Roaches', 'Mice', 'Something else'] },
+  'Something else': { symptoms: ['Damage to a wall or floor', 'A smell', 'A noise', 'I am not sure'] }
+};
+const LEVELS = {
+  emergency: { name: 'Emergency', promise: 'A tech is paged now and calls you within 15 minutes.' },
+  urgent: { name: 'Urgent', promise: 'We schedule this for today.' },
+  routine: { name: 'Routine', promise: 'We schedule this within 2 business days.' }
+};
+const STEPS = ['where', 'what', 'safety', 'details', 'access', 'review'];
+
+let screen = 'home';
+let req = fresh();
+const filed = [];
+function fresh() { return { room: '', kind: '', symptom: '', danger: null, photo: false, note: '', enter: '', pets: '', when: '' }; }
+const level = () => (req.danger === 'Yes' ? KINDS[req.kind].level : 'routine');
+const chips = (field, options, stacked) => `<div class="${stacked ? 'stack' : 'chips'}">` + options.map((o) =>
+  `<button type="button" class="chip" data-set="${field}" data-val="${o}" aria-pressed="${req[field] === o}">${o}</button>`).join('') + '</div>';
+
+const VIEWS = {
+  home: () => ({
+    body: `<h2>Hi. Anything need fixing in 4B?</h2>` +
+      (filed.length ? filed.map((f, i) => `<button type="button" class="card" data-open="${i}" style="text-align:left">
+          <span class="pill ${f.level}">${LEVELS[f.level].name} · received</span><span class="t">${f.symptom}, ${f.room.toLowerCase()}</span>
+          <span class="s">${LEVELS[f.level].promise}</span></button>`).join('') : '') +
+      `<div class="card"><span class="sample">Sample request</span><span class="pill">Scheduled</span>
+        <span class="t">Dishwasher will not start, kitchen</span><span class="s">Thursday, 10 am to noon. Marcus will knock first.</span></div>`,
+    cta: 'Report a problem', go: 'where'
+  }),
+  where: () => ({ body: `<h2>Where is the problem?</h2>${chips('room', ROOMS)}`, ok: req.room, why: 'Pick a room to continue' }),
+  what: () => ({
+    body: `<h2>What is going on in the ${req.room.toLowerCase()}?</h2>${chips('kind', Object.keys(KINDS), true)}` +
+      (req.kind ? `<div class="group"><b>What do you see?</b>${chips('symptom', KINDS[req.kind].symptoms)}</div>` : ''),
+    ok: req.kind && req.symptom, why: req.kind ? 'Pick what you see' : 'Pick the closest match'
+  }),
+  safety: () => {
+    const k = KINDS[req.kind], lv = level();
+    const result = req.danger === null ? '' : lv === 'emergency'
+      ? `<div class="banner emergency"><b>Call now. Do not wait on this form.</b><span>Emergency maintenance, answered 24 hours:</span>
+          <span class="tel">(555) 010-0142</span><span class="hint">If anyone is in danger, leave the unit and call 911 first. You can still finish this request so the tech has the details.</span></div>`
+      : `<div class="banner ${lv}"><b>${LEVELS[lv].name}</b><span>${LEVELS[lv].promise}</span></div>`;
+    return { body: `<h2>${k.ask}</h2><p class="hint">This decides how fast we respond, so you do not have to guess what counts as urgent.</p>${chips('danger', ['Yes', 'No'])}${result}`,
+      ok: req.danger !== null, why: 'Answer to continue' };
+  },
+  details: () => ({
+    body: `<h2>Show us, if you can</h2><p class="hint">A photo tells the tech which part to bring. Both of these are optional.</p>
+      <button type="button" class="photo ${req.photo ? 'added' : ''}" data-photo>${req.photo ? '1 photo added. Tap to remove.' : 'Add a photo'}</button>
+      <div class="group"><label for="note"><b>Anything else worth knowing?</b></label>
+      <textarea id="note" placeholder="For example: it started after the dishwasher ran.">${req.note}</textarea></div>`,
+    ok: true
+  }),
+  access: () => ({
+    body: `<h2>How should we get in?</h2>
+      <div class="group"><b>If you are not home, may we enter?</b>${chips('enter', ['Yes, come in', 'No, I need to be there'])}</div>
+      <div class="group"><b>Any pets inside?</b>${chips('pets', ['No pets', 'Yes, put away', 'Yes, loose'])}</div>
+      <div class="group"><b>Best time</b>${chips('when', ['Morning', 'Afternoon', 'Any time'])}</div>`,
+    ok: req.enter && req.pets && req.when, why: 'Three quick answers and you are done'
+  }),
+  review: () => ({
+    body: `<h2>Check it over</h2><span class="pill ${level()}">${LEVELS[level()].name}</span>
+      <dl><div><dt>Problem</dt><dd>${req.symptom}, ${req.room.toLowerCase()}</dd></div>
+      <div><dt>Type</dt><dd>${req.kind}</dd></div>
+      <div><dt>Details</dt><dd>${req.photo ? '1 photo' : 'No photo'}${req.note ? ' · “' + escapeHtml(req.note) + '”' : ''}</dd></div>
+      <div><dt>Entry</dt><dd>${req.enter} · pets: ${req.pets.toLowerCase()}</dd></div>
+      <div><dt>Time</dt><dd>${req.when}</dd></div></dl>
+      <p class="hint">${LEVELS[level()].promise}</p>`,
+    ok: true, cta: 'Send request'
+  }),
+  track: () => {
+    const lv = level();
+    return { body: `<h2>Got it. Here is what happens next.</h2><span class="pill ${lv}">${LEVELS[lv].name}</span>
+      <ol class="timeline">
+        <li class="done"><div><b>Received</b><span>Just now · ${req.symptom}, ${req.room.toLowerCase()}</span></div></li>
+        <li class="now"><div><b>Assigning a tech</b><span>${LEVELS[lv].promise}</span></div></li>
+        <li class="todo"><div><b>Scheduled</b><span>You get the day and a 2 hour window.</span></div></li>
+        <li class="todo"><div><b>On the way</b><span>${req.enter === 'Yes, come in' ? 'The tech knocks, then lets themselves in.' : 'The tech will only come when you are home.'}</span></div></li>
+        <li class="todo"><div><b>Fixed</b><span>You confirm it is working before we close it.</span></div></li>
+      </ol>`, cta: 'Back to my requests', go: 'home' };
+  }
+};
+
+function escapeHtml(s) { return s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+function render(keepScroll) {
+  const v = VIEWS[screen](), i = STEPS.indexOf(screen), body = document.getElementById('body'), y = body.scrollTop;
+  document.getElementById('bar').innerHTML = `<div class="rowx">` +
+    (i >= 0 ? `<button type="button" class="back" data-back>‹ Back</button><span class="steps">Step ${i + 1} of ${STEPS.length}</span>` : `<span class="brand">Punchlist</span><span class="steps">Unit 4B</span>`) +
+    `</div>` + (i >= 0 ? `<div class="progress"><i style="width:${(i + 1) / STEPS.length * 100}%"></i></div>` : '');
+  body.innerHTML = v.body;
+  body.scrollTop = keepScroll ? y : 0;
+  const ok = v.ok === undefined ? true : Boolean(v.ok);
+  document.getElementById('foot').innerHTML = `<button type="button" class="primary" data-next ${ok ? '' : 'disabled'}>${v.cta || 'Continue'}</button>
+    <div class="why">${ok ? '' : v.why || ''}</div>`;
+}
+
+document.addEventListener('input', (e) => { if (e.target.id === 'note') req.note = e.target.value; });
+document.addEventListener('click', (e) => {
+  const t = e.target.closest('button'); if (!t) return;
+  if (t.dataset.set) {
+    const f = t.dataset.set;
+    req[f] = t.dataset.val;
+    if (f === 'kind') { req.symptom = ''; req.danger = null; }
+    render(true);
+    const again = document.querySelector(`[data-set="${f}"][data-val="${CSS.escape(t.dataset.val)}"]`); if (again) again.focus();
+  } else if ('photo' in t.dataset) { req.photo = !req.photo; render(true);
+  } else if ('back' in t.dataset) {
+    let i = STEPS.indexOf(screen) - 1;
+    if (STEPS[i] === 'safety' && !KINDS[req.kind].ask) i--;
+    screen = i < 0 ? 'home' : STEPS[i]; render();
+  } else if ('open' in t.dataset) { req = filed[t.dataset.open]; screen = 'track'; render();
+  } else if ('next' in t.dataset) {
+    const v = VIEWS[screen]();
+    if (screen === 'review') { filed.unshift({ ...req, level: level() }); screen = 'track'; }
+    else if (v.go) { if (v.go === 'where' || screen === 'track') req = fresh(); screen = v.go; }
+    else {
+      let i = STEPS.indexOf(screen) + 1;
+      if (STEPS[i] === 'safety' && !KINDS[req.kind].ask) { req.danger = null; i++; }
+      screen = STEPS[i];
+    }
+    render();
+  }
+});
+render();
+</script>
+</body>
+</html>

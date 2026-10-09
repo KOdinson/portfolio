@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CopyCat | Keith Sanders II</title>
+<meta name="description" content="Case study: interface design for a browser extension that detects clipboard surveillance.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="cs-head">
+    <p class="label">Sheet 3 of 4 · <span class="tag shipped">Built · browser extension</span></p>
+    <h1>CopyCat: showing people they're being watched</h1>
+    <p class="lede">Web pages can register listeners that fire whenever you copy, select or right-click. Nothing on screen tells you. CopyCat is a Chrome and Edge extension I built to detect that, block it, and show you what happened.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Concept, interface design, build</dd></div>
+      <div><dt>Scope</dt><dd>Popup, in-page alert, settings, dashboard</dd></div>
+      <div><dt>When</dt><dd>May 2026</dd></div>
+      <div><dt>Status</dt><dd>Working build, v1.0.1, packaged for install</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">The design problem</p>
+    <div class="content">
+      <div class="prose">
+        <p>The engineering question was whether tracking could be detected. The design question was harder: how do you tell a person about something invisible that happens on many of the pages they visit?</p>
+        <p>Say too little and the tool looks like it does nothing. Say too much and it cries wolf on every page until the person turns it off. Security software fails this way all the time. Alert fatigue is one of the first things security monitoring teaches you.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">The surfaces</p>
+    <div class="content">
+      <div class="cols2">
+        <figure>
+          <div class="popup-spec">
+            <header><span class="dot">C</span><span><b>CopyCat</b><small>v1.0.0</small></span><span class="state">!</span></header>
+            <div class="alert"><b>Current site</b>
+              <span><code>copy</code> <code>contextmenu</code> <code>selectstart</code></span>
+            </div>
+            <div class="row"><span><b>Shield Mode</b><small>Block this site from tracking copies</small></span><span class="sw on"></span></div>
+            <div class="row"><span><b>Watermark Copies</b><small>Embed invisible ID in copied text</small></span><span class="sw on"></span></div>
+            <div class="row"><span><b>Alerts</b><small>Show in-page surveillance alerts</small></span><span class="sw on"></span></div>
+            <div class="row"><span><b>Secure Copy</b><small>Encrypt clipboard contents</small></span><span class="sw"></span></div>
+          </div>
+          <figcaption>The toolbar popup, redrawn here as a static specimen. Switch labels and descriptions are from the build. The site status shows the raw event names the page registered.</figcaption>
+        </figure>
+        <div class="prose">
+          <p>Four surfaces, each answering a different question at a different moment:</p>
+          <ul>
+            <li><strong>Toolbar badge.</strong> A single "!" on the icon. Is anything happening on this page? Costs the user zero attention if the answer is no.</li>
+            <li><strong>In-page alert.</strong> A small card in the corner of the page when tracking is detected. What just happened?</li>
+            <li><strong>Popup.</strong> Current site status, four switches, recent events. What can I do about it?</li>
+            <li><strong>Dashboard.</strong> A full event history across sites, with a separate log for text and screenshots pasted into AI tools. What has been happening over time?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>A clean result is still a result</h3>
+          <p>When a page registers nothing, the popup says "No Tracking Detected" with a check mark. A privacy tool that stays blank when things are fine looks broken. Saying so out loud is what lets people trust the silence.</p>
+        </div>
+        <div class="prose">
+          <h3>Every switch states its consequence</h3>
+          <p>Four switches, each with one line underneath that says what turning it on does to you, in the form "Block this site from tracking copies". No switch is explained by its own name.</p>
+        </div>
+        <div class="prose">
+          <h3>An alert the page cannot tamper with</h3>
+          <p>The in-page banner renders inside an isolated shadow root. A page that is already watching your clipboard should not be able to restyle or hide the message that tells you so.</p>
+        </div>
+        <div class="prose">
+          <h3>Show the screenshot you pasted</h3>
+          <p>When an image is pasted into an AI chat, the log shows a thumbnail of it. A line of text saying "image pasted" is easy to dismiss. Seeing the picture you just handed over is not.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Critique of v1</p>
+    <div class="content">
+      <div class="prose">
+        <p>I built this before I had finished thinking about it, and it shows. What I would change:</p>
+        <ul>
+          <li><strong>Alert fatigue is unsolved.</strong> Many ordinary sites register copy listeners for harmless reasons. Version 1 alerts on all of them the same way. It needs tiers: silent count for common cases, a banner only when something new or unusual happens, and a per-site "don't tell me again".</li>
+          <li><strong>It speaks browser, not human.</strong> The popup lists events by their technical names, such as <code>selectstart</code>. The person calls that selecting text. Each row should lead with a plain description and keep the technical name beside it as the receipt.</li>
+          <li><strong>The feature names sell instead of describe.</strong> "Shield Mode" and "Secure Copy" need the subtitle to make sense. "Block copy tracking" would not.</li>
+          <li><strong>Emoji as icons.</strong> They render differently on every system and carry no consistent meaning. A small icon set would be clearer and calmer.</li>
+          <li><strong>The alert colour is always red.</strong> Blocking a tracker is a success. The banner should look like something handled, and save red for something that got through.</li>
+          <li><strong>The project pulls in two directions.</strong> Alongside the extension, I built a script that lets a website monitor copying during online exams. One product protects people from being watched and the other does the watching. They should be separate products, and the monitoring one needs clear disclosure to the people being monitored.</li>
+        </ul>
+      </div>
+      <p class="note">This project has had no formal usability testing. The critique above is my own review. The next step is a diary study: five people use it for a week and I count how many still have alerts switched on at the end.</p>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Next sheet</span>
+    <a class="big" href="punchlist.html">Punchlist: maintenance requests →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

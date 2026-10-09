@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Punchlist | Keith Sanders II</title>
+<meta name="description" content="Case study: a concept mobile flow for apartment maintenance requests, designed from the technician's side of the work order.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="cs-head">
+    <p class="label">Sheet 4 of 4 · <span class="tag concept">Concept · working prototype</span></p>
+    <h1>Punchlist: maintenance requests that get fixed in one visit</h1>
+    <p class="lede">In 2022 I was a maintenance specialist for a residential portfolio in Denver. Every job began with a work order somebody else had typed. This is a request form designed from the receiving end.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Flow design, content design, coded prototype</dd></div>
+      <div><dt>When</dt><dd>October 2026</dd></div>
+      <div><dt>Status</dt><dd>Self-initiated concept. Sample data. Untested with residents.</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">The prototype</p>
+    <div class="content">
+      <figure>
+        <div class="phone-embed">
+          <iframe src="../prototypes/punchlist/" title="Interactive Punchlist prototype"></iframe>
+        </div>
+        <div class="plate-cap">
+          <span>Live and interactive. Try "Water or a leak" and answer Yes to the safety check.</span>
+          <a href="../prototypes/punchlist/">Open full screen →</a>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Starting point</p>
+    <div class="content">
+      <div class="prose">
+        <p>Most request forms are designed for the office: a category dropdown for reporting, a free-text box, a priority field. The person who has to act on it is the tech, and the tech needs different things. I started by writing down what a tech has to know before knocking on the door.</p>
+        <ul>
+          <li><strong>Which room and which fixture</strong>, so the right tools come up the stairs.</li>
+          <li><strong>What it looks like</strong>, so the right part comes too. "Dripping" and "pooling on the floor" are different jobs.</li>
+          <li><strong>Whether it is getting worse right now</strong>, which decides if this is today or Thursday.</li>
+          <li><strong>Whether we can get in</strong>, and whether a dog is loose inside.</li>
+        </ul>
+      </div>
+      <p class="note">These are my working assumptions from doing the job, not research findings. I have not interviewed residents or other technicians for this project. The plan to validate them is at the end.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">The flow</p>
+    <div class="content">
+      <div class="rows">
+        <div><span>Step 1 · Where</span><div><b>Pick a room</b><small>Eight large targets. No typing.</small></div></div>
+        <div><span>Step 2 · What</span><div><b>Pick the closest problem, then what you see</b><small>Categories are named the way a resident would say them: "Water or a leak", not "Plumbing". Symptoms appear only after a category is chosen.</small></div></div>
+        <div><span>Step 3 · Safety</span><div><b>One yes-or-no question</b><small>The question depends on the problem. The answer sets the urgency. Categories with no safety risk skip this step.</small></div></div>
+        <div><span>Step 4 · Details</span><div><b>Photo and note, both optional</b><small>The prompt asks for what a tech can use, with an example.</small></div></div>
+        <div><span>Step 5 · Access</span><div><b>Entry, pets, best time</b><small>Three taps.</small></div></div>
+        <div><span>Step 6 · Review</span><div><b>Read it back, send</b><small>Then a timeline that names each stage and what happens in it.</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>The form decides urgency</h3>
+          <p>A priority dropdown asks the resident to rank their own problem, and everyone's problem is urgent to them. Punchlist asks a factual question instead: "Is water still running or spreading right now?" The answer sets the level, and the resident sees why.</p>
+        </div>
+        <div class="prose">
+          <h3>An emergency leaves the form</h3>
+          <p>If the answer signals danger, the screen says to call, in the largest type in the app, before anything else. The request can still be finished so the tech has the details, but the form never stands between a person and a phone number.</p>
+        </div>
+        <div class="prose">
+          <h3>A promise on every status</h3>
+          <p>Each urgency level carries a plain commitment: "We schedule this for today." It appears when the level is set, again on review, and again on the tracking screen. The resident never has to wonder what "Received" means.</p>
+        </div>
+        <div class="prose">
+          <h3>Access is a required step</h3>
+          <p>Permission to enter and pets are usually buried in a notes field or missed. Here they are three required taps at the end. The tracking screen then repeats the answer back as behaviour: "The tech knocks, then lets themselves in."</p>
+        </div>
+        <div class="prose">
+          <h3>The button says why it is disabled</h3>
+          <p>Continue stays visible on every step. When it is disabled, a line beneath it says what is missing, such as "Pick a room to continue".</p>
+        </div>
+        <div class="prose">
+          <h3>Tap first, type last</h3>
+          <p>A request can be filed without the keyboard opening once. The only text field is optional and comes after the structured answers have already captured the essentials.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Limits and next steps</p>
+    <div class="content">
+      <p class="note">This is a concept with one designer's assumptions in it. The response times and phone number in the prototype are placeholders, and the safety questions would need review by a property manager and against local habitability rules before real use.</p>
+      <div class="prose">
+        <p>What I would do next, in order:</p>
+        <ul>
+          <li>Interview five residents and five maintenance techs about the last request that went badly, to test whether my four needs are the right four.</li>
+          <li>Collect real work orders and sort their descriptions, to check the category and symptom labels against the words people use.</li>
+          <li>Run task-based tests of the flow with a timer, including one emergency scenario, and watch whether people read the call instruction or tap past it.</li>
+          <li>Design the technician's side: the same request as it arrives on the tech's phone.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Back to the start</span>
+    <a class="big" href="wasp-ground-station.html">Ground station for an autonomous swarm →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

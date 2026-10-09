@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keith Sanders II | UX Designer</title>
+<meta name="description" content="UX designer with a security and systems background. Case studies in operator displays, privacy tools, brand identity and service design.">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="./">Keith Sanders II</a>
+    <nav aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#approach">Approach</a>
+      <a href="#background">Background</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div>
+      <p class="label">UX designer · Murfreesboro, Tennessee</p>
+      <h1>Interfaces for people who <em>can't afford</em> to misread them.</h1>
+      <p class="lede">I design screens where a wrong reading has a cost: an operator watching a swarm, a reader being tracked, a tenant with water on the floor. My background is security and systems engineering, so I prototype in code and test my own designs against how the system really behaves.</p>
+    </div>
+    <dl class="titleblock even" aria-label="Summary">
+      <div class="full"><dt>Open to</dt><dd>UX / product design roles, remote or Middle Tennessee</dd></div>
+      <div><dt>UX experience</dt><dd>S-Nimbus LLC, 2023 to 2025</dd></div>
+      <div><dt>Now</dt><dd>Founder, Sanders Air Defense</dd></div>
+      <div><dt>Training</dt><dd>Interaction Design Foundation</dd></div>
+      <div><dt>Also</dt><dd>Security+, CySA+, PenTest+</dd></div>
+    </dl>
+  </section>
+
+  <section class="section" id="work">
+    <div class="section-head">
+      <h2>Selected work</h2>
+      <span class="label">4 sheets · 2 shipped · 2 concept</span>
+    </div>
+
+    <div class="sheets">
+
+      <article class="sheet">
+        <a class="plate" href="work/wasp-ground-station.html" aria-label="Open the ground station case study">
+          <iframe src="prototypes/ground-station/" title="Ground station prototype preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+        </a>
+        <div class="sheet-body">
+          <div class="meta"><span class="label">Sheet 1 of 4</span><span class="tag concept">Redesign · working prototype</span></div>
+          <h3><a href="work/wasp-ground-station.html">Ground station for an autonomous swarm</a></h3>
+          <p>I reviewed my own first operator display, found seven problems that would matter under pressure, and rebuilt it around one question: what arrives first, and is something handling it?</p>
+          <ul>
+            <li>Heuristic review of the v1 display, with severity ratings</li>
+            <li>Shape-first symbology that survives without colour</li>
+            <li>Hold-to-confirm on the one irreversible control</li>
+          </ul>
+          <a class="more" href="work/wasp-ground-station.html">Read the case study →</a>
+        </div>
+      </article>
+
+      <article class="sheet">
+        <a class="plate" href="work/sanders-air-defense.html" aria-label="Open the Sanders Air Defense case study">
+          <span class="center">
+            <svg viewBox="0 0 200 200" width="56%" role="img" aria-label="Sanders Air Defense quad-rotor mark">
+              <defs><linearGradient id="homespin" x1="0" y1="0.5" x2="1" y2="0.5">
+                <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/><stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.32"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+              </linearGradient></defs>
+              <g fill="none" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="9"><circle cx="62" cy="62" r="30"/><circle cx="138" cy="62" r="30"/><circle cx="138" cy="138" r="30"/><circle cx="62" cy="138" r="30"/></g>
+              <g fill="none" stroke="url(#homespin)" stroke-width="9"><circle cx="62" cy="62" r="30"/><circle cx="138" cy="62" r="30" transform="rotate(90 138 62)"/><circle cx="138" cy="138" r="30" transform="rotate(180 138 138)"/><circle cx="62" cy="138" r="30" transform="rotate(270 62 138)"/></g>
+              <circle cx="100" cy="100" r="9" fill="#E8732E"/>
+            </svg>
+          </span>
+        </a>
+        <div class="sheet-body">
+          <div class="meta"><span class="label">Sheet 2 of 4</span><span class="tag shipped">Shipped · live site</span></div>
+          <h3><a href="work/sanders-air-defense.html">Sanders Air Defense: identity and website</a></h3>
+          <p>A brand and a one-page site for a defense startup whose readers are program officers with ten minutes. Two logo directions were thrown out before the third one held.</p>
+          <ul>
+            <li>Logo system, palette, business cards, social assets</li>
+            <li>Page structured as the brief a reviewer expects</li>
+            <li>Live at sandersairdefense.com</li>
+          </ul>
+          <a class="more" href="work/sanders-air-defense.html">Read the case study →</a>
+        </div>
+      </article>
+
+      <article class="sheet">
+        <a class="plate" href="work/copycat.html" aria-label="Open the CopyCat case study">
+          <span class="center">
+            <span class="popup-spec" style="transform: scale(0.82);">
+              <header><span class="dot">C</span><span><b>CopyCat</b><small>v1.0.0</small></span><span class="state">!</span></header>
+              <span class="row"><span><b>Shield Mode</b><small>Block this site from tracking copies</small></span><span class="sw on"></span></span>
+              <span class="row"><span><b>Watermark Copies</b><small>Embed invisible ID in copied text</small></span><span class="sw on"></span></span>
+              <span class="row"><span><b>Alerts</b><small>Show in-page surveillance alerts</small></span><span class="sw"></span></span>
+            </span>
+          </span>
+        </a>
+        <div class="sheet-body">
+          <div class="meta"><span class="label">Sheet 3 of 4</span><span class="tag shipped">Built · browser extension</span></div>
+          <h3><a href="work/copycat.html">CopyCat: showing people they're being watched</a></h3>
+          <p>A browser extension that detects when a page is logging what you copy. The design problem was telling someone about invisible tracking without scaring them or training them to ignore it.</p>
+          <ul>
+            <li>Popup, in-page alert, settings and event dashboard</li>
+            <li>Every switch states its consequence in one line</li>
+            <li>A critique of my own first version</li>
+          </ul>
+          <a class="more" href="work/copycat.html">Read the case study →</a>
+        </div>
+      </article>
+
+      <article class="sheet">
+        <a class="plate" href="work/punchlist.html" aria-label="Open the Punchlist case study">
+          <iframe src="prototypes/punchlist/" title="Punchlist prototype preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+        </a>
+        <div class="sheet-body">
+          <div class="meta"><span class="label">Sheet 4 of 4</span><span class="tag concept">Concept · working prototype</span></div>
+          <h3><a href="work/punchlist.html">Punchlist: maintenance requests that get fixed in one visit</a></h3>
+          <p>I spent a year as the maintenance tech reading work orders. This is the request form I wish residents had been given, designed backward from what the tech needs to know before knocking.</p>
+          <ul>
+            <li>Six-step mobile flow with a built-in safety check</li>
+            <li>Urgency decided by questions, not by the resident guessing</li>
+            <li>Status timeline that says what happens next</li>
+          </ul>
+          <a class="more" href="work/punchlist.html">Read the case study →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="section" id="approach">
+    <div class="section-head"><h2>How I work</h2></div>
+    <div class="cols3">
+      <div>
+        <h3>Start from the failure</h3>
+        <p>Security work taught me to ask how a thing breaks before asking how it looks. I list the ways a screen can be misread, then design against the expensive ones first.</p>
+      </div>
+      <div>
+        <h3>Prototype in the real material</h3>
+        <p>I build interactive prototypes in HTML, CSS and JavaScript, with AI pair-programming to move faster. Moving data exposes problems a static mockup hides, like labels that collide or a list that reorders under your cursor.</p>
+      </div>
+      <div>
+        <h3>Say what isn't tested</h3>
+        <p>Every case study here separates what I observed from what I assumed, and ends with the study I would run next. A design I can't yet defend with evidence is labelled as a concept.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="background">
+    <div class="section-head"><h2>Background</h2></div>
+    <div class="cols2">
+      <div>
+        <p class="label" style="margin-bottom: 10px;">Experience</p>
+        <div class="rows">
+          <div><span>2026 to now</span><div><b>Founder and Principal Investigator, Sanders Air Defense</b><small>Designed a counter-drone system from concept through a filed provisional patent and a Navy SBIR proposal. Built the brand, website, ground-station software and briefing materials.</small></div></div>
+          <div><span>2023 to 2025</span><div><b>User Experience Designer, S-Nimbus LLC</b><small>User research, wireframing and interactive prototyping for internal product initiatives. Turned research findings into style guides, design specifications and prioritised backlog items. The work was internal, so it is not shown here.</small></div></div>
+          <div><span>2022</span><div><b>Maintenance Specialist, Saint Paul Collection</b><small>Repairs across a residential portfolio under response-time targets. The source material for Punchlist.</small></div></div>
+          <div><span>2016 to 2021</span><div><b>Security, sales and club management</b><small>Access-control planning, emergency tabletop exercises, staff training, CRM and point-of-sale systems.</small></div></div>
+        </div>
+      </div>
+      <div>
+        <p class="label" style="margin-bottom: 10px;">Training and tools</p>
+        <div class="rows">
+          <div><span>UX</span><div><b>Interaction Design Foundation</b><small>UX design coursework, 2023 to 2025. Certificate: User Experience, The Beginner's Guide.</small></div></div>
+          <div><span>Degree</span><div><b>A.A.S. Cyber Security, Motlow State</b><small>Graduated 2026.</small></div></div>
+          <div><span>Certifications</span><div><b>CompTIA Security+, CySA+, PenTest+, A+</b><small>Plus AWS Academy Cloud Foundations and the CISA ICS cybersecurity series.</small></div></div>
+          <div><span>Design</span><div><b>Figma, Sketch, InVision, Adobe Creative Cloud</b><small>Research, wireframes, prototypes, style guides, usability testing.</small></div></div>
+          <div><span>Build</span><div><b>HTML, CSS, JavaScript, Python</b><small>Enough to prototype with real data and talk to engineers in their terms.</small></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="section-head"><h2>Contact</h2></div>
+    <div class="contact">
+      <p class="lede">I'm looking for a UX or product design role. Email is the fastest way to reach me.</p>
+      <div class="email-row">
+        <span class="addr" id="email">keithsanders245@outlook.com</span>
+        <button class="btn" type="button" data-copy="#email">Copy</button>
+      </div>
+      <div class="email-row">
+        <a class="btn" href="https://github.com/KOdinson" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://sandersairdefense.com" target="_blank" rel="noopener">sandersairdefense.com</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span>Keith Sanders II · Murfreesboro, TN</span>
+    <span>Designed and coded by hand and with AI pair-programming. Set in Big Shoulders, Public Sans and IBM Plex Mono.</span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
