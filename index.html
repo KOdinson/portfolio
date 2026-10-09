@@ -8,7 +8,7 @@
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=3">
+<link rel="stylesheet" href="assets/site.css?v=4">
 </head>
 <body>
 
@@ -44,17 +44,33 @@
   <section class="section" id="work">
     <div class="section-head">
       <h2>Selected work</h2>
-      <span class="label">10 sheets · 6 built · 4 concept</span>
+      <span class="label">13 sheets · 7 built · 6 concept</span>
     </div>
+
+    <ol class="index" aria-label="All projects">
+      <li><a href="#s1"><span>01</span>Ground station for an autonomous swarm</a></li>
+      <li><a href="#s2"><span>02</span>Sanders Air Defense: identity and website</a></li>
+      <li><a href="#s3"><span>03</span>CopyCat: showing people they're being watched</a></li>
+      <li><a href="#s4"><span>04</span>Punchlist: maintenance requests that get fixed in one visit</a></li>
+      <li><a href="#s5"><span>05</span>JARVIS: an assistant that asks before it acts</a></li>
+      <li><a href="#s6"><span>06</span>Defense Opportunity Intel: a feed that explains its ranking</a></li>
+      <li><a href="#s7"><span>07</span>Voxelheim: a game HUD, audited</a></li>
+      <li><a href="#s8"><span>08</span>Triage: thirteen alerts, five decisions</a></li>
+      <li><a href="#s9"><span>09</span>Rounds: a patrol log for the night shift</a></li>
+      <li><a href="#s10"><span>10</span>Sheet: the system behind this portfolio</a></li>
+      <li><a href="#s11"><span>11</span>Front Desk: a membership signup with nothing to find out later</a></li>
+      <li><a href="#s12"><span>12</span>Form, repaired: an accessibility before and after</a></li>
+      <li><a href="#s13"><span>13</span>Build sheets that fit the builder</a></li>
+    </ol>
 
     <div class="sheets">
 
-      <article class="sheet">
+      <article class="sheet" id="s1">
         <a class="plate" href="work/wasp-ground-station.html" aria-label="Open the ground station case study">
           <iframe src="prototypes/ground-station/" title="Ground station prototype preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
         </a>
         <div class="sheet-body">
-          <div class="meta"><span class="label">Sheet 1 of 10</span><span class="tag concept">Redesign · working prototype</span></div>
+          <div class="meta"><span class="label">Sheet 1 of 13</span><span class="tag concept">Redesign · working prototype</span></div>
           <h3><a href="work/wasp-ground-station.html">Ground station for an autonomous swarm</a></h3>
           <p>I reviewed my own first operator display, found seven problems that would matter under pressure, and rebuilt it around one question: what arrives first, and is something handling it?</p>
           <ul>
@@ -66,7 +82,7 @@
         </div>
       </article>
 
-      <article class="sheet">
+      <article class="sheet" id="s2">
         <a class="plate" href="work/sanders-air-defense.html" aria-label="Open the Sanders Air Defense case study">
           <span class="center">
             <svg viewBox="0 0 200 200" width="56%" role="img" aria-label="Sanders Air Defense quad-rotor mark">
@@ -80,7 +96,7 @@
           </span>
         </a>
         <div class="sheet-body">
-          <div class="meta"><span class="label">Sheet 2 of 10</span><span class="tag shipped">Shipped · live site</span></div>
+          <div class="meta"><span class="label">Sheet 2 of 13</span><span class="tag shipped">Shipped · live site</span></div>
           <h3><a href="work/sanders-air-defense.html">Sanders Air Defense: identity and website</a></h3>
           <p>A brand and a one-page site for a defense startup whose readers are program officers with ten minutes. Two logo directions were thrown out before the third one held.</p>
           <ul>
@@ -92,7 +108,7 @@
         </div>
       </article>
 
-      <article class="sheet">
+      <article class="sheet" id="s3">
         <a class="plate" href="work/copycat.html" aria-label="Open the CopyCat case study">
           <span class="center">
             <span class="popup-spec" style="transform: scale(0.82);">
@@ -104,7 +120,7 @@
           </span>
         </a>
         <div class="sheet-body">
-          <div class="meta"><span class="label">Sheet 3 of 10</span><span class="tag shipped">Built · browser extension</span></div>
+          <div class="meta"><span class="label">Sheet 3 of 13</span><span class="tag shipped">Built · browser extension</span></div>
           <h3><a href="work/copycat.html">CopyCat: showing people they're being watched</a></h3>
           <p>A browser extension that detects when a page is logging what you copy. The design problem was telling someone about invisible tracking without scaring them or training them to ignore it.</p>
           <ul>
@@ -116,12 +132,12 @@
         </div>
       </article>
 
-      <article class="sheet">
+      <article class="sheet" id="s4">
         <a class="plate" href="work/punchlist.html" aria-label="Open the Punchlist case study">
           <iframe src="prototypes/punchlist/" title="Punchlist prototype preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
         </a>
         <div class="sheet-body">
-          <div class="meta"><span class="label">Sheet 4 of 10</span><span class="tag concept">Concept · working prototype</span></div>
+          <div class="meta"><span class="label">Sheet 4 of 13</span><span class="tag concept">Concept · working prototype</span></div>
           <h3><a href="work/punchlist.html">Punchlist: maintenance requests that get fixed in one visit</a></h3>
           <p>I spent a year as the maintenance tech reading work orders. This is the request form I wish residents had been given, designed backward from what the tech needs to know before knocking.</p>
           <ul>
@@ -133,7 +149,7 @@
         </div>
       </article>
 
-      <article class="sheet">
+      <article class="sheet" id="s5">
         <a class="plate" href="work/jarvis.html" aria-label="Open the JARVIS case study">
           <span class="center">
             <span class="jv" style="width: min(100%, 340px);">
@@ -147,7 +163,7 @@ C:\Users\you\Desktop\notes.txt
           </span>
         </a>
         <div class="sheet-body">
-          <div class="meta"><span class="label">Sheet 5 of 10</span><span class="tag shipped">Built · desktop app</span></div>
+          <div class="meta"><span class="label">Sheet 5 of 13</span><span class="tag shipped">Built · desktop app</span></div>
           <h3><a href="work/jarvis.html">JARVIS: an assistant that asks before it acts</a></h3>
           <p>A voice and text assistant that can write files and run commands on my PC. The design work was the permission flow: what it may do freely, what it must ask for, and what it can never touch.</p>
           <ul>
@@ -159,7 +175,7 @@ C:\Users\you\Desktop\notes.txt
         </div>
       </article>
 
-      <article class="sheet">
+      <article class="sheet" id="s6">
         <a class="plate" href="work/opportunity-intel.html" aria-label="Open the Defense Opportunity Intel case study">
           <span class="center">
             <span class="opp" style="width: min(100%, 360px);">
@@ -170,7 +186,7 @@ C:\Users\you\Desktop\notes.txt
           </span>
         </a>
         <div class="sheet-body">
-          <div class="meta"><span class="label">Sheet 6 of 10</span><span class="tag shipped">Built · web dashboard</span></div>
+          <div class="meta"><span class="label">Sheet 6 of 13</span><span class="tag shipped">Built · web dashboard</span></div>
           <h3><a href="work/opportunity-intel.html">Defense Opportunity Intel: a feed that explains its ranking</a></h3>
           <p>A daily dashboard that scores federal contract notices for fit. Every score comes with one sentence of why, so a person can check the machine in five seconds.</p>
           <ul>
@@ -182,7 +198,7 @@ C:\Users\you\Desktop\notes.txt
         </div>
       </article>
 
-      <article class="sheet">
+      <article class="sheet" id="s7">
         <a class="plate" href="work/voxelheim.html" aria-label="Open the Voxelheim case study" style="background: #0a0d14;">
           <span class="center" style="padding: 0;">
             <svg viewBox="0 0 178 100" width="100%" role="img" aria-label="Diagram of the Voxelheim HUD layout">
@@ -200,7 +216,7 @@ C:\Users\you\Desktop\notes.txt
           </span>
         </a>
         <div class="sheet-body">
-          <div class="meta"><span class="label">Sheet 7 of 10</span><span class="tag shipped">In development · game UI</span></div>
+          <div class="meta"><span class="label">Sheet 7 of 13</span><span class="tag shipped">In development · game UI</span></div>
           <h3><a href="work/voxelheim.html">Voxelheim: a game HUD, audited</a></h3>
           <p>The heads-up display of a game I am building grew to seventeen elements, one reasonable addition at a time. I audited my own screen and wrote the plan to cut it into three tiers.</p>
           <ul>
@@ -212,12 +228,12 @@ C:\Users\you\Desktop\notes.txt
         </div>
       </article>
 
-      <article class="sheet">
+      <article class="sheet" id="s8">
         <a class="plate" href="work/triage.html" aria-label="Open the Triage case study" style="background: #F3F4F1;">
           <iframe src="prototypes/triage/" title="Triage prototype preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
         </a>
         <div class="sheet-body">
-          <div class="meta"><span class="label">Sheet 8 of 10</span><span class="tag concept">Concept · working prototype</span></div>
+          <div class="meta"><span class="label">Sheet 8 of 13</span><span class="tag concept">Concept · working prototype</span></div>
           <h3><a href="work/triage.html">Triage: thirteen alerts, five decisions</a></h3>
           <p>A security-alert queue that groups related alerts into cases, says why it grouped them, and lets the analyst switch the grouping off. Built on my cyber security training.</p>
           <ul>
@@ -229,12 +245,12 @@ C:\Users\you\Desktop\notes.txt
         </div>
       </article>
 
-      <article class="sheet">
+      <article class="sheet" id="s9">
         <a class="plate" href="work/rounds.html" aria-label="Open the Rounds case study" style="background: #1B1E22;">
           <iframe src="prototypes/rounds/" title="Rounds prototype preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
         </a>
         <div class="sheet-body">
-          <div class="meta"><span class="label">Sheet 9 of 10</span><span class="tag concept">Concept · working prototype</span></div>
+          <div class="meta"><span class="label">Sheet 9 of 13</span><span class="tag concept">Concept · working prototype</span></div>
           <h3><a href="work/rounds.html">Rounds: a patrol log for the night shift</a></h3>
           <p>I was a head security guard in 2021. This is a patrol log for the real conditions of a round: walking, one hand free, bad light, and a report due at the end.</p>
           <ul>
@@ -246,10 +262,10 @@ C:\Users\you\Desktop\notes.txt
         </div>
       </article>
 
-      <article class="sheet">
+      <article class="sheet" id="s10">
         <a class="plate" href="work/design-system.html" aria-label="Open the design system case study" style="background: var(--surface);">
           <span class="center" style="align-content: center; gap: 18px; justify-items: start; color: var(--ink);">
-            <span style="font: 800 clamp(2rem, 5vw, 3.4rem)/0.95 var(--display); text-transform: uppercase;">Sheet 10 of 10</span>
+            <span style="font: 800 clamp(2rem, 5vw, 3.4rem)/0.95 var(--display); text-transform: uppercase;">Sheet 10 of 13</span>
             <span class="swatches" aria-hidden="true">
               <i style="width: 44px; height: 44px; background: var(--ink);"></i><i style="width: 44px; height: 44px; background: var(--ink-2);"></i><i style="width: 44px; height: 44px; background: var(--blue);"></i><i style="width: 44px; height: 44px; background: var(--accent);"></i><i style="width: 44px; height: 44px; background: var(--paper);"></i>
             </span>
@@ -257,7 +273,7 @@ C:\Users\you\Desktop\notes.txt
           </span>
         </a>
         <div class="sheet-body">
-          <div class="meta"><span class="label">Sheet 10 of 10</span><span class="tag shipped">Built · this site</span></div>
+          <div class="meta"><span class="label">Sheet 10 of 13</span><span class="tag shipped">Built · this site</span></div>
           <h3><a href="work/design-system.html">Sheet: the system behind this portfolio</a></h3>
           <p>The design system this site runs on, documented with itself: six colour tokens with measured contrast in both themes, three typefaces, and components borrowed from engineering drawings.</p>
           <ul>
@@ -266,6 +282,61 @@ C:\Users\you\Desktop\notes.txt
             <li>Usage rules, and what I would change</li>
           </ul>
           <a class="more" href="work/design-system.html">Read the case study →</a>
+        </div>
+      </article>
+
+      <article class="sheet" id="s11">
+        <a class="plate" href="work/front-desk.html" aria-label="Open the Front Desk case study" style="background: #F6F6F3;">
+          <iframe src="prototypes/front-desk/" title="Front Desk prototype preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+        </a>
+        <div class="sheet-body">
+          <div class="meta"><span class="label">Sheet 11 of 13</span><span class="tag concept">Concept · working prototype</span></div>
+          <h3><a href="work/front-desk.html">Front Desk: a membership signup with nothing to find out later</a></h3>
+          <p>I sold gym memberships for three years. This signup page shows the whole first year, every fee and how to leave, before it asks for a card.</p>
+          <ul>
+            <li>A live receipt, organised by when each charge hits</li>
+            <li>One comparable number: the first-year total</li>
+            <li>Cancellation terms above the pay button</li>
+          </ul>
+          <a class="more" href="work/front-desk.html">Read the case study →</a>
+        </div>
+      </article>
+
+      <article class="sheet" id="s12">
+        <a class="plate" href="work/form-repaired.html" aria-label="Open the Form, repaired case study" style="background: #EEF0F3;">
+          <iframe src="prototypes/form-repaired/" title="Form, repaired prototype preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+        </a>
+        <div class="sheet-body">
+          <div class="meta"><span class="label">Sheet 12 of 13</span><span class="tag concept">Concept · working prototype</span></div>
+          <h3><a href="work/form-repaired.html">Form, repaired: an accessibility before and after</a></h3>
+          <p>One job application form built twice: once with eight common accessibility failures, once with each fixed. Both run side by side, with the WCAG criterion for every repair.</p>
+          <ul>
+            <li>Labels, contrast, errors, focus, target size</li>
+            <li>Measured contrast values, before and after</li>
+            <li>Error messages written as instructions</li>
+          </ul>
+          <a class="more" href="work/form-repaired.html">Read the case study →</a>
+        </div>
+      </article>
+
+      <article class="sheet" id="s13">
+        <a class="plate" href="work/build-sheets.html" aria-label="Open the build sheets case study" style="background: var(--surface);">
+          <span class="center" style="align-content: center; gap: 14px; justify-items: start; color: var(--ink);">
+            <span class="label">Fit to the wearer</span>
+            <span style="font: 800 clamp(1.9rem, 4.6vw, 3.2rem)/0.95 var(--display); text-transform: uppercase;">8 measurements in.<br>Every pattern out.</span>
+            <span class="label">Height · chest · waist · thigh · calf · bicep · forearm · head</span>
+          </span>
+        </a>
+        <div class="sheet-body">
+          <div class="meta"><span class="label">Sheet 13 of 13</span><span class="tag shipped">Built · personal tool</span></div>
+          <h3><a href="work/build-sheets.html">Build sheets that fit the builder</a></h3>
+          <p>Instructions for a wearable armour costume that work as a tool: enter your measurements and every dimension, cut pattern and weight on the page rescales to you.</p>
+          <ul>
+            <li>Opens with a complete worked example</li>
+            <li>One measurement is enough to start</li>
+            <li>Instructions that make a recommendation</li>
+          </ul>
+          <a class="more" href="work/build-sheets.html">Read the case study →</a>
         </div>
       </article>
 
@@ -339,6 +410,6 @@ C:\Users\you\Desktop\notes.txt
   </div>
 </footer>
 
-<script src="assets/site.js?v=3"></script>
+<script src="assets/site.js?v=4"></script>
 </body>
 </html>

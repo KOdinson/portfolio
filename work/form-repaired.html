@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Form, repaired | Keith Sanders II</title>
+<meta name="description" content="Case study: eight common accessibility failures in a job application form, and the same form with each one fixed.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=4">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="cs-head">
+    <p class="label">Sheet 12 of 13 · <span class="tag concept">Concept · working prototype</span></p>
+    <h1>Form, repaired: an accessibility before and after</h1>
+    <p class="lede">A job application is a form people fill in under pressure, and a bad one quietly turns applicants away. I built a short application form the way they are often built, with eight common accessibility failures in it, then built it again with each one fixed. Both versions run side by side.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Accessibility review, form design, coded prototype</dd></div>
+      <div><dt>When</dt><dd>October 2026</dd></div>
+      <div><dt>Status</dt><dd>Self-initiated exercise. Built to WCAG 2.2 AA. Not yet tested with assistive-technology users.</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">The prototype</p>
+    <div class="content">
+      <figure>
+        <div class="plate live" style="background: #EEF0F3;">
+          <iframe src="../prototypes/form-repaired/" title="Interactive before and after form"></iframe>
+        </div>
+        <div class="plate-cap">
+          <span>Live and interactive. Press Send with the form empty, then switch to Before and do the same.</span>
+          <a href="../prototypes/form-repaired/">Open full screen →</a>
+        </div>
+      </figure>
+      <p class="note">The "before" form is a composite I wrote to show common failures in one place. It is not a copy of any real organisation's form.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">The eight repairs</p>
+    <div class="content">
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th></th><th>Before</th><th>After</th><th>WCAG 2.2</th></tr></thead>
+          <tbody>
+            <tr><td class="n">1</td><td>Placeholder text is the only label. It disappears on the first keystroke.</td><td>A visible label above every field, tied to it in code.</td><td class="sev">3.3.2 · 1.3.1 · 4.1.2</td></tr>
+            <tr><td class="n">2</td><td>Placeholder grey on white measures 2.0 to 1. Question text measures 2.8 to 1.</td><td>Every piece of text measures 6.5 to 1 or better.</td><td class="sev">1.4.3</td></tr>
+            <tr><td class="n">3</td><td>Required fields carry a red asterisk and no explanation.</td><td>The intro says everything is needed except phone. The phone label says "(optional)".</td><td class="sev">1.4.1 · 3.3.2</td></tr>
+            <tr><td class="n">4</td><td>A field labelled "Date", with no format and no hint which date.</td><td>"Date you can start", with an example, announced along with the field.</td><td class="sev">3.3.2</td></tr>
+            <tr><td class="n">5</td><td>Errors are a pink border and the words "Invalid input".</td><td>A summary takes focus, counts the problems and links to each field. Each field repeats its message with the fix in it.</td><td class="sev">3.3.1 · 3.3.3</td></tr>
+            <tr><td class="n">6</td><td>The focus outline was removed for looks.</td><td>A 3-pixel ring on everything that can take focus.</td><td class="sev">2.4.7</td></tr>
+            <tr><td class="n">7</td><td>Radio buttons 11 pixels wide beside the letters Y and N, which are not clickable.</td><td>24-pixel controls in rows 44 pixels tall. The whole row is the target. The answers are the words Yes and No.</td><td class="sev">2.5.8</td></tr>
+            <tr><td class="n">8</td><td>Every field is generic text, so the browser cannot help.</td><td>Name, email and phone declare their purpose and can be auto-filled. Email and phone bring up the right phone keyboard.</td><td class="sev">1.3.5</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">What the exercise shows</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>Accessible is also just better</h3>
+          <p>None of the eight repairs helps only disabled users. Labels that stay put help anyone who looks away mid-field. Error messages that name the fix help everyone who gets one. The repaired form is easier on a phone, in sunlight, and when tired.</p>
+        </div>
+        <div class="prose">
+          <h3>Most of it is writing</h3>
+          <p>Five of the eight repairs are words: a label, a hint, an example, an error message, the word "optional". The "before" form asks "Date *". The repaired one asks "Date you can start" and shows what an answer looks like.</p>
+        </div>
+        <div class="prose">
+          <h3>The button says what it does</h3>
+          <p>"Submit" became "Send application". A small change that tells a screen-reader user tabbing through the page what the button is for without reading the form around it.</p>
+        </div>
+        <div class="prose">
+          <h3>Errors are written as instructions</h3>
+          <p>Each message starts with a verb and contains the answer's shape: "Enter an email address, like name@example.com". The word "invalid" does not appear. Nobody's start date is invalid. It is in a format the form did not explain.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Limits and next steps</p>
+    <div class="content">
+      <p class="note">Meeting the criteria is the floor. I built this against the WCAG 2.2 success criteria and measured the contrast values quoted here. I have not yet run it with screen-reader users or people using voice control or switch access, and that testing regularly finds problems a checklist misses.</p>
+      <div class="prose">
+        <ul>
+          <li>Walk through both versions with NVDA and VoiceOver and write down exactly what is announced at each step.</li>
+          <li>Sessions with three to five people who use assistive technology daily.</li>
+          <li>Extend the repaired form to the hard parts of a real application: file upload, work history that repeats, and saving progress.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Next sheet</span>
+    <a class="big" href="build-sheets.html">Build sheets that fit the builder →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js?v=4"></script>
+</body>
+</html>

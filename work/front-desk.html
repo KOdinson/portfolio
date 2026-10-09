@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Front Desk | Keith Sanders II</title>
+<meta name="description" content="Case study: a concept gym membership signup that shows the full first-year cost before asking for payment.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=4">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="cs-head">
+    <p class="label">Sheet 11 of 13 · <span class="tag concept">Concept · working prototype</span></p>
+    <h1>Front Desk: a membership signup with nothing to find out later</h1>
+    <p class="lede">I sold gym memberships and managed a club's front desk from 2016 to 2019. Gym pricing has a reputation, and it is earned by fees that appear after the signature. This is a signup page built on the opposite idea: show the whole first year before asking for a card.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Pricing page, content design, coded prototype</dd></div>
+      <div><dt>When</dt><dd>October 2026</dd></div>
+      <div><dt>Status</dt><dd>Self-initiated concept. Sample prices. Untested with members.</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">The prototype</p>
+    <div class="content">
+      <figure>
+        <div class="plate live" style="background: #F6F6F3;">
+          <iframe src="../prototypes/front-desk/" title="Interactive Front Desk prototype"></iframe>
+        </div>
+        <div class="plate-cap">
+          <span>Live and interactive. Switch plans and add extras, and watch the receipt on the right.</span>
+          <a href="../prototypes/front-desk/">Open full screen →</a>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">The design problem</p>
+    <div class="content">
+      <div class="prose">
+        <p>A membership has four prices and most signup pages show one. There is the monthly rate, a fee to join, a fee charged once a year, and a cost to leave. The headline number is the monthly rate, and the other three live in the agreement.</p>
+        <p>The business case for hiding them is a higher signup rate today. The case against is everything that happens in month three when the annual fee lands: the dispute, the front-desk argument, the cancellation, the review. I wanted to see what the page looks like when it is designed for month three.</p>
+      </div>
+      <p class="note">That trade-off is my working assumption from selling memberships, not a measured result. I have no data comparing conversion or retention between the two approaches, and this page has not been tested with prospective members.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>The receipt stays on screen</h3>
+          <p>Choices are on the left. What they cost is on the right, pinned in place, and it updates with every tap. Nobody has to reach a review step to learn what they have built.</p>
+        </div>
+        <div class="prose">
+          <h3>Prices by when they hit</h3>
+          <p>The receipt has three rows, named for timing: today, each month after, once a year. That is how a person budgets. The fees' own names appear only in the explanation under each row.</p>
+        </div>
+        <div class="prose">
+          <h3>One number to compare</h3>
+          <p>"Your first 12 months, everything included" is the largest figure on the page and the only one highlighted. A $35 plan and a $49 plan cannot be compared by their monthly rates once fees differ. Their first-year totals can.</p>
+        </div>
+        <div class="prose">
+          <h3>The page argues against itself</h3>
+          <p>Under the total, the receipt says what the other plan would cost. If the cheaper option is the one you did not pick, it tells you, with the condition attached: "if you stay the full year".</p>
+        </div>
+        <div class="prose">
+          <h3>Leaving is explained before joining</h3>
+          <p>"How leaving works" sits directly above the payment button, in two or three sentences: how much notice, what it costs, whether you can pause. It changes with the plan.</p>
+        </div>
+        <div class="prose">
+          <h3>The annual fee has a date</h3>
+          <p>"First charged in your third month" is the sentence that prevents the argument. The fee is the same either way. Knowing when is the difference between a charge and a surprise.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Limits and next steps</p>
+    <div class="content">
+      <div class="prose">
+        <ul>
+          <li>Run it as a real experiment: this page against a monthly-rate-first page, measuring signups and also cancellations and disputes at 90 days. The second number is the one that decides it.</li>
+          <li>Five usability sessions asking one question after the task: "What will you be charged in March?" Count correct answers.</li>
+          <li>Design the staffed version. Most memberships are sold in person, so the same receipt needs to work on a tablet turned toward the customer.</li>
+          <li>Add tax and promotional pricing, which the prototype leaves out and which make honest totals harder.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Next sheet</span>
+    <a class="big" href="form-repaired.html">Form, repaired: an accessibility before and after →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js?v=4"></script>
+</body>
+</html>

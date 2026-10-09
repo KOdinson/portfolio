@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Front Desk | Concept prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap">
+<style>
+/* A consumer signup page: one light theme by choice. The receipt is the hero and never leaves the screen. */
+:root {
+  --bg: #F6F6F3; --card: #FFFFFF; --ink: #15171C; --ink-2: #5B606B; --line: #DADBD5;
+  --act: #1F3FD6; --act-soft: #E8ECFD; --mark: #FFE45C; --tape: #FFE45C;
+  --font: "Archivo", system-ui, "Segoe UI", Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.45 var(--font); }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--act); outline-offset: 2px; }
+h1, h2, p { margin: 0; }
+.num { font-variant-numeric: tabular-nums; }
+
+.wrap { max-width: 1060px; margin-inline: auto; padding: 22px 20px 40px; display: grid; gap: 22px; }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
+.head b { font-size: 20px; font-weight: 800; font-stretch: 115%; text-transform: uppercase; letter-spacing: 0.02em; }
+.tape { background: var(--tape); font-size: 12.5px; font-weight: 600; padding: 3px 8px; }
+h1 { font-size: clamp(28px, 4.6vw, 44px); font-weight: 800; font-stretch: 112%; line-height: 1.05; text-wrap: balance; max-width: 18ch; }
+.cols { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 26px; align-items: start; }
+@media (max-width: 760px) { .cols { grid-template-columns: minmax(0, 1fr); } }
+
+fieldset { border: 0; margin: 0 0 22px; padding: 0; display: grid; gap: 10px; }
+legend { padding: 0; margin-bottom: 10px; font-weight: 700; font-size: 18px; }
+.opt { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 4px 12px; align-items: start; background: var(--card); border: 1.5px solid var(--line); border-radius: 10px; padding: 14px; cursor: pointer; }
+.opt:has(input:checked) { border-color: var(--act); background: var(--act-soft); }
+.opt input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--act); }
+.opt b { font-weight: 700; }
+.opt .p { font-weight: 700; white-space: nowrap; }
+.opt small { grid-column: 2 / -1; color: var(--ink-2); font-size: 14.5px; }
+
+.receipt { position: sticky; top: 16px; background: var(--card); border: 2px solid var(--ink); border-radius: 12px; padding: 18px; display: grid; gap: 14px; }
+.receipt h2 { font-size: 18px; font-weight: 800; }
+.rows { display: grid; gap: 0; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 14px; padding: 10px 0; border-top: 1px solid var(--line); }
+.row:first-child { border-top: 0; }
+.row b { font-weight: 700; }
+.row small { grid-column: 1 / -1; color: var(--ink-2); font-size: 14px; }
+.total { background: var(--mark); margin-inline: -18px; padding: 12px 18px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 14px; }
+.total b { font-size: 22px; font-weight: 800; }
+.total small { grid-column: 1 / -1; font-size: 14px; }
+.cancel { font-size: 14.5px; }
+.cancel b { display: block; }
+.go { background: var(--act); color: #fff; border: 0; border-radius: 10px; padding: 15px; font-weight: 700; font-size: 17px; width: 100%; }
+.end { background: var(--act-soft); border-radius: 10px; padding: 12px; font-size: 14.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head"><b>Front Desk</b><span class="tape">Concept prototype · sample prices</span></div>
+  <h1>Pick a membership. See every dollar first.</h1>
+
+  <div class="cols">
+    <form id="form">
+      <fieldset>
+        <legend>How do you want to pay?</legend>
+        <label class="opt"><input type="radio" name="plan" value="flex" id="plan-flex" checked><b>Month to month</b><span class="p num">$49 / month</span>
+          <small>Leave whenever you like with 30 days' notice. $49 to join.</small></label>
+        <label class="opt"><input type="radio" name="plan" value="year" id="plan-year"><b>12-month agreement</b><span class="p num">$35 / month</span>
+          <small>Nothing to join. Leaving before month 12 costs $99.</small></label>
+      </fieldset>
+      <fieldset>
+        <legend>Add anything?</legend>
+        <label class="opt"><input type="checkbox" name="add" value="classes" id="add-classes"><b>Group classes</b><span class="p num">+ $15 / month</span><small>All scheduled classes. Remove any month.</small></label>
+        <label class="opt"><input type="checkbox" name="add" value="towel" id="add-towel"><b>Towel service</b><span class="p num">+ $6 / month</span><small>A fresh towel at each visit.</small></label>
+        <label class="opt"><input type="checkbox" name="add" value="guest" id="add-guest"><b>Bring a guest</b><span class="p num">+ $10 / month</span><small>One guest per visit, any time.</small></label>
+      </fieldset>
+    </form>
+
+    <aside class="receipt" aria-live="polite" aria-label="What you will pay">
+      <h2>What you will pay</h2>
+      <div class="rows" id="rows"></div>
+      <div class="total"><span>Your first 12 months, everything included</span><b class="num" id="total"></b><small id="compare"></small></div>
+      <div class="cancel" id="cancel"></div>
+      <button type="button" class="go" id="go">Continue to payment</button>
+      <div class="end" id="end" hidden>The prototype ends here. No payment is taken and nothing is saved.</div>
+    </aside>
+  </div>
+</div>
+
+<script>
+const PLANS = {
+  flex: { monthly: 49, join: 49, exit: 0, cancel: 'Tell us 30 days ahead, at the desk or online. No fee, no form to mail.' },
+  year: { monthly: 35, join: 0, exit: 99, cancel: 'After month 12, leave with 30 days\' notice at no cost. Before that, leaving costs $99. You can pause for up to 3 months for free.' }
+};
+const ADDS = { classes: 15, towel: 6, guest: 10 };
+const ANNUAL = 39;
+const $ = (id) => document.getElementById(id);
+const usd = (n) => '$' + n.toLocaleString('en-US');
+
+function cost(planKey, adds) {
+  const p = PLANS[planKey], monthly = p.monthly + adds.reduce((s, a) => s + ADDS[a], 0);
+  return { monthly, today: monthly + p.join, year: monthly * 12 + p.join + ANNUAL };
+}
+
+function render() {
+  const data = new FormData($('form')), plan = data.get('plan'), adds = data.getAll('add'), p = PLANS[plan], c = cost(plan, adds);
+  const other = plan === 'flex' ? 'year' : 'flex', oc = cost(other, adds), diff = oc.year - c.year;
+  $('rows').innerHTML = `
+    <div class="row"><b>Today</b><b class="num">${usd(c.today)}</b><small>First month${p.join ? ' plus the ' + usd(p.join) + ' joining fee' : ', nothing to join'}.</small></div>
+    <div class="row"><b>Each month after</b><b class="num">${usd(c.monthly)}</b><small>${adds.length ? 'Membership ' + usd(p.monthly) + ' plus ' + adds.length + ' add-on' + (adds.length > 1 ? 's' : '') + '.' : 'Membership only.'} Charged on the same day each month.</small></div>
+    <div class="row"><b>Once a year</b><b class="num">${usd(ANNUAL)}</b><small>Club upkeep fee. First charged in your third month, then every 12 months.</small></div>`;
+  $('total').textContent = usd(c.year);
+  $('compare').textContent = diff > 0 ? `That is ${usd(diff)} less than the ${other === 'year' ? '12-month agreement' : 'month-to-month plan'}.`
+    : `The ${other === 'year' ? '12-month agreement' : 'month-to-month plan'} would be ${usd(-diff)} less${other === 'year' ? ', if you stay the full year' : ''}.`;
+  $('cancel').innerHTML = `<b>How leaving works</b>${p.cancel}`;
+}
+$('form').addEventListener('change', render);
+$('go').addEventListener('click', () => { $('end').hidden = false; });
+render();
+</script>
+</body>
+</html>
