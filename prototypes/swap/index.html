@@ -84,6 +84,7 @@ h1, h2, p { margin: 0; }
 </div>
 
 <script>
+if (location.search.includes('embed')) document.body.style.background = 'transparent';
 const WEEK = [['Mon', '7 am – 3 pm', 'Front desk'], ['Tue', null], ['Wed', '7 am – 3 pm', 'Front desk'], ['Thu', null], ['Fri', '3 pm – 11 pm', 'Loading dock'], ['Sat', '7 am – 3 pm', 'Front desk'], ['Sun', null]];
 // Invented coworkers. Each carries the rule that decides whether they can take Friday.
 const STAFF = [

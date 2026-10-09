@@ -81,6 +81,7 @@ h1, h2, p { margin: 0; }
 </div>
 
 <script>
+if (location.search.includes('embed')) document.body.style.background = 'transparent';
 const POINTS = [['Lobby doors', 'Both sets locked'], ['Loading dock', 'Roll door down, side door locked'], ['Stairwell B', 'Clear, exit door closes'],
   ['Server room', 'Door locked, no alarm light'], ['Parking level 2', 'Gate down, no one inside'], ['Roof access', 'Hatch locked']];
 const TYPES = ['Door unsecured', 'Person on site', 'Hazard', 'Damage', 'Something else'];

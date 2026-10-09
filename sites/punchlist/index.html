@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Punchlist | Maintenance requests that get fixed in one visit</title>
+<meta name="description" content="Concept product site for Punchlist, a maintenance request app designed from the technician's side of the work order.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="../base.css?v=1">
+<style>
+:root { --bg: #FBFCFA; --surface: #E7F1EA; --ink: #14231B; --ink-2: #4C5B52; --brand: #17603A; --on-brand: #FFFFFF; --font-d: "Figtree", system-ui, sans-serif; --font-b: "Figtree", system-ui, sans-serif; color-scheme: light; }
+.hero h1 mark { background: #F2C230; color: inherit; padding: 0 0.12em; }
+.ticket dl { margin: 0; display: grid; }
+.ticket dl div { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 10px; padding: 9px 0; border-top: 1px solid #C9D6CD; }
+.ticket dl div:first-child { border-top: 0; }
+.ticket dt { color: var(--ink-2); font-size: 15px; }
+.ticket dd { margin: 0; font-weight: 600; }
+.ticket .pill { justify-self: start; background: #FBE9E7; color: #B3261E; font-weight: 700; font-size: 13.5px; padding: 3px 10px; border-radius: 99px; }
+.vs { display: grid; gap: 12px; }
+.vs .old { font: 400 15px/1.5 ui-monospace, Consolas, monospace; background: #fff; border: 1px dashed var(--ink-2); border-radius: 10px; padding: 14px; color: var(--ink-2); }
+</style>
+</head>
+<body>
+
+<div class="concept"><div class="wrap"><span>Concept site. Punchlist is a design exercise, not a real product or company.</span><a href="../../work/punchlist.html">Read the case study</a></div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#top">Punchlist</a>
+  <a href="#how">How it works</a><a href="#try">Try it</a><a href="../../work/punchlist.html">Case study</a>
+</div></header>
+
+<main id="top">
+  <section class="hero split"><div class="wrap">
+    <div class="text">
+      <h1>Fixed on the <mark>first visit</mark>.</h1>
+      <p class="sub">Punchlist is a maintenance request a resident can file in under a minute, written so the technician arrives knowing the room, the symptom, the urgency and how to get in.</p>
+      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">See how it works</a></div>
+    </div>
+    <div class="phone-slot" id="try"><iframe src="../../prototypes/punchlist/?embed" title="Punchlist interactive prototype"></iframe><span class="cap">Live prototype. Tap "Report a problem".</span></div>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">The problem</span>
+    <h2>"Sink broken" is not a work order.</h2>
+    <p class="intro">A request form built for the office collects a category and a free-text box. The person who has to act on it needs different things, and finds out what they are at the door.</p>
+    <div class="two">
+      <div class="vs">
+        <span class="kicker" style="margin:0">What usually arrives</span>
+        <div class="old">Category: Plumbing<br>Priority: HIGH<br>Description: sink broken pls fix asap</div>
+        <p style="color: var(--ink-2)">Which sink? Leaking or blocked? Is water on the floor right now? Can anyone get in?</p>
+      </div>
+      <div class="spec ticket">
+        <span class="kicker" style="margin:0">What Punchlist sends the tech</span>
+        <span class="pill">Emergency · call placed</span>
+        <dl>
+          <div><dt>Where</dt><dd>Kitchen, unit 4B</dd></div>
+          <div><dt>What</dt><dd>Water or a leak: pooling on the floor</dd></div>
+          <div><dt>Right now</dt><dd>Water is still spreading</dd></div>
+          <div><dt>Evidence</dt><dd>1 photo</dd></div>
+          <div><dt>Getting in</dt><dd>May enter if nobody is home</dd></div>
+          <div><dt>Pets</dt><dd>Yes, loose. Knock first.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="band" id="how"><div class="wrap">
+    <span class="kicker">How it works</span>
+    <h2>Five questions, almost no typing.</h2>
+    <ol class="steps">
+      <li><b>Where</b><span>Pick a room from eight large buttons.</span></li>
+      <li><b>What</b><span>Pick the problem in your own words, then what you can see.</span></li>
+      <li><b>Safety</b><span>One yes-or-no question sets the urgency, so nobody has to guess what counts as urgent.</span></li>
+      <li><b>Details</b><span>A photo and a note if you have them. Both optional.</span></li>
+      <li><b>Access</b><span>May we enter, any pets, best time. Three taps.</span></li>
+    </ol>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">Designed for both sides of the door</span>
+    <h2>The resident and the tech want the same thing.</h2>
+    <div class="three">
+      <div class="item"><h3>An emergency leaves the form</h3><p>If the answer signals danger, the screen says to call, in the largest type in the app. The form never stands between a person and a phone number.</p></div>
+      <div class="item"><h3>A promise on every status</h3><p>Each urgency level states what happens next in plain words, and repeats it on the tracking screen. "Received" is never the whole message.</p></div>
+      <div class="item"><h3>Access is never an afterthought</h3><p>Permission to enter and pets are required answers. The wasted trip to a locked door is designed out.</p></div>
+    </div>
+  </div></section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <b>Punchlist</b>
+  <p>Designed and built by Keith Sanders II as a portfolio concept. There is no product, company or customer behind this page, and nothing here is for sale. The prototype runs in your browser with invented data and saves nothing.</p>
+  <div class="links"><a href="../../prototypes/punchlist/">Open the prototype</a><a href="../../work/punchlist.html">Case study</a><a href="../../">Keith's portfolio</a></div>
+</div></footer>
+<script src="../base.js?v=1"></script>
+</body>
+</html>

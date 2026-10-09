@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Degree Map | When do I graduate, and what decides it?</title>
+<meta name="description" content="Concept product site for Degree Map, a degree planner that leads with the finish date and explains what controls it.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="../base.css?v=1">
+<style>
+:root { --bg: #F4F6F5; --surface: #DFEFEB; --ink: #17211E; --ink-2: #4F5D58; --brand: #0F6B5C; --on-brand: #FFFFFF; --font-d: "Fraunces", Georgia, serif; --font-b: "Source Sans 3", system-ui, sans-serif; color-scheme: light; }
+.hero h1 { font-weight: 700; }
+.hero h1 em { font-style: italic; color: var(--brand); }
+.ask { font: 600 1.15rem var(--font-b); color: var(--ink-2); }
+.lock { border: 1.5px dashed var(--ink-2); border-radius: 10px; padding: 14px; display: grid; gap: 8px; background: #fff; }
+.lock span { background: #FFF1D6; padding: 4px 9px; border-radius: 6px; justify-self: start; font-size: 15px; }
+.answer { font: 700 clamp(1.6rem, 3.6vw, 2.4rem)/1.1 var(--font-d); }
+.answer em { font-style: normal; color: var(--brand); }
+</style>
+</head>
+<body>
+
+<div class="concept"><div class="wrap"><span>Concept site. Degree Map is a design exercise, not a real product or company.</span><a href="../../work/degree-map.html">Read the case study</a></div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#top">Degree Map</a>
+  <a href="#how">How it works</a><a href="#try">Try it</a><a href="../../work/degree-map.html">Case study</a>
+</div></header>
+
+<main id="top">
+  <section class="hero stack"><div class="wrap">
+    <div class="text">
+      <span class="ask">The question every student opens a degree audit to ask:</span>
+      <h1>"When do I <em>graduate</em>?"</h1>
+      <p class="sub">Degree Map puts the answer at the top of the page, names the one course that controls it, and updates the date as you plan next term.</p>
+      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
+    </div>
+    <div id="try"><div class="browser"><iframe src="../../prototypes/degree-map/" title="Degree Map interactive prototype"></iframe></div><p class="cap" style="margin-top:12px">Live prototype with an invented program. Untick the Capstone Project and watch the date move.</p></div>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">The problem</span>
+    <h2>A requirements list treats every course as equal. They are not.</h2>
+    <p class="intro">Some courses run every term. Some run once a year. One of them is usually the real constraint on when you finish, and a checklist gives no sign which.</p>
+  </div></section>
+
+  <section class="band" id="how"><div class="wrap">
+    <span class="kicker">How it works</span>
+    <h2>Answer first. Reasoning underneath.</h2>
+    <div class="two">
+      <div class="spec"><span class="kicker" style="margin:0">The headline</span><p class="answer">You can finish in <em>Fall 2027</em>.</p><p style="color: var(--ink-2)">One course sets that date: Digital Forensics runs only in fall. Everything else fits before then.</p></div>
+      <div class="spec"><span class="kicker" style="margin:0">A course you cannot take yet</span><div class="lock"><b>SEC 250 Digital Forensics</b><span>Runs only in fall. The next chance is Fall 2027.</span></div><p style="color: var(--ink-2)">Locked courses stay on the page with their reason. Hiding one would hide the most important fact a student needs.</p></div>
+    </div>
+    <div class="three">
+      <div class="item"><h3>Plan and consequence together</h3><p>Tick courses for next term and the finish date responds at once. Leave out a spring-only course and the page says what it cost you and how to get it back.</p></div>
+      <div class="item"><h3>Conditions in plain words</h3><p>"Open to you if you pass SEC 230 this term." The word prerequisite does not appear.</p></div>
+      <div class="item"><h3>The question nobody mentions</h3><p>The credit total says whether the plan is full-time or part-time, and prompts a check on financial aid before registration.</p></div>
+    </div>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">For advisors</span>
+    <h2>The same audit, with the conversation started.</h2>
+    <p class="intro">The full requirement list is still there, complete, in plain status words. A student who arrives knowing their date and their constraint can spend the appointment on the decision, not the decoding.</p>
+  </div></section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <b>Degree Map</b>
+  <p>Designed and built by Keith Sanders II as a portfolio concept. There is no product, company or customer behind this page, and nothing here is for sale. The prototype runs in your browser with invented data and saves nothing.</p>
+  <div class="links"><a href="../../prototypes/degree-map/">Open the prototype</a><a href="../../work/degree-map.html">Case study</a><a href="../../">Keith's portfolio</a></div>
+</div></footer>
+<script src="../base.js?v=1"></script>
+</body>
+</html>

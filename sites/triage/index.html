@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Triage | Thirteen alerts, five decisions</title>
+<meta name="description" content="Concept product site for Triage, a security alert queue that groups related alerts into cases and explains why.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="../base.css?v=1">
+<style>
+:root { --bg: #F3F4F1; --surface: #E4E7E0; --ink: #1A1D1A; --ink-2: #555C54; --brand: #1F4FA3; --on-brand: #FFFFFF; --radius: 6px; --font-d: "IBM Plex Sans", system-ui, sans-serif; --font-b: "IBM Plex Sans", system-ui, sans-serif; color-scheme: light; }
+.hero h1 { font-weight: 700; }
+.hero h1 span { color: var(--brand); }
+.count { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 22px; font: 500 15px "IBM Plex Mono", ui-monospace, monospace; color: var(--ink-2); }
+.count b { font: 700 clamp(3rem, 9vw, 6rem)/0.9 var(--font-d); color: var(--ink); }
+.count .arrow { font-size: 2.4rem; color: var(--brand); }
+.keys { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-top: 34px; }
+.keys div { background: var(--bg); border: 1px solid #C9CDC4; border-radius: 8px; padding: 14px; display: grid; gap: 8px; }
+kbd { font: 500 20px "IBM Plex Mono", ui-monospace, monospace; border: 1.5px solid var(--ink); border-bottom-width: 4px; border-radius: 6px; padding: 4px 12px; background: #fff; justify-self: start; }
+.not li { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div class="concept"><div class="wrap"><span>Concept site. Triage is a design exercise, not a real product or company.</span><a href="../../work/triage.html">Read the case study</a></div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#top">Triage</a>
+  <a href="#how">How it works</a><a href="#try">Try it</a><a href="../../work/triage.html">Case study</a>
+</div></header>
+
+<main id="top">
+  <section class="hero stack"><div class="wrap">
+    <div class="text">
+      <div class="count"><b>13</b><span>alerts</span><span class="arrow" aria-hidden="true">→</span><b>5</b><span>decisions</span></div>
+      <h1>Stop reading alerts. <span>Start closing cases.</span></h1>
+      <p class="sub">Triage groups alerts that belong to the same incident, tells you why it grouped them, and lets you turn the grouping off whenever you want to check its work.</p>
+      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
+    </div>
+    <div id="try"><div class="browser"><iframe src="../../prototypes/triage/" title="Triage interactive prototype"></iframe></div><p class="cap" style="margin-top:12px">Live prototype with invented data. Press J and K to move, E to escalate, C to close.</p></div>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">The problem</span>
+    <h2>Rules fire on events. People attack in sequences.</h2>
+    <p class="intro">A flat list sorted by time scatters one incident across the screen and mixes it with routine noise. The analyst is left to notice that rows 3, 9, 14 and 22 are the same story.</p>
+  </div></section>
+
+  <section class="band" id="how"><div class="wrap">
+    <span class="kicker">How it works</span>
+    <h2>Three ideas, each one checkable.</h2>
+    <div class="three">
+      <div class="item"><h3>Grouping that explains itself</h3><p>Every case opens with "Why these are together" in a sentence or two. If the tool merged things that do not belong, you can see the reasoning and reject it.</p></div>
+      <div class="item"><h3>An off switch</h3><p>One toggle returns the flat list. An alert with relatives elsewhere says so. Trust is built by being able to check.</p></div>
+      <div class="item"><h3>A reason on every close</h3><p>Closing a case asks why it is safe, on keys 1 to 4. One extra keystroke, and the answer is the data someone needs to fix a noisy rule.</p></div>
+    </div>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">Hands on the keyboard</span>
+    <h2>Every shortcut is printed on its button.</h2>
+    <p class="intro">You learn the keys by using the mouse, and then you stop needing the mouse.</p>
+    <div class="keys">
+      <div><kbd>J</kbd><span>Next case</span></div><div><kbd>K</kbd><span>Previous case</span></div><div><kbd>E</kbd><span>Escalate</span></div><div><kbd>A</kbd><span>Assign to me</span></div><div><kbd>C</kbd><span>Close as safe</span></div>
+    </div>
+  </div></section>
+
+  <section class="band"><div class="wrap">
+    <span class="kicker">What this is not</span>
+    <h2>A design for the queue, with no engine behind it.</h2>
+    <div class="two">
+      <ul class="not" style="margin:0; padding-left:1.1em; color: var(--ink-2)">
+        <li>It does not collect logs or detect anything.</li>
+        <li>The grouping rule is the simplest possible: same machine or same account.</li>
+        <li>It has not been used by working analysts.</li>
+      </ul>
+      <p style="color: var(--ink-2)">The interface argument stands either way: however alerts are grouped, the grouping needs a stated reason and an off switch.</p>
+    </div>
+  </div></section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <b>Triage</b>
+  <p>Designed and built by Keith Sanders II as a portfolio concept. There is no product, company or customer behind this page, and nothing here is for sale. The prototype runs in your browser with invented data and saves nothing.</p>
+  <div class="links"><a href="../../prototypes/triage/">Open the prototype</a><a href="../../work/triage.html">Case study</a><a href="../../">Keith's portfolio</a></div>
+</div></footer>
+<script src="../base.js?v=1"></script>
+</body>
+</html>

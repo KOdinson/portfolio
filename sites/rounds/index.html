@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rounds | A patrol log for the night shift</title>
+<meta name="description" content="Concept product site for Rounds, a one-thumb patrol log that writes the shift handover.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<link rel="stylesheet" href="../base.css?v=1">
+<style>
+:root { --bg: #0E1114; --surface: #171B20; --ink: #F1F3F5; --ink-2: #A3ADB8; --brand: #7BD88F; --on-brand: #06250E; --radius: 14px; --font-d: "Atkinson Hyperlegible", system-ui, sans-serif; --font-b: "Atkinson Hyperlegible", system-ui, sans-serif; color-scheme: dark; }
+.hero h1 { font-weight: 700; }
+.hero h1 em { font-style: normal; color: var(--brand); }
+.cond { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 34px; }
+.cond div { border: 1.5px solid #2B323A; border-radius: 14px; padding: 18px; display: grid; gap: 6px; }
+.cond small { color: var(--brand); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 13px; }
+.cond b { font-size: 1.25rem; }
+.cond span { color: var(--ink-2); }
+.note-card { font: 400 16px/1.6 ui-monospace, Consolas, monospace; white-space: pre-wrap; background: #0E1114; border: 1.5px solid #2B323A; border-radius: 12px; padding: 18px; }
+.spec { border-color: #2B323A; }
+</style>
+</head>
+<body>
+
+<div class="concept"><div class="wrap"><span>Concept site. Rounds is a design exercise, not a real product or company.</span><a href="../../work/rounds.html">Read the case study</a></div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#top">Rounds</a>
+  <a href="#how">How it works</a><a href="#try">Try it</a><a href="../../work/rounds.html">Case study</a>
+</div></header>
+
+<main id="top">
+  <section class="hero split"><div class="wrap">
+    <div class="text">
+      <h1>The round and the report, <em>with one thumb</em>.</h1>
+      <p class="sub">Rounds is a patrol log built for how a round really happens: walking, one hand free, bad light. Tap each checkpoint clear or flag it, and the shift handover writes itself.</p>
+      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
+    </div>
+    <div class="phone-slot" id="try"><iframe src="../../prototypes/rounds/?embed" title="Rounds interactive prototype"></iframe><span class="cap">Live prototype. Clear a few points, report an issue, finish the round.</span></div>
+  </div></section>
+
+  <section class="band tint" id="how"><div class="wrap">
+    <span class="kicker">Designed for the conditions</span>
+    <h2>Most apps assume you are sitting down.</h2>
+    <div class="cond">
+      <div><small>Walking</small><b>One glance, one tap</b><span>A segmented bar shows where you are in the round. "All clear" is a single tap.</span></div>
+      <div><small>One hand</small><b>Everything at the bottom</b><span>Both actions sit in thumb reach, 62 pixels tall. Nothing that matters is at the top.</span></div>
+      <div><small>Dark</small><b>A screen that stays dim</b><span>Near-black background, and a typeface drawn for low-vision readers.</span></div>
+      <div><small>Tired</small><b>No typing</b><span>An issue is a type, one safety question and an optional photo.</span></div>
+    </div>
+  </div></section>
+
+  <section class="band"><div class="wrap">
+    <span class="kicker">End of shift</span>
+    <h2>The handover is already written.</h2>
+    <div class="two">
+      <div class="item"><p>Every tap stamps the clock. Finishing the round turns those taps into a plain-text shift note you can paste into whatever the site already uses: a logbook, an email, a radio call.</p><p>Nobody types a time, so the log cannot drift from what happened.</p></div>
+      <div class="spec"><span class="kicker" style="margin:0">Shift note</span><div class="note-card">Round finished 02:41
+6 checkpoints, 5 clear, 1 with an issue.
+
+02:14  Loading dock: Door unsecured (photo)</div></div>
+    </div>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">People before paperwork</span>
+    <h2>One question comes before the report.</h2>
+    <div class="three">
+      <div class="item"><h3>"Does anyone need help right now?"</h3><p>Every issue asks it. A yes puts the supervisor's number on screen with the line "Call now, report after."</p></div>
+      <div class="item"><h3>Clear means the same to everyone</h3><p>Each checkpoint says what to look for: "Roll door down, side door locked". Two guards mean the same thing when they tap.</p></div>
+      <div class="item"><h3>The app knows where you are</h3><p>The footer names the current checkpoint and the buttons apply to it. No selecting a row first.</p></div>
+    </div>
+  </div></section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <b>Rounds</b>
+  <p>Designed and built by Keith Sanders II as a portfolio concept. There is no product, company or customer behind this page, and nothing here is for sale. The prototype runs in your browser with invented data and saves nothing.</p>
+  <div class="links"><a href="../../prototypes/rounds/">Open the prototype</a><a href="../../work/rounds.html">Case study</a><a href="../../">Keith's portfolio</a></div>
+</div></footer>
+<script src="../base.js?v=1"></script>
+</body>
+</html>

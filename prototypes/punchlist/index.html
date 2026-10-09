@@ -108,6 +108,7 @@ dd { margin: 0; font-weight: 500; }
 </div>
 
 <script>
+if (location.search.includes('embed')) document.body.style.background = 'transparent';
 const ROOMS = ['Kitchen', 'Bathroom', 'Bedroom', 'Living area', 'Laundry', 'Entry or hall', 'Balcony', 'Whole unit'];
 const KINDS = {
   'Water or a leak': { symptoms: ['Dripping', 'Pooling on the floor', 'Stain on ceiling or wall', 'Drain is clogged', 'No hot water'],

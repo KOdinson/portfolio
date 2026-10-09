@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swap | Give away a shift without the group chat</title>
+<meta name="description" content="Concept product site for Swap, a shift-swap flow that shows the rules first and always says whose shift it is.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,700;6..12,900&display=swap">
+<link rel="stylesheet" href="../base.css?v=1">
+<style>
+:root { --bg: #FAFAFD; --surface: #EEECFB; --ink: #1C1A2B; --ink-2: #5A5770; --brand: #4B3FD1; --on-brand: #FFFFFF; --radius: 14px; --font-d: "Nunito Sans", system-ui, sans-serif; --font-b: "Nunito Sans", system-ui, sans-serif; color-scheme: light; }
+.hero h1 { font-weight: 900; }
+.hero h1 s { text-decoration-thickness: 0.08em; color: var(--ink-2); }
+.own { display: grid; gap: 10px; margin-top: 34px; }
+.own div { border-radius: 12px; padding: 14px 16px; font-weight: 700; display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 12px; align-items: baseline; }
+.own small { font-weight: 400; font-size: 14px; }
+.own .a { background: #FFE9C7; color: #6B4300; } .own .c { background: #E4F2E8; color: #1E6B3A; }
+@media (max-width: 560px) { .own div { grid-template-columns: minmax(0, 1fr); } }
+.who { display: grid; gap: 10px; }
+.who div { border: 1.5px solid #D9D7E4; border-radius: 12px; padding: 12px 14px; background: #fff; }
+.who div.no { border-style: dashed; }
+.who b { display: block; }
+.who span { color: var(--ink-2); font-size: 15px; }
+</style>
+</head>
+<body>
+
+<div class="concept"><div class="wrap"><span>Concept site. Swap is a design exercise, not a real product or company.</span><a href="../../work/swap.html">Read the case study</a></div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#top">Swap</a>
+  <a href="#how">How it works</a><a href="#try">Try it</a><a href="../../work/swap.html">Case study</a>
+</div></header>
+
+<main id="top">
+  <section class="hero split"><div class="wrap">
+    <div class="text">
+      <h1>Give away a shift without <s>the group chat</s>.</h1>
+      <p class="sub">Swap checks overtime, rest time and training before you ask anyone. And at every moment, one sentence on the screen says whose shift it is.</p>
+      <div class="cta"><a class="btn" href="#try">Try the prototype</a><a class="btn alt" href="#how">How it works</a></div>
+    </div>
+    <div class="phone-slot" id="try"><iframe src="../../prototypes/swap/?embed" title="Swap interactive prototype"></iframe><span class="cap">Live prototype. Tap Friday.</span></div>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">The gap</span>
+    <h2>Between "can you cover me?" and an approved schedule, whose shift is it?</h2>
+    <p class="intro">That is when both people can believe the other one is working Friday. Swap never leaves it open.</p>
+    <div class="own">
+      <div class="a"><small>You have asked</small><span>Friday is still your shift. Nobody has accepted yet.</span></div>
+      <div class="a"><small>Luis says yes</small><span>Friday is still your shift until a manager approves.</span></div>
+      <div class="c"><small>Manager approves</small><span>Friday is Luis's shift now. You are off.</span></div>
+    </div>
+  </div></section>
+
+  <section class="band" id="how"><div class="wrap">
+    <span class="kicker">How it works</span>
+    <h2>The rules run before the ask.</h2>
+    <div class="two">
+      <div class="item"><p>Nobody likes asking a coworker for a favour and then learning from a manager, a day later, that the coworker was never allowed to say yes.</p><p>Swap shows who can take the shift and who cannot, with the reason. Each reason is about the rule, never the person, and is written so it could be read aloud in front of the coworker it names.</p></div>
+      <div class="who">
+        <div><b>Luis</b><span>Free Friday evening. Would be at 32 hours this week.</span></div>
+        <div class="no"><b>Dana can't take it</b><span>Would reach 44 hours. Overtime needs a manager to offer it.</span></div>
+        <div class="no"><b>Tom can't take it</b><span>Works until 7 am Friday. That leaves 8 hours of rest, and the minimum is 10.</span></div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="band tint"><div class="wrap">
+    <span class="kicker">Three steps, kept separate</span>
+    <h2>Asked, accepted and approved are different things.</h2>
+    <ol class="steps">
+      <li><b>Ask several at once</b><span>The first yes gets it. Everyone else is told it is taken.</span></li>
+      <li><b>Someone accepts</b><span>The shift is still yours. The screen says so.</span></li>
+      <li><b>A manager approves</b><span>"The swap is not real until this step." Then the schedule changes for everyone.</span></li>
+    </ol>
+  </div></section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <b>Swap</b>
+  <p>Designed and built by Keith Sanders II as a portfolio concept. There is no product, company or customer behind this page, and nothing here is for sale. The prototype runs in your browser with invented data and saves nothing.</p>
+  <div class="links"><a href="../../prototypes/swap/">Open the prototype</a><a href="../../work/swap.html">Case study</a><a href="../../">Keith's portfolio</a></div>
+</div></footer>
+<script src="../base.js?v=1"></script>
+</body>
+</html>
