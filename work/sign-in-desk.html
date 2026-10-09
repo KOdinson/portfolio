@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign-In Desk | Keith Sanders II</title>
+<meta name="description" content="Case study: a concept lobby sign-in tablet whose visitor list doubles as the emergency headcount.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=4">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="cs-head">
+    <p class="label">Sheet 21 of 21 · <span class="tag concept">Concept · working prototype</span></p>
+    <h1>Sign-In Desk: a visitor log that works in an emergency</h1>
+    <p class="lede">As head security guard for a building, I planned access control, mapped exit routes and ran tabletop exercises of the emergency plan. A visitor log exists for one moment above all others: the building is being cleared and someone has to know who is still inside. This concept designs the sign-in around that moment.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Kiosk flow, operator view, coded prototype</dd></div>
+      <div><dt>When</dt><dd>October 2026</dd></div>
+      <div><dt>Status</dt><dd>Self-initiated concept. Invented building and people. Untested with visitors or guards.</dd></div>
+    </dl>
+  </div>
+  <section class="cs-section">
+    <p class="label">The prototype</p>
+    <div class="content">
+      <figure>
+        <div class="plate live" style="background: #E8ECEF;">
+          <iframe src="../prototypes/sign-in-desk/" title="Interactive prototype"></iframe>
+        </div>
+        <div class="plate-cap">
+          <span>Live and interactive. Sign in as a visitor, then switch to Guard view and open the Emergency list.</span>
+          <a href="../prototypes/sign-in-desk/">Open full screen →</a>
+        </div>
+      </figure>
+      <p class="note">The building, tenants and visitors are invented. Nothing you type is saved or sent anywhere.</p>
+    </div>
+  </section>  <section class="cs-section">
+    <p class="label">The design problem</p>
+    <div class="content">
+      <div class="prose">
+        <p>A paper sign-in book has two users with opposite needs. The visitor wants to be through the lobby in seconds. The guard needs a record that is complete, legible and current, including who has left. Paper serves neither well: handwriting is unreadable, people forget to sign out, and the page shows everyone who came in today with no way to tell who is still upstairs.</p>
+        <p>A tablet can fix the legibility. The design question is whether it can also fix the part that matters, which is knowing at any second who is in the building and where.</p>
+      </div>
+      <p class="note">This is my understanding from working a security post. I have not interviewed other guards, receptionists or building managers for this project.</p>
+    </div>
+  </section>
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>Thirty seconds, four taps and a name</h3>
+          <p>Reason for visit, name, who you are seeing, done. Every choice is a large tile. The only typing is the name, on one field with nothing else on the screen.</p>
+        </div>
+        <div class="prose">
+          <h3>Say why, on the first screen</h3>
+          <p>"It is how we know who to look for if the building has to be cleared." A visitor who understands the purpose signs in properly and is more likely to sign out.</p>
+        </div>
+        <div class="prose">
+          <h3>One safety instruction, at the right moment</h3>
+          <p>Before going upstairs the visitor reads three sentences: follow the green signs, do not use the lift, meet in the north car park and find the guard. One screen, one rule, at the only moment they will read it.</p>
+        </div>
+        <div class="prose">
+          <h3>The badge is the sign-out</h3>
+          <p>The closing screen asks for the badge back on the way out, "so we know you are out". Sign-out is tied to a physical object the visitor has to hand over anyway.</p>
+        </div>
+        <div class="prose">
+          <h3>The guard view leads with a number</h3>
+          <p>"4 visitors in the building now" is the largest thing on the screen. The list below is who they are, who they came to see and which floor.</p>
+        </div>
+        <div class="prose">
+          <h3>One button turns the log into a headcount</h3>
+          <p>The emergency list regroups the same people by floor, in large type with a tick box each, and counts down: "3 of 4 visitors not yet found". It is built to be used outdoors, in a hurry, by someone holding a radio.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="cs-section">
+    <p class="label">Stating the boundary</p>
+    <div class="content">
+      <div class="prose">
+        <p>The emergency list carries a line that matters more than it looks: "Tenants keep their own staff lists. This one is visitors only." A headcount tool that seems complete and is not would be dangerous. The screen says what it covers so nobody assumes it covers everyone.</p>
+      </div>
+    </div>
+  </section>
+  <section class="cs-section">
+    <p class="label">Limits and next steps</p>
+    <div class="content">
+      <p class="note">A visitor log is a record of people's names and movements, and that brings privacy duties: how long it is kept, who can read it, and whether the next visitor can see the previous one's name. The prototype shows names only in the guard view, and a real system would need a retention rule and proper access control. It would also have to keep working when the power or network fails, which is exactly when the emergency list is needed.</p>
+      <div class="prose">
+        <ul>
+          <li>Time real visitors through the flow on a tablet at standing height, including someone carrying a box.</li>
+          <li>Walk the emergency list through a real drill and see whether a guard can use it one-handed outdoors.</li>
+          <li>Interview front-desk staff about the visitors who do not fit: groups, regulars, people who refuse to give a name.</li>
+          <li>Design the printed fallback that the tablet produces every hour, for the day it is dead.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Back to the start</span>
+    <a class="big" href="wasp-ground-station.html">Ground station for an autonomous swarm →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js?v=4"></script>
+</body>
+</html>

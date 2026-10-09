@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parts Finder | Concept prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;800&display=swap">
+<style>
+/* A repair-parts search: one light theme by choice. Results are ordered by what to try first, and the free fix always leads. */
+:root {
+  --page: #EFF1EE; --card: #FFFFFF; --ink: #161A17; --ink-2: #57605A; --line: #D2D8D3;
+  --act: #B4480F; --act-soft: #FBEBDF; --fit: #17603A; --fit-soft: #E3F0E7; --maybe: #7A5200; --maybe-soft: #FFF2D1; --no: #6A6F6B; --danger: #A3211B; --danger-soft: #FBEAE8; --tape: #F2C230;
+  --font: "Barlow", system-ui, "Segoe UI", Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 400 16.5px/1.42 var(--font); }
+button, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--act); outline-offset: 2px; }
+h1, h2, h3, p { margin: 0; }
+.wrap { max-width: 1040px; margin-inline: auto; padding: 20px 20px 40px; display: grid; gap: 16px; }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
+.head b { font-size: 21px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; }
+.tape { background: var(--tape); font-size: 13px; font-weight: 600; padding: 3px 8px; }
+.cols { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 18px; align-items: start; }
+@media (max-width: 800px) { .cols { grid-template-columns: minmax(0, 1fr); } }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 12px; }
+label.f { font-weight: 600; display: grid; gap: 6px; }
+select { width: 100%; padding: 10px; border: 2px solid var(--ink-2); border-radius: 8px; background: #fff; }
+.hint { color: var(--ink-2); font-size: 15px; font-weight: 400; }
+.sym { display: grid; gap: 8px; }
+.sym button { text-align: left; background: #fff; border: 1.5px solid var(--line); border-radius: 9px; padding: 11px 13px; font-weight: 600; }
+.sym button[aria-pressed="true"] { border-color: var(--act); background: var(--act-soft); }
+h1 { font-size: clamp(24px, 3.4vw, 32px); font-weight: 800; line-height: 1.1; }
+.res { display: grid; gap: 10px; }
+.free { border: 2px solid var(--fit); background: var(--fit-soft); border-radius: 12px; padding: 16px; display: grid; gap: 4px; }
+.free b { font-size: 18px; }
+.part { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; }
+.part h3 { font-size: 18px; font-weight: 800; }
+.part .price { font-weight: 800; font-size: 18px; font-variant-numeric: tabular-nums; }
+.part p { grid-column: 1 / -1; color: var(--ink-2); font-size: 15.5px; }
+.tags { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 13.5px; font-weight: 600; padding: 3px 9px; border-radius: 6px; }
+.tag.fit { background: var(--fit-soft); color: var(--fit); } .tag.maybe { background: var(--maybe-soft); color: var(--maybe); } .tag.no { background: #E7E9E7; color: var(--no); } .tag.plain { background: #EDEFED; color: var(--ink); }
+.part.nofit { opacity: 0.75; border-style: dashed; }
+.pro { border: 2px solid var(--danger); background: var(--danger-soft); border-radius: 12px; padding: 16px; display: grid; gap: 4px; }
+.pro b { color: var(--danger); font-size: 18px; }
+.more { background: none; border: 0; padding: 4px 0; color: var(--act); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; justify-self: start; }
+.sub { color: var(--ink-2); font-size: 15px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head"><b>Parts Finder</b><span class="tape">Concept prototype · invented models, parts and prices</span></div>
+  <div class="cols">
+    <div class="card">
+      <label class="f" for="model">Your appliance<span class="hint">The model number is on a label inside the door.</span>
+        <select id="model"><option value="DW-420">Dishwasher · DW-420</option><option value="DW-410">Dishwasher · DW-410</option><option value="">Dishwasher · I do not know the model</option></select></label>
+      <div class="f" style="font-weight:600">What is it doing?</div>
+      <div class="sym" id="sym"></div>
+    </div>
+    <div class="res" id="res" aria-live="polite"></div>
+  </div>
+</div>
+
+<script>
+// Invented catalogue. "fits" lists the models a part is confirmed for; a 400-series part with no entry for your model is "check the label".
+const SYMPTOMS = {
+  drain: { name: 'Water stays in the bottom', title: 'Not draining',
+    free: ['Clean the filter first', 'Twist out the filter in the floor of the tub and rinse it. Free, about 5 minutes, no tools. This fixes it more often than any part does.'],
+    parts: [['Drain pump', 38, ['DW-420', 'DW-410'], '20 minutes · screwdriver', 'The usual culprit if the filter is clean and you hear humming but no water moves.'],
+            ['Drain hose', 14, ['DW-420'], '15 minutes · pliers', 'Worth checking for a kink before you buy one.'],
+            ['Check valve', 9, [], '10 minutes · no tools', 'A small flap that stops dirty water flowing back.']] },
+  leak: { name: 'Water on the floor', title: 'Leaking',
+    free: ['Wipe the door seal and check the detergent', 'Food on the seal or ordinary dish soap instead of dishwasher detergent both cause leaks. Free, 2 minutes.'],
+    parts: [['Door seal', 22, ['DW-420', 'DW-410'], '15 minutes · no tools', 'Pulls out of its channel and the new one presses in.'],
+            ['Inlet valve', 31, ['DW-410'], '30 minutes · screwdriver, pliers', 'Where water enters. Leaks here show up under the machine, at the front left.']] },
+  dead: { name: 'Nothing happens at all', title: 'Will not start',
+    free: ['Check the breaker and the door latch', 'A tripped breaker or a door that has not clicked shut both look like a dead machine. Free, 2 minutes.'],
+    pro: ['After that, this one needs a technician', 'What is left is the control board or the wiring, and both mean working near mains electricity. We sell the parts, and we would rather you did not fit them yourself.'], parts: [] },
+  dirty: { name: 'Dishes come out dirty', title: 'Not cleaning well',
+    free: ['Clean the spray arms', 'Lift them off and poke the holes clear with a toothpick. Free, 10 minutes.'],
+    parts: [['Spray arm, lower', 19, ['DW-420', 'DW-410'], '2 minutes · no tools', 'Replace if it is cracked or will not spin freely.'],
+            ['Circulation pump', 74, ['DW-420'], '45 minutes · several tools', 'Only if the arms are clear and barely any water is moving. Get a second opinion before buying.']] }
+};
+let sym = 'drain', showAll = false;
+const $ = (id) => document.getElementById(id);
+
+function render() {
+  const model = $('model').value, s = SYMPTOMS[sym];
+  $('sym').innerHTML = Object.entries(SYMPTOMS).map(([k, v]) => `<button type="button" data-k="${k}" aria-pressed="${k === sym}">${v.name}</button>`).join('');
+  const rated = s.parts.map((p) => ({ p, fit: !model ? 'maybe' : p[2].includes(model) ? 'fit' : p[2].length ? 'no' : 'maybe' }));
+  const shown = rated.filter((r) => r.fit !== 'no'), hidden = rated.filter((r) => r.fit === 'no');
+  const card = ({ p, fit }) => `<div class="part ${fit === 'no' ? 'nofit' : ''}"><h3>${p[0]}</h3><span class="price">$${p[1]}</span>
+      <div class="tags"><span class="tag ${fit}">${fit === 'fit' ? '✓ Fits your ' + model : fit === 'maybe' ? (model ? '? Fits some 400-series. Check the part number on your old one.' : '? Fit unknown until we have your model') : '✕ Does not fit ' + model}</span><span class="tag plain">${p[3]}</span></div><p>${p[4]}</p></div>`;
+  $('res').innerHTML = `<h1>${s.title}: try these in order</h1>
+    <div class="free"><span class="sub">Step 1 · costs nothing</span><b>${s.free[0]}</b><span>${s.free[1]}</span></div>
+    ${s.pro ? `<div class="pro"><b>${s.pro[0]}</b><span>${s.pro[1]}</span></div>` : ''}
+    ${shown.map(card).join('')}
+    ${hidden.length ? `<button type="button" class="more" id="more">${showAll ? 'Hide' : 'Show'} ${hidden.length} part${hidden.length > 1 ? 's' : ''} that ${hidden.length > 1 ? 'do' : 'does'} not fit your model</button>` : ''}
+    ${showAll ? hidden.map(card).join('') : ''}
+    ${!model && s.parts.length ? `<p class="sub">Without a model number we cannot confirm any part fits. Find the label and these will sort themselves into fits and does not fit.</p>` : ''}`;
+}
+$('sym').addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) { sym = b.dataset.k; showAll = false; render(); document.querySelector(`#sym [data-k="${sym}"]`).focus(); } });
+$('model').addEventListener('change', () => { showAll = false; render(); });
+$('res').addEventListener('click', (e) => { if (e.target.id === 'more') { showAll = !showAll; render(); $('more').focus(); } });
+render();
+</script>
+</body>
+</html>

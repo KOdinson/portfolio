@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Status, plainly | Concept prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap">
+<style>
+/* A service status page: one light theme by choice. The first sentence must be enough for someone who reads nothing else. */
+:root {
+  --page: #F3F5F4; --card: #FFFFFF; --ink: #141A18; --ink-2: #56615D; --line: #D4DAD7;
+  --ok: #17603A; --ok-soft: #E3F0E7; --warn: #7A5200; --warn-soft: #FFF2D1; --down: #A3211B; --down-soft: #FBEAE8; --act: #1D4E89; --tape: #F2C230;
+  --font: "Sora", system-ui, "Segoe UI", Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 400 15.5px/1.5 var(--font); }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--act); outline-offset: 2px; }
+h1, h2, h3, p { margin: 0; }
+.wrap { max-width: 860px; margin-inline: auto; padding: 18px 20px 40px; display: grid; gap: 14px; }
+.proto { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 13.5px; }
+.tape { background: var(--tape); font-weight: 600; padding: 3px 8px; }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1.5px solid var(--ink-2); border-radius: 8px; overflow: hidden; }
+.seg button { background: var(--card); border: 0; border-left: 1.5px solid var(--ink-2); padding: 6px 11px; font-weight: 600; font-size: 13.5px; }
+.seg button:first-child { border-left: 0; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.brand { font-weight: 800; font-size: 17px; }
+
+.hero { border-radius: 14px; padding: 22px; display: grid; gap: 10px; border: 2px solid; }
+.hero.ok { background: var(--ok-soft); border-color: var(--ok); } .hero.warn { background: var(--warn-soft); border-color: var(--warn); } .hero.down { background: var(--down-soft); border-color: var(--down); }
+.hero .state { font-weight: 800; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; }
+.hero.ok .state { color: var(--ok); } .hero.warn .state { color: var(--warn); } .hero.down .state { color: var(--down); }
+.hero h1 { font-size: clamp(22px, 3.6vw, 32px); font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; text-wrap: balance; }
+.you { font-weight: 600; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; display: grid; gap: 12px; }
+.card h2 { font-size: 16px; font-weight: 800; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips label { border: 1.5px solid var(--line); border-radius: 99px; padding: 6px 12px; font-weight: 600; font-size: 14px; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.chips label:has(input:checked) { border-color: var(--act); background: #E6EEF8; }
+.chips input { accent-color: var(--act); }
+.facts { display: grid; gap: 10px; }
+.facts div { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 4px 14px; }
+.facts b { font-weight: 600; color: var(--ink-2); }
+@media (max-width: 560px) { .facts div { grid-template-columns: minmax(0, 1fr); } }
+.svc { display: grid; }
+.svc div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); }
+.svc div:first-child { border-top: 0; }
+.svc .s { font-weight: 600; font-size: 14.5px; white-space: nowrap; }
+.s.ok { color: var(--ok); } .s.warn { color: var(--warn); } .s.down { color: var(--down); }
+.svc .dim { color: var(--ink-2); }
+.tl { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.tl li { display: grid; grid-template-columns: 4.6rem minmax(0, 1fr); gap: 12px; }
+.tl time { font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.sub { color: var(--ink-2); font-size: 14.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="proto"><span class="tape">Concept prototype · invented service</span><span>Pick a moment:</span>
+    <div class="seg" id="scen" role="group" aria-label="Scenario">
+      <button type="button" data-s="ok">All working</button><button type="button" data-s="partial">Partial outage</button><button type="button" data-s="major">Major outage</button><button type="button" data-s="fixed">Just fixed</button>
+    </div>
+  </div>
+  <div class="brand">Ledgerly status</div>
+  <div class="hero" id="hero" aria-live="polite"></div>
+  <div class="card">
+    <h2>Which parts do you use?</h2>
+    <div class="chips" id="chips"></div>
+    <p class="sub">Tick yours and the line at the top tells you whether this is your problem today. Nothing is saved.</p>
+  </div>
+  <div class="card" id="detail"></div>
+  <div class="card"><h2>Every part of the service</h2><div class="svc" id="svc"></div></div>
+  <div class="card" id="tlCard"></div>
+</div>
+
+<script>
+const SERVICES = ['Signing in', 'Payments', 'File uploads', 'Notifications', 'Reports'];
+// Each scenario: affected services with a level, plus the plain-language facts.
+const SCEN = {
+  ok: { level: 'ok', head: 'Everything is working.', hit: {}, updates: [['Today', 'No problems in the last 30 days.']] },
+  partial: { level: 'warn', head: 'Some card payments are failing. Everything else is working.', hit: { Payments: ['warn', 'About 1 in 5 card payments fail'] },
+    what: 'Since 1:42 pm, about one card payment in five is being declined by our payment processor even though the card is fine.',
+    who: 'Anyone taking card payments. Bank transfers are not affected.',
+    do: 'Try the payment again. A second attempt usually goes through. No customer is charged twice for a failed attempt.',
+    when: 'We do not know yet how long this will last. Next update by 2:30 pm, sooner if it changes.',
+    updates: [['2:04 pm', 'The processor has confirmed the fault is on their side and is working on it. We have no time for a fix yet.'], ['1:51 pm', 'We are seeing card payments fail and are finding out why.']] },
+  major: { level: 'down', head: 'Nobody can sign in right now. We are working on it.', hit: { 'Signing in': ['down', 'Not working'], Payments: ['warn', 'Unreachable until sign-in returns'], 'File uploads': ['warn', 'Unreachable until sign-in returns'], Reports: ['warn', 'Unreachable until sign-in returns'] },
+    what: 'Since 9:15 am, the sign-in page returns an error for everyone. If you were already signed in, you can keep working until your session ends.',
+    who: 'Everyone who needs to sign in. Scheduled payments and notifications are still running in the background.',
+    do: 'If you are signed in, stay signed in and do not close the tab. If you are not, there is nothing you can do from your side. Resetting your password will not help.',
+    when: 'We have found the cause and expect sign-in back within the hour. Next update by 10:15 am.',
+    updates: [['9:48 am', 'We found the cause: an update we released at 9:10 am. We are undoing it now.'], ['9:31 am', 'Sign-in is failing for everyone. Your data is safe and nothing has been lost.'], ['9:19 am', 'We are looking into reports that people cannot sign in.']] },
+  fixed: { level: 'ok', head: 'Sign-in is working again. It was down for 51 minutes.', hit: {},
+    what: 'From 9:15 am to 10:06 am, nobody could sign in. An update we released at 9:10 am contained a mistake.',
+    who: 'Everyone who tried to sign in during that time. No data was lost and no payments were missed.',
+    do: 'Nothing. If something still looks wrong, sign out and back in once.',
+    when: 'We will publish what went wrong and what we are changing by Friday.',
+    updates: [['10:06 am', 'Sign-in is working again. We are watching it closely.'], ['9:48 am', 'We found the cause: an update we released at 9:10 am. We are undoing it now.'], ['9:31 am', 'Sign-in is failing for everyone. Your data is safe and nothing has been lost.']] }
+};
+const WORD = { ok: '✓ Working', warn: '▲ Limited', down: '■ Down' };
+const STATE = { ok: '✓ All systems working', warn: '▲ Partial outage', down: '■ Major outage' };
+let cur = 'partial';
+const used = new Set(SERVICES);
+const $ = (id) => document.getElementById(id);
+
+function render() {
+  const s = SCEN[cur], hitMine = Object.keys(s.hit).filter((k) => used.has(k));
+  document.querySelectorAll('#scen button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.s === cur));
+  $('hero').className = 'hero ' + s.level;
+  const you = !Object.keys(s.hit).length ? '' : !used.size ? 'Tick the parts you use to see if this affects you.'
+    : hitMine.length ? `This affects you: ${hitMine.join(', ').toLowerCase()}.` : 'This does not affect anything you use.';
+  $('hero').innerHTML = `<span class="state">${cur === 'fixed' ? '✓ Fixed' : STATE[s.level]}</span><h1>${s.head}</h1>${you ? `<p class="you">${you}</p>` : ''}<p class="sub">Checked a moment ago. This page updates by itself.</p>`;
+  $('chips').innerHTML = SERVICES.map((n, i) => `<label for="u${i}"><input type="checkbox" id="u${i}" value="${n}" ${used.has(n) ? 'checked' : ''}>${n}</label>`).join('');
+  $('detail').hidden = !s.what;
+  if (s.what) $('detail').innerHTML = `<h2>${cur === 'fixed' ? 'What happened' : 'What we know'}</h2><div class="facts">
+      <div><b>What is happening</b><span>${s.what}</span></div><div><b>Who is affected</b><span>${s.who}</span></div>
+      <div><b>What you can do</b><span>${s.do}</span></div><div><b>${cur === 'fixed' ? 'What happens next' : 'When it will be fixed'}</b><span>${s.when}</span></div></div>`;
+  $('svc').innerHTML = SERVICES.map((n) => { const h = s.hit[n] || ['ok', ''];
+    return `<div><span>${n}${h[1] ? ` <span class="dim">· ${h[1]}</span>` : ''}${used.has(n) ? '' : ' <span class="dim">· you do not use this</span>'}</span><span class="s ${h[0]}">${WORD[h[0]]}</span></div>`; }).join('');
+  $('tlCard').innerHTML = `<h2>Updates, newest first</h2><ol class="tl">${s.updates.map(([t, m]) => `<li><time>${t}</time><span>${m}</span></li>`).join('')}</ol>`;
+}
+$('scen').addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) { cur = b.dataset.s; render(); } });
+$('chips').addEventListener('change', (e) => { e.target.checked ? used.add(e.target.value) : used.delete(e.target.value); const id = e.target.id; render(); $(id).focus(); });
+render();
+</script>
+</body>
+</html>

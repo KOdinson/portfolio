@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Status, plainly | Keith Sanders II</title>
+<meta name="description" content="Case study: a concept service status page that says what is broken, who it affects and what to do, in the first sentence.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=4">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="cs-head">
+    <p class="label">Sheet 19 of 21 · <span class="tag concept">Concept · working prototype</span></p>
+    <h1>Status, plainly: an outage page for the person locked out</h1>
+    <p class="lede">When a service breaks, its status page is read by people who are stuck, worried and in a hurry. Most status pages are written for engineers: component names, coloured dots, and the word "investigating". This concept rewrites the page for the person on the other side.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Content design, state design, coded prototype</dd></div>
+      <div><dt>When</dt><dd>October 2026</dd></div>
+      <div><dt>Status</dt><dd>Self-initiated concept. Invented service and incidents. Untested with users.</dd></div>
+    </dl>
+  </div>
+  <section class="cs-section">
+    <p class="label">The prototype</p>
+    <div class="content">
+      <figure>
+        <div class="plate live" style="background: #F3F5F4;">
+          <iframe src="../prototypes/status-page/" title="Interactive prototype"></iframe>
+        </div>
+        <div class="plate-cap">
+          <span>Live and interactive. Switch between the four moments, and untick a service you do not use.</span>
+          <a href="../prototypes/status-page/">Open full screen →</a>
+        </div>
+      </figure>
+      <p class="note">The company, the incidents and the times are invented for this prototype.</p>
+    </div>
+  </section>  <section class="cs-section">
+    <p class="label">The design problem</p>
+    <div class="content">
+      <div class="prose">
+        <p>My security training covered incident response, and its communication advice comes down to three things people need to know: what is happening, whether it affects them, and what to do. A typical status page answers a fourth question nobody asked, which internal component is unhealthy.</p>
+        <p>The reader of a status page is deciding something right now: keep trying, wait, tell their own customers, or go and do something else. Every sentence on the page should help with that decision or get out of the way.</p>
+      </div>
+      <p class="note">This is a writing and structure exercise built on general incident-response practice. I have not run an incident for a live service or interviewed people who have.</p>
+    </div>
+  </section>
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>The headline is a complete sentence</h3>
+          <p>"Some card payments are failing. Everything else is working." Someone who reads only that line knows the scope. The second half matters as much as the first: it tells most readers they can stop reading.</p>
+        </div>
+        <div class="prose">
+          <h3>"Does this affect me?" gets its own line</h3>
+          <p>Tick the parts of the service you use and the page says "This affects you: payments" or "This does not affect anything you use". The same outage is urgent for one reader and irrelevant for the next.</p>
+        </div>
+        <div class="prose">
+          <h3>Four fixed questions</h3>
+          <p>What is happening, who is affected, what you can do, when it will be fixed. Always those four, always in that order, so a returning reader knows where to look.</p>
+        </div>
+        <div class="prose">
+          <h3>Say what will not help</h3>
+          <p>During the sign-in outage the page says "Resetting your password will not help." People under stress try things, and some of those things make it worse.</p>
+        </div>
+        <div class="prose">
+          <h3>Admit what is not known, and promise a time</h3>
+          <p>"We do not know yet how long this will last. Next update by 2:30 pm." An honest unknown with a committed next update is more useful than a hopeful guess.</p>
+        </div>
+        <div class="prose">
+          <h3>Knock-on effects are named as such</h3>
+          <p>When sign-in is down, payments are listed as "Unreachable until sign-in returns", not as broken. The reader learns there is one problem, not four.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="cs-section">
+    <p class="label">After the fix</p>
+    <div class="content">
+      <div class="prose">
+        <p>The "Just fixed" state keeps the same four questions and changes their tense. It states how long the outage lasted, says plainly that the cause was the company's own update, and commits to a date for a fuller account. Status words throughout are a shape and a word, with colour as the third signal.</p>
+      </div>
+    </div>
+  </section>
+  <section class="cs-section">
+    <p class="label">Limits and next steps</p>
+    <div class="content">
+      <p class="note">The hardest part of incident communication is not the template. It is getting accurate information out of a team that is busy fixing the problem, and a page like this only works if someone is responsible for keeping it true.</p>
+      <div class="prose">
+        <ul>
+          <li>Interview support staff about what customers ask during an outage that the status page did not answer.</li>
+          <li>Comprehension test: show the headline for five seconds, then ask "Can you take card payments right now?"</li>
+          <li>Design the authoring side: the form an on-call engineer fills in at 3 am, which has to make the four answers easy to write.</li>
+          <li>Test whether "This does not affect anything you use" is trusted or second-guessed.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Next sheet</span>
+    <a class="big" href="parts-finder.html">Parts Finder: start from the symptom →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js?v=4"></script>
+</body>
+</html>

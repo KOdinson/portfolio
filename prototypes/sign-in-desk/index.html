@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign-In Desk | Concept prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap">
+<style>
+/* A lobby tablet: one light theme by choice. Kiosk targets are large; the guard view is the same data, turned into a headcount. */
+:root {
+  --page: #E8ECEF; --card: #FFFFFF; --ink: #10202B; --ink-2: #4E5E69; --line: #CAD3DA;
+  --act: #0B5E6B; --act-soft: #DDF0F2; --alarm: #A3211B; --alarm-soft: #FBEAE8; --ok: #17603A; --ok-soft: #E3F0E7; --tape: #F2C230;
+  --font: "Lexend", system-ui, "Segoe UI", Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 400 17px/1.45 var(--font); }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 4px solid var(--act); outline-offset: 2px; }
+h1, h2, p { margin: 0; }
+.wrap { max-width: 980px; margin-inline: auto; padding: 18px 20px 40px; display: grid; gap: 14px; }
+.top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.top b { font-size: 19px; font-weight: 800; }
+.tape { background: var(--tape); font-size: 12.5px; font-weight: 600; padding: 3px 8px; }
+.seg { margin-left: auto; display: inline-flex; border: 2px solid var(--ink); border-radius: 10px; overflow: hidden; }
+.seg button { background: var(--card); border: 0; padding: 9px 16px; font-weight: 600; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+@media (max-width: 620px) { .seg { margin-left: 0; } }
+.screen { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: clamp(20px, 4vw, 40px); display: grid; gap: 22px; min-height: 480px; align-content: start; }
+h1 { font-size: clamp(28px, 4.6vw, 44px); font-weight: 800; line-height: 1.1; letter-spacing: -0.01em; text-wrap: balance; }
+.lead { color: var(--ink-2); font-size: 19px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.tile { background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 22px 18px; text-align: left; font-weight: 800; font-size: 21px; min-height: 96px; display: grid; gap: 4px; }
+.tile small { font-weight: 400; font-size: 16px; color: var(--ink-2); }
+.tile[aria-pressed="true"] { border-color: var(--act); background: var(--act-soft); }
+label.f { font-weight: 600; font-size: 19px; display: grid; gap: 8px; }
+input[type="text"] { padding: 16px; border: 2px solid var(--ink-2); border-radius: 12px; font-size: 22px; width: 100%; background: #fff; }
+.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn { background: var(--act); color: #fff; border: 0; border-radius: 12px; padding: 18px 28px; font-weight: 800; font-size: 20px; min-height: 64px; }
+.btn:disabled { background: var(--line); color: var(--ink-2); cursor: not-allowed; }
+.ghost { background: none; border: 2px solid var(--ink-2); border-radius: 12px; padding: 16px 22px; font-weight: 600; font-size: 18px; min-height: 64px; }
+.why { color: var(--ink-2); }
+.rule { border: 2px solid var(--ink); border-radius: 14px; padding: 18px; font-size: 20px; display: grid; gap: 8px; }
+.badge { width: min(100%, 340px); border: 2px solid var(--ink); border-radius: 14px; overflow: hidden; }
+.badge .b1 { background: var(--act); color: #fff; padding: 10px 16px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; font-size: 15px; display: flex; justify-content: space-between; }
+.badge .b2 { padding: 16px; display: grid; gap: 4px; }
+.badge .n { font-size: 30px; font-weight: 800; line-height: 1.1; overflow-wrap: anywhere; }
+
+.gsum { display: flex; flex-wrap: wrap; gap: 12px 26px; align-items: baseline; }
+.gsum b { font-size: 46px; font-weight: 800; line-height: 1; }
+.list { display: grid; }
+.p { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) 5rem auto; gap: 10px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line); }
+.p small { display: block; color: var(--ink-2); font-size: 15px; }
+.p .t { font-variant-numeric: tabular-nums; color: var(--ink-2); }
+@media (max-width: 620px) { .p { grid-template-columns: minmax(0, 1fr) auto; } .p .h, .p .t { display: none; } }
+.small { background: none; border: 1.5px solid var(--ink-2); border-radius: 9px; padding: 9px 14px; font-weight: 600; font-size: 16px; }
+.alarm { background: var(--alarm); color: #fff; border: 0; border-radius: 12px; padding: 16px 22px; font-weight: 800; font-size: 18px; }
+.em { border: 3px solid var(--alarm); background: var(--alarm-soft); border-radius: 16px; padding: 20px; display: grid; gap: 14px; }
+.em h2 { font-size: 26px; font-weight: 800; }
+.floor { font-weight: 800; font-size: 19px; margin-top: 6px; }
+.chk { display: flex; gap: 14px; align-items: center; font-size: 21px; padding: 8px 0; cursor: pointer; }
+.chk input { width: 30px; height: 30px; accent-color: var(--ok); flex: none; }
+.chk:has(input:checked) { color: var(--ink-2); text-decoration: line-through; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><b>Sign-In Desk</b><span class="tape">Concept prototype · invented building and people</span>
+    <div class="seg" role="group" aria-label="View"><button type="button" id="vKiosk" aria-pressed="true">Visitor tablet</button><button type="button" id="vGuard" aria-pressed="false">Guard view</button></div>
+  </div>
+  <main class="screen" id="screen" aria-live="polite"></main>
+</div>
+
+<script>
+const HOSTS = [['Harlow Dental', 'Floor 2'], ['Northline Freight', 'Floor 3'], ['Tessera Design', 'Floor 3'], ['Building management', 'Floor 1']];
+const TYPES = { visit: ['Visiting someone', 'A meeting or appointment'], delivery: ['Making a delivery', 'Dropping off or collecting'], work: ['Here to do work', 'Repairs, cleaning, installation'] };
+// Invented visitors already in the building.
+const people = [
+  { name: 'R. Alvarez', type: 'work', host: 2, at: '8:05' }, { name: 'J. Whitcombe', type: 'visit', host: 0, at: '9:40' },
+  { name: 'M. Oyelaran', type: 'visit', host: 1, at: '10:12' }, { name: 'S. Brandt', type: 'delivery', host: 3, at: '10:31' }
+];
+let view = 'kiosk', step = 0, d = fresh(), emergency = false;
+const found = new Set();
+function fresh() { return { type: '', name: '', host: null }; }
+const now = () => new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }).replace(/\s?[AP]M/i, '');
+const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const $ = (id) => document.getElementById(id);
+
+const KIOSK = [
+  () => `<h1>Welcome. What brings you in today?</h1><div class="tiles">${Object.entries(TYPES).map(([k, [a, b]]) => `<button type="button" class="tile" data-type="${k}">${a}<small>${b}</small></button>`).join('')}</div>
+    <p class="why">Signing in takes about 30 seconds. It is how we know who to look for if the building has to be cleared.</p>`,
+  () => `<h1>What is your name?</h1><label class="f" for="name">First and last name<input type="text" id="name" autocomplete="off" value="${esc(d.name)}"></label>
+    <div class="row"><button type="button" class="ghost" data-go="back">Back</button><button type="button" class="btn" data-go="next" ${d.name.trim().length > 1 ? '' : 'disabled'}>Continue</button><span class="why" id="nameWhy">${d.name.trim().length > 1 ? '' : 'Type your name to continue'}</span></div>`,
+  () => `<h1>Who are you here for?</h1><div class="tiles">${HOSTS.map((h, i) => `<button type="button" class="tile" data-host="${i}" aria-pressed="${d.host === i}">${h[0]}<small>${h[1]}</small></button>`).join('')}</div>
+    <div class="row"><button type="button" class="ghost" data-go="back">Back</button><button type="button" class="btn" data-go="next" ${d.host === null ? 'disabled' : ''}>Continue</button></div>`,
+  () => `<h1>One thing to know before you go up</h1><div class="rule"><b>If the alarm sounds:</b><span>Follow the green exit signs. Do not use the lift. Meet in the north car park and find the guard, so we can tick you off.</span></div>
+    <div class="row"><button type="button" class="ghost" data-go="back">Back</button><button type="button" class="btn" data-go="finish">Got it. Sign me in</button></div>`,
+  () => `<h1>You are signed in, ${esc(d.name.trim().split(' ')[0])}.</h1><div class="badge" aria-label="Visitor badge"><div class="b1"><span>${TYPES[d.type][0].split(' ')[0] === 'Visiting' ? 'Visitor' : d.type === 'delivery' ? 'Delivery' : 'Contractor'}</span><span>${d.at}</span></div>
+      <div class="b2"><span class="n">${esc(d.name.trim())}</span><span>${HOSTS[d.host][0]} · ${HOSTS[d.host][1]}</span></div></div>
+    <p class="lead">Your badge is printing below. ${HOSTS[d.host][0]} has been told you are here. Please hand the badge back when you leave, so we know you are out.</p>
+    <div class="row"><button type="button" class="btn" data-go="restart">Done</button></div>`
+];
+
+function guard() {
+  if (emergency) {
+    const floors = [...new Set(HOSTS.map((h) => h[1]))].sort();
+    return `<div class="em"><h2>Emergency headcount: ${people.length - found.size} of ${people.length} visitors not yet found</h2>
+      ${floors.map((f) => { const here = people.map((p, i) => [p, i]).filter(([p]) => HOSTS[p.host][1] === f); return here.length ? `<div><div class="floor">${f}</div>${here.map(([p, i]) =>
+        `<label class="chk" for="f${i}"><input type="checkbox" id="f${i}" data-found="${i}" ${found.has(i) ? 'checked' : ''}>${esc(p.name)} · ${HOSTS[p.host][0]}</label>`).join('')}</div>` : ''; }).join('')}
+      <div class="row"><button type="button" class="ghost" data-go="clear">End emergency list</button><span class="why">Tenants keep their own staff lists. This one is visitors only.</span></div></div>`;
+  }
+  return `<div class="gsum"><b>${people.length}</b><span class="lead">visitor${people.length === 1 ? '' : 's'} in the building now</span><button type="button" class="alarm" data-go="emergency" style="margin-left:auto">Emergency list</button></div>
+    <div class="list">${people.length ? people.map((p, i) => `<div class="p"><span><b>${esc(p.name)}</b><small>${TYPES[p.type][0]}</small></span><span class="h">${HOSTS[p.host][0]}<small>${HOSTS[p.host][1]}</small></span><span class="t">in ${p.at}</span><button type="button" class="small" data-out="${i}">Sign out</button></div>`).join('')
+      : '<p class="lead">Nobody is signed in.</p>'}</div>
+    <p class="why">Sign someone out when they hand back their badge. Anyone still listed at closing is someone to go and find.</p>`;
+}
+
+function render(focus) {
+  $('vKiosk').setAttribute('aria-pressed', view === 'kiosk'); $('vGuard').setAttribute('aria-pressed', view === 'guard');
+  $('screen').innerHTML = view === 'kiosk' ? KIOSK[step]() : guard();
+  const t = focus && $(focus); if (t) { t.focus(); if (t.setSelectionRange) t.setSelectionRange(t.value.length, t.value.length); }
+}
+$('vKiosk').addEventListener('click', () => { view = 'kiosk'; render(); });
+$('vGuard').addEventListener('click', () => { view = 'guard'; render(); });
+document.addEventListener('input', (e) => { if (e.target.id === 'name') { const had = d.name.trim().length > 1; d.name = e.target.value; if (had !== d.name.trim().length > 1) render('name'); } });
+document.addEventListener('change', (e) => { if (e.target.dataset.found) { const i = +e.target.dataset.found; e.target.checked ? found.add(i) : found.delete(i); render('f' + i); } });
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b || b.id === 'vKiosk' || b.id === 'vGuard') return;
+  const ds = b.dataset;
+  if (ds.type) { d.type = ds.type; step = 1; return render('name'); }
+  if (ds.host) { d.host = +ds.host; return render(); }
+  if (ds.out) { people.splice(+ds.out, 1); found.clear(); return render(); }
+  if (ds.go === 'next') step++; else if (ds.go === 'back') step--;
+  else if (ds.go === 'finish') { d.at = now(); people.push({ name: d.name.trim(), type: d.type, host: d.host, at: d.at }); step = 4; }
+  else if (ds.go === 'restart') { d = fresh(); step = 0; }
+  else if (ds.go === 'emergency') emergency = true; else if (ds.go === 'clear') { emergency = false; found.clear(); }
+  render(step === 1 && view === 'kiosk' ? 'name' : null);
+});
+render();
+</script>
+</body>
+</html>
