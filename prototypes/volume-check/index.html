@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volume Check | Concept prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Libre+Franklin:wght@400;600;800&display=swap">
+<style>
+/* A submission gate: one light theme by choice. Status is a word and a shape; red is spent only on what blocks sending. */
+:root {
+  --bg: #F1F0EC; --card: #FFFFFF; --ink: #1B1B1F; --ink-2: #5C5C66; --line: #D4D2CA;
+  --block: #A3211B; --block-soft: #FBEAE8; --warn: #7A5200; --warn-soft: #FFF2D1; --ok: #1E6B3A; --ok-soft: #E4F2E8; --act: #1D3F8F; --tape: #F2C230;
+  --font: "Libre Franklin", system-ui, "Segoe UI", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15.5px/1.45 var(--font); }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--act); outline-offset: 2px; }
+h1, h2, p { margin: 0; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.wrap { max-width: 980px; margin-inline: auto; padding: 20px 20px 40px; display: grid; gap: 16px; }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
+.head b { font-size: 19px; font-weight: 800; letter-spacing: -0.01em; }
+.tape { background: var(--tape); font-size: 12.5px; font-weight: 600; padding: 3px 8px; }
+.head .due { margin-left: auto; color: var(--ink-2); }
+@media (max-width: 700px) { .head .due { margin-left: 0; } }
+
+.gate { border-radius: 12px; padding: 18px 20px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px 20px; align-items: center; border: 2px solid var(--block); background: var(--block-soft); }
+.gate.ready { border-color: var(--ok); background: var(--ok-soft); }
+.gate h1 { font-size: clamp(22px, 3.4vw, 30px); font-weight: 800; letter-spacing: -0.01em; }
+.gate ul { margin: 6px 0 0; padding-left: 1.1em; font-size: 15px; }
+.send { background: var(--act); color: #fff; border: 0; border-radius: 8px; padding: 14px 20px; font-weight: 600; font-size: 16px; }
+.send[aria-disabled="true"] { background: #B9B8B2; color: #3A3A40; cursor: not-allowed; }
+@media (max-width: 700px) { .gate { grid-template-columns: minmax(0, 1fr); } }
+
+.list { display: grid; gap: 8px; }
+.item { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; grid-template-columns: 112px minmax(0, 1fr) auto; gap: 4px 16px; align-items: start; }
+.item.block { border-left: 5px solid var(--block); } .item.warn { border-left: 5px solid var(--warn); } .item.ok { border-left: 5px solid var(--ok); }
+.st { font: 500 12.5px/1.5 var(--mono); white-space: nowrap; }
+.block .st { color: var(--block); } .warn .st { color: var(--warn); } .ok .st { color: var(--ok); }
+.item b { font-weight: 600; }
+.item .rule { grid-column: 2; color: var(--ink-2); font-size: 14px; }
+.item .gap { grid-column: 2; font-size: 14.5px; }
+.meter { grid-column: 2; height: 8px; background: var(--line); border-radius: 4px; position: relative; max-width: 360px; margin: 4px 0; }
+.meter i { display: block; height: 100%; border-radius: 4px; background: var(--ok); max-width: 100%; }
+.meter.over i { background: var(--block); }
+.meter::after { content: ""; position: absolute; top: -3px; bottom: -3px; left: var(--limit); width: 2px; background: var(--ink); }
+.fix { grid-column: 3; grid-row: 1 / span 3; align-self: center; display: flex; gap: 6px; align-items: center; }
+.btn { background: var(--card); border: 1.5px solid var(--ink-2); border-radius: 7px; padding: 8px 12px; font-weight: 600; font-size: 14.5px; white-space: nowrap; }
+.btn.sq { width: 38px; padding: 8px 0; }
+@media (max-width: 700px) { .item { grid-template-columns: minmax(0, 1fr); } .item .rule, .item .gap, .meter, .fix { grid-column: 1; grid-row: auto; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head"><b>Volume Check</b><span class="tape">Concept prototype · sample rules</span><span class="due">Sample Phase I proposal · closes Wednesday 12:00 ET · <b>3 days left</b></span></div>
+  <div class="gate" id="gate" aria-live="polite"></div>
+  <div class="list" id="list"></div>
+</div>
+
+<script>
+// Sample requirements written for this prototype. They are not the rules of any real solicitation.
+const S = { pages: 22, report: false, signed: false, sent: false };
+const LIMIT = 20;
+const $ = (id) => document.getElementById(id);
+
+function items() {
+  const over = S.pages - LIMIT;
+  return [
+    { key: 'tech', name: 'Technical volume', level: over > 0 ? 'block' : 'ok', rule: `Rule: ${LIMIT} pages at most, including figures. Instructions section 5.2.`,
+      gap: over > 0 ? `Yours is ${S.pages} pages. Cut ${over} page${over > 1 ? 's' : ''}.` : `Yours is ${S.pages} pages. ${LIMIT - S.pages ? LIMIT - S.pages + ' to spare.' : 'Exactly at the limit.'}`,
+      meter: true, fix: `<button type="button" class="btn sq" data-act="minus" aria-label="Remove a page">−</button><span class="mono">${S.pages} pp</span><button type="button" class="btn sq" data-act="plus" aria-label="Add a page">+</button>` },
+    { key: 'report', name: 'Commercialization report', level: S.report ? 'ok' : 'block', rule: 'Rule: required from every applicant, even with no prior awards. Instructions section 5.5.',
+      gap: S.report ? 'Uploaded.' : 'Not uploaded yet.', fix: S.report ? '' : '<button type="button" class="btn" data-act="report">Upload report</button>' },
+    { key: 'sign', name: 'Ownership disclosure', level: S.signed ? 'ok' : 'warn', rule: 'Rule: must be signed by a company officer. Instructions section 4.3.',
+      gap: S.signed ? 'Signed.' : 'Filled in, not signed. Unsigned forms are sent back for correction, which costs days you do not have.', fix: S.signed ? '' : '<button type="button" class="btn" data-act="sign">Sign</button>' },
+    { key: 'cost', name: 'Cost volume', level: 'ok', rule: 'Rule: total at or under $150,000. Instructions section 5.3.', gap: 'Yours is $148,600. $1,400 under the ceiling.' },
+    { key: 'cover', name: 'Cover sheet', level: 'ok', rule: 'Rule: all fields complete, abstract under 200 words.', gap: 'Complete. Abstract is 184 words.' },
+    { key: 'format', name: 'Formatting', level: 'ok', rule: 'Rule: 10-point type or larger, 1-inch margins, single PDF per volume.', gap: 'Checked in all three volumes.' }
+  ];
+}
+const WORD = { block: '■ Blocks sending', warn: '▲ Fix if you can', ok: '✓ Ready' };
+const ORDER = { block: 0, warn: 1, ok: 2 };
+
+function render() {
+  const all = items(), blocks = all.filter((i) => i.level === 'block'), warns = all.filter((i) => i.level === 'warn'), ready = !blocks.length;
+  $('gate').className = 'gate' + (ready ? ' ready' : '');
+  $('gate').innerHTML = S.sent
+    ? `<div><h1>Sent. The prototype ends here.</h1><p>Nothing was submitted anywhere.</p></div><button type="button" class="btn" data-act="reset">Start over</button>`
+    : `<div><h1>${ready ? (warns.length ? 'Ready to send, with 1 thing worth fixing first' : 'Ready to send') : `Not ready: ${blocks.length} thing${blocks.length > 1 ? 's' : ''} will get this rejected`}</h1>
+        <ul>${[...blocks, ...warns].map((i) => `<li><b>${i.name}:</b> ${i.gap}</li>`).join('') || '<li>Every requirement is met.</li>'}</ul></div>
+       <button type="button" class="send" data-act="send" aria-disabled="${!ready}">${ready ? 'Send proposal' : 'Cannot send yet'}</button>`;
+  $('list').innerHTML = all.sort((a, b) => ORDER[a.level] - ORDER[b.level]).map((i) => `<div class="item ${i.level}">
+      <span class="st">${WORD[i.level]}</span><b>${i.name}</b>
+      ${i.fix ? `<span class="fix">${i.fix}</span>` : ''}
+      <span class="rule">${i.rule}</span>
+      ${i.meter ? `<span class="meter ${S.pages > LIMIT ? 'over' : ''}" style="--limit:${LIMIT / 26 * 100}%"><i style="width:${S.pages / 26 * 100}%"></i></span>` : ''}
+      <span class="gap">${i.gap}</span></div>`).join('');
+}
+
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const a = b.dataset.act;
+  if (a === 'minus') S.pages = Math.max(1, S.pages - 1);
+  else if (a === 'plus') S.pages = Math.min(26, S.pages + 1);
+  else if (a === 'report') S.report = true;
+  else if (a === 'sign') S.signed = true;
+  else if (a === 'send') { if (b.getAttribute('aria-disabled') === 'true') return; S.sent = true; }
+  else if (a === 'reset') Object.assign(S, { pages: 22, report: false, signed: false, sent: false });
+  render();
+  const again = document.querySelector(`[data-act="${a}"]`); if (again) again.focus();
+});
+render();
+</script>
+</body>
+</html>

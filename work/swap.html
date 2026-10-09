@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swap | Keith Sanders II</title>
+<meta name="description" content="Case study: a concept shift-swap flow for hourly staff that shows the scheduling rules before anyone is asked.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=4">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="cs-head">
+    <p class="label">Sheet 15 of 15 · <span class="tag concept">Concept · working prototype</span></p>
+    <h1>Swap: giving away a shift without the group chat</h1>
+    <p class="lede">I have worked shifts at a gym, on a security post and in building maintenance, and trained new staff in two of those jobs. Getting a shift covered is a negotiation with hidden rules and one dangerous gap: the stretch of time when nobody is sure whose shift it is. This concept is built to close that gap.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Flow design, state design, coded prototype</dd></div>
+      <div><dt>When</dt><dd>October 2026</dd></div>
+      <div><dt>Status</dt><dd>Self-initiated concept. Invented staff and rules. Untested with workers.</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">The prototype</p>
+    <div class="content">
+      <figure>
+        <div class="phone-embed" style="background: #E3E1EC;">
+          <iframe src="../prototypes/swap/" title="Interactive Swap prototype"></iframe>
+        </div>
+        <div class="plate-cap">
+          <span>Live and interactive. Tap Friday, pick who to ask, and follow the request. Watch the coloured line under the title.</span>
+          <a href="../prototypes/swap/">Open full screen →</a>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">The design problem</p>
+    <div class="content">
+      <div class="prose">
+        <p>A shift swap has three parties and a rulebook. The person giving the shift away wants it gone. The person taking it wants the hours. The manager has to approve it against rules the first two may not know: overtime limits, minimum rest between shifts, who is trained for which post.</p>
+        <p>Two things go wrong. People ask coworkers who turn out not to be allowed, and the answer arrives late from a manager. And between "can you cover me?" and an approved schedule, both people can believe the other one is working Friday.</p>
+      </div>
+      <p class="note">This is how I understand the problem from working these jobs. I have not interviewed other hourly workers or managers for this project, and the rules in the prototype are invented examples.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>One sentence always says whose shift it is</h3>
+          <p>A coloured line sits under the title on every screen. It reads "Friday is still your shift. Nobody has accepted yet", then "still your shift until a manager approves", then "Friday is Luis's shift now. You are off." The wording changes only when responsibility does.</p>
+        </div>
+        <div class="prose">
+          <h3>Rules run before the ask</h3>
+          <p>The list of coworkers is already checked against hours, rest and training. People who cannot take the shift are shown, not hidden, with the reason: "Would reach 44 hours. Overtime needs a manager to offer it."</p>
+        </div>
+        <div class="prose">
+          <h3>Reasons are about the rule, never the person</h3>
+          <p>"Not yet trained on the loading dock post" describes a fact about the schedule. Each reason is written so it could be read aloud in front of the coworker it names.</p>
+        </div>
+        <div class="prose">
+          <h3>Ask several, first yes wins</h3>
+          <p>You can ask more than one person at once. The moment one accepts, the others are told it is taken. Nobody is left holding an offer that no longer exists.</p>
+        </div>
+        <div class="prose">
+          <h3>Approval is a visible step</h3>
+          <p>The timeline has three stages and the last one says "The swap is not real until this step." Acceptance and approval are different events, and the design refuses to blur them.</p>
+        </div>
+        <div class="prose">
+          <h3>Eligible people show their numbers</h3>
+          <p>"Would be at 32 hours this week" appears under each coworker who can take the shift. It helps the asker choose fairly, and it is the same figure the manager will look at.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Limits and next steps</p>
+    <div class="content">
+      <p class="note">Showing a coworker's weekly hours and training status to other staff is a privacy decision, and a workplace might reasonably say no. A version that shows only "can take it" or "can't take it, ask a manager why" would protect more and explain less. That trade-off needs to be decided with workers, not for them.</p>
+      <div class="prose">
+        <ul>
+          <li>Interview hourly workers and shift managers about the last swap that went wrong, and where it broke.</li>
+          <li>Test the ownership sentence: at each stage, ask participants "If nobody shows up Friday, whose problem is it?"</li>
+          <li>Design the other two sides: the coworker's notification and the manager's approval screen.</li>
+          <li>Handle a true swap, where two people trade shifts, and the rules have to pass in both directions.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Back to the start</span>
+    <a class="big" href="wasp-ground-station.html">Ground station for an autonomous swarm →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js?v=4"></script>
+</body>
+</html>

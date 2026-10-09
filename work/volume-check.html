@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volume Check | Keith Sanders II</title>
+<meta name="description" content="Case study: a concept pre-submission check for grant proposals that shows each rule beside the applicant's own number.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=4">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="cs-head">
+    <p class="label">Sheet 14 of 15 · <span class="tag concept">Concept · working prototype</span></p>
+    <h1>Volume Check: a gate before the deadline</h1>
+    <p class="lede">In 2026 I wrote and submitted a federal research proposal: a technical volume, a cost volume and a stack of compliance documents, each with its own rules. The rules live in a long instruction document. The proposal lives somewhere else. This concept puts each rule next to the applicant's own number.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Status design, content design, coded prototype</dd></div>
+      <div><dt>When</dt><dd>October 2026</dd></div>
+      <div><dt>Status</dt><dd>Self-initiated concept. Sample rules. Untested with applicants.</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">The prototype</p>
+    <div class="content">
+      <figure>
+        <div class="plate live" style="background: #F1F0EC;">
+          <iframe src="../prototypes/volume-check/" title="Interactive Volume Check prototype"></iframe>
+        </div>
+        <div class="plate-cap">
+          <span>Live and interactive. Trim the technical volume to 20 pages, upload the report, sign the form, and watch the gate open.</span>
+          <a href="../prototypes/volume-check/">Open full screen →</a>
+        </div>
+      </figure>
+      <p class="note">The page limits, section numbers and dollar ceiling are samples written for this prototype. They are not the rules of any real solicitation.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">The design problem</p>
+    <div class="content">
+      <div class="prose">
+        <p>A compliance mistake is different from a weak argument. A weak argument scores lower. A proposal that is a page over, or missing one required form, may not be scored at all. And the rules are easy to get wrong for a boring reason: checking them means holding a requirement from one document in your head while looking at a number in another.</p>
+        <p>Checklists exist for this. Most are a column of boxes to tick, which records that someone looked and says nothing about what they saw. I wanted each line to show three things together: the rule, your value, and the gap.</p>
+      </div>
+      <p class="note">I am describing my own experience of one proposal. I have not studied how other applicants or proposal teams work.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>Rule, yours, gap</h3>
+          <p>Every line reads the same way. "Rule: 20 pages at most. Yours is 22 pages. Cut 2 pages." The last part is an instruction with a number in it. Nobody has to do subtraction three days before a deadline.</p>
+        </div>
+        <div class="prose">
+          <h3>Three states, and only one is red</h3>
+          <p>"Blocks sending" is for things that get a proposal rejected. "Fix if you can" is for things that cause delay. "Ready" is everything else. Each state has its own shape and word, and red appears only on blockers, so it still means something.</p>
+        </div>
+        <div class="prose">
+          <h3>The button explains itself</h3>
+          <p>While anything blocks, the button reads "Cannot send yet" and the panel beside it lists exactly what stands in the way. When the blockers clear, the same panel turns green and the button becomes "Send proposal".</p>
+        </div>
+        <div class="prose">
+          <h3>Worst news first</h3>
+          <p>The list sorts itself: blockers, then warnings, then everything that is fine. As each problem is fixed it drops down the page, and the top of the list is always the next thing to do.</p>
+        </div>
+        <div class="prose">
+          <h3>A limit you can see</h3>
+          <p>The page count is a bar with a tick mark at the limit. Over the mark, the bar turns red and the overshoot is visible as a length. At the limit exactly, the text says so: "Exactly at the limit."</p>
+        </div>
+        <div class="prose">
+          <h3>Every rule cites its source</h3>
+          <p>Each rule ends with the section of the instructions it came from. The tool is a reading aid. When it matters, the applicant should be able to go and check the original wording.</p>
+        </div>
+      </div>
+      <div class="prose">
+        <p>The warning for the unsigned form is written for the moment it will be read: "Unsigned forms are sent back for correction, which costs days you do not have."</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Limits and next steps</p>
+    <div class="content">
+      <p class="note">The hard part of a real version is upstream of this screen: reading a new set of instructions and turning them into rules correctly. A tool that states a rule wrongly, with this much confidence, is worse than no tool. That is why each rule cites its section, and why a real product would need a person to confirm the rules for each solicitation.</p>
+      <div class="prose">
+        <ul>
+          <li>Interview five people who have submitted proposals about the closest they came to a compliance failure.</li>
+          <li>Test the three status words. Do people read "Fix if you can" as optional, and is that the right reading?</li>
+          <li>Design the team version, where each line has an owner and the gate shows who is holding things up.</li>
+          <li>Prototype rule entry: the screen where someone confirms what the instructions say before the checks run.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Next sheet</span>
+    <a class="big" href="swap.html">Swap: giving away a shift →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js?v=4"></script>
+</body>
+</html>

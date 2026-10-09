@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Degree Map | Keith Sanders II</title>
+<meta name="description" content="Case study: a concept degree planner that leads with the graduation date and explains what controls it.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=4">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="cs-head">
+    <p class="label">Sheet 13 of 15 · <span class="tag concept">Concept · working prototype</span></p>
+    <h1>Degree Map: when do I graduate, and what decides it?</h1>
+    <p class="lede">I finished an associate degree in 2026. A degree audit lists every requirement and its status. It does not answer the question a student opens it to ask. This concept puts that answer at the top of the page and shows the reasoning underneath.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Information design, planning logic, coded prototype</dd></div>
+      <div><dt>When</dt><dd>October 2026</dd></div>
+      <div><dt>Status</dt><dd>Self-initiated concept. Invented program. Untested with students.</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">The prototype</p>
+    <div class="content">
+      <figure>
+        <div class="plate live" style="background: #F4F6F5;">
+          <iframe src="../prototypes/degree-map/" title="Interactive Degree Map prototype"></iframe>
+        </div>
+        <div class="plate-cap">
+          <span>Live and interactive. Untick the Capstone Project and watch the finish date move.</span>
+          <a href="../prototypes/degree-map/">Open full screen →</a>
+        </div>
+      </figure>
+      <p class="note">The program, course codes and schedule are invented for this prototype. They are not any real college's catalog.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">The design problem</p>
+    <div class="content">
+      <div class="prose">
+        <p>A requirements list treats every remaining course as equal. They are not. Some run every term. Some run once a year. Some are locked behind a course you are taking now. One of them is usually the real constraint on when you finish, and the list gives no sign which.</p>
+        <p>In the sample program, a student with five courses left could take four of them next spring. The fifth runs only in fall. That single scheduling fact sets the graduation date, and a student who does not know it might plan a light spring for no benefit, or skip the one spring-only course and lose a term.</p>
+      </div>
+      <p class="note">This framing comes from my own time as a student, not from research with other students or advisors.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>The answer is the headline</h3>
+          <p>"You can finish in Fall 2027" is the largest text on the page. The requirement list is still there, complete, in the second column. It supports the answer and no longer stands in for it.</p>
+        </div>
+        <div class="prose">
+          <h3>Name the constraint</h3>
+          <p>Under the date, one sentence says which course is setting it and why. If the plan changes so that a different course becomes the constraint, the sentence changes to name that one.</p>
+        </div>
+        <div class="prose">
+          <h3>Plan and consequence on one screen</h3>
+          <p>Ticking courses for next term updates the finish date immediately. Leave out the spring-only capstone and the headline moves to Spring 2028, with a line saying exactly what to add to get the earlier date back.</p>
+        </div>
+        <div class="prose">
+          <h3>Locked courses say why</h3>
+          <p>A course that cannot be taken next term stays in the list with its reason and its next opening: "Runs only in fall. The next chance is Fall 2027." Hiding it would hide the most important fact on the page.</p>
+        </div>
+        <div class="prose">
+          <h3>Conditions in plain words</h3>
+          <p>A course that depends on one in progress reads "Open to you if you pass SEC 230 this term". The word prerequisite does not appear. The condition is stated as what has to happen.</p>
+        </div>
+        <div class="prose">
+          <h3>A flag for the thing nobody mentions</h3>
+          <p>The credit total says whether the plan is a full-time or part-time load and prompts a check on financial aid. It does not pretend to know the student's aid rules. It makes sure the question gets asked before registration.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Limits and next steps</p>
+    <div class="content">
+      <p class="note">The planning logic is deliberately simple: it assumes every course is offered when the catalog says, never fills, and can be combined freely. Real schedules have time conflicts, waitlists and cancelled sections, and a real tool would have to say how confident its date is.</p>
+      <div class="prose">
+        <ul>
+          <li>Interview eight students, half of them part-time, about how they chose last term's courses and what they found out too late.</li>
+          <li>Sit with two academic advisors and compare what they tell students against what the prototype says.</li>
+          <li>Test comprehension: after one minute with the page, can a student say when they finish and which course controls it?</li>
+          <li>Design for uncertainty. "Fall 2027, if SEC 250 runs" is more truthful than a bare date.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Next sheet</span>
+    <a class="big" href="volume-check.html">Volume Check: a gate before the deadline →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js?v=4"></script>
+</body>
+</html>

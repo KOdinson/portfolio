@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swap | Concept prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,700;6..12,900&display=swap">
+<style>
+/* A staff scheduling app: one light theme by choice. One sentence at the top always says whose shift it is. */
+:root {
+  --page: #E3E1EC; --bg: #FAFAFD; --card: #FFFFFF; --ink: #1C1A2B; --ink-2: #5F5C73; --line: #D9D7E4;
+  --act: #4B3FD1; --act-soft: #ECEAFE; --mine: #FFE9C7; --mine-ink: #6B4300; --ok: #1E6B3A; --ok-soft: #E4F2E8; --tape: #F2C230;
+  --font: "Nunito Sans", system-ui, "Segoe UI", Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 400 16px/1.42 var(--font); display: grid; place-items: center; padding: 0 16px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--act); outline-offset: 2px; }
+h1, h2, p { margin: 0; }
+.stage { display: flex; gap: 56px; align-items: center; }
+.aside { max-width: 300px; display: grid; gap: 12px; }
+.aside h1 { font-size: 46px; font-weight: 900; line-height: 1; letter-spacing: -0.02em; }
+.aside .tape { justify-self: start; background: var(--tape); font-weight: 700; font-size: 13px; padding: 4px 9px; }
+.aside p { color: var(--ink-2); }
+@media (max-width: 860px) { .aside { display: none; } }
+
+.phone { width: min(100vw - 32px, 380px); height: min(100vh - 24px, 740px); background: var(--bg); border-radius: 30px; border: 1px solid var(--line);
+  box-shadow: 0 18px 50px rgba(28, 26, 43, 0.18); display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; overflow: hidden; }
+.bar { padding: 16px 18px 8px; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.bar b { font-size: 19px; font-weight: 900; }
+.bar button { background: none; border: 0; color: var(--act); font-weight: 700; padding: 4px 0; }
+.bar span { color: var(--ink-2); font-size: 14.5px; }
+.owner { margin: 0 18px 6px; padding: 10px 12px; border-radius: 10px; font-weight: 700; font-size: 15px; background: var(--mine); color: var(--mine-ink); }
+.owner.done { background: var(--ok-soft); color: var(--ok); }
+.body { padding: 8px 18px 16px; overflow: auto; display: grid; gap: 10px; align-content: start; }
+.body h2 { font-size: 23px; font-weight: 900; line-height: 1.15; text-wrap: balance; }
+.hint { color: var(--ink-2); font-size: 14.5px; }
+.shift { display: grid; grid-template-columns: 54px minmax(0, 1fr) auto; gap: 12px; align-items: center; text-align: left; width: 100%; background: var(--card); border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.shift .d { font-weight: 900; }
+.shift small { display: block; color: var(--ink-2); font-size: 14px; }
+.shift .tag { font-size: 12.5px; font-weight: 700; padding: 3px 8px; border-radius: 99px; background: var(--act-soft); color: var(--act); }
+.shift.off { border-style: dashed; color: var(--ink-2); }
+.who { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 2px 12px; align-items: start; background: var(--card); border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; cursor: pointer; }
+.who:has(input:checked) { border-color: var(--act); background: var(--act-soft); }
+.who input { width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--act); }
+.who small, .no small { grid-column: 2; color: var(--ink-2); font-size: 14px; }
+.no { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 2px 12px; border: 1.5px dashed var(--line); border-radius: 12px; padding: 12px 14px; }
+.no b { color: var(--ink-2); }
+.no small { color: var(--ink); }
+.steps { list-style: none; margin: 4px 0 0; padding: 0; display: grid; }
+.steps li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; padding-bottom: 14px; position: relative; }
+.steps li::before { content: ""; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--line); background: var(--bg); margin: 4px 0 0 2px; z-index: 1; }
+.steps li::after { content: ""; position: absolute; left: 10px; top: 20px; bottom: 0; width: 2px; background: var(--line); }
+.steps li:last-child::after { display: none; }
+.steps li.done::before { background: var(--act); border-color: var(--act); }
+.steps li.now::before { border-color: var(--act); box-shadow: 0 0 0 4px var(--act-soft); }
+.steps b { display: block; } .steps span { font-size: 14px; color: var(--ink-2); }
+.steps li.todo b { color: var(--ink-2); font-weight: 400; }
+.foot { padding: 12px 18px 18px; border-top: 1px solid var(--line); display: grid; gap: 8px; }
+.primary { background: var(--act); color: #fff; border: 0; border-radius: 12px; padding: 15px; font-weight: 700; font-size: 16.5px; width: 100%; }
+.primary:disabled { background: var(--line); color: var(--ink-2); cursor: not-allowed; }
+.sim { background: none; border: 1.5px dashed var(--ink-2); border-radius: 12px; padding: 12px; font-weight: 700; font-size: 14.5px; color: var(--ink-2); width: 100%; }
+.why { font-size: 13.5px; color: var(--ink-2); text-align: center; min-height: 1.3em; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="aside">
+    <span class="tape">Concept prototype · invented staff</span>
+    <h1>Swap</h1>
+    <p>Giving away a shift, with the rules shown before you ask and no doubt about who is on the hook.</p>
+    <p>Try it: tap Friday, see who can take it and why, then follow the request through.</p>
+  </div>
+  <main class="phone" aria-live="polite">
+    <div class="bar" id="bar"></div>
+    <div class="owner" id="owner"></div>
+    <div class="body" id="body"></div>
+    <div class="foot" id="foot"></div>
+  </main>
+</div>
+
+<script>
+const WEEK = [['Mon', '7 am – 3 pm', 'Front desk'], ['Tue', null], ['Wed', '7 am – 3 pm', 'Front desk'], ['Thu', null], ['Fri', '3 pm – 11 pm', 'Loading dock'], ['Sat', '7 am – 3 pm', 'Front desk'], ['Sun', null]];
+// Invented coworkers. Each carries the rule that decides whether they can take Friday.
+const STAFF = [
+  { n: 'Luis', ok: true, why: 'Free Friday evening. Would be at 32 hours this week.' },
+  { n: 'Marcus', ok: true, why: 'Free Friday evening. Would be at 24 hours this week.' },
+  { n: 'Dana', ok: false, why: 'Would reach 44 hours. Overtime needs a manager to offer it, so you cannot ask Dana.' },
+  { n: 'Priya', ok: false, why: 'Not yet trained on the loading dock post.' },
+  { n: 'Tom', ok: false, why: 'Works until 7 am Friday. A shift at 3 pm leaves 8 hours of rest, and the minimum is 10.' }
+];
+let screen = 'week', asked = new Set(), stage = 0;   // stage: 0 none, 1 asked, 2 accepted, 3 approved
+const taker = () => [...asked][0];
+const hours = () => (stage === 3 ? 24 : 32);
+
+const VIEWS = {
+  week: () => ({
+    title: 'Your week', sub: hours() + ' hours',
+    body: WEEK.map(([d, t, post]) => { const fri = d === 'Fri';
+      if (!t || (fri && stage === 3)) return `<div class="shift off"><span class="d">${d}</span><span>${fri ? 'Off. ' + taker() + ' has this shift.' : 'Off'}</span><span></span></div>`;
+      return `<button type="button" class="shift" ${fri ? 'data-go="pick"' : 'disabled'} ${fri ? '' : 'style="cursor:default"'}><span class="d">${d}</span><span>${t}<small>${post}</small></span>${fri ? `<span class="tag">${stage ? 'Request open' : 'Tap to give away'}</span>` : '<span></span>'}</button>`; }).join(''),
+    foot: stage && stage < 3 ? `<button type="button" class="primary" data-go="track">See your request</button>` : ''
+  }),
+  pick: () => ({
+    title: 'Fri 3 – 11 pm', sub: 'Loading dock', back: 'week',
+    body: `<h2>Who can take it?</h2><p class="hint">Checked against hours, rest time and training before you ask anyone.</p>` +
+      STAFF.map((s) => s.ok ? `<label class="who" for="w-${s.n}"><input type="checkbox" id="w-${s.n}" value="${s.n}" ${asked.has(s.n) ? 'checked' : ''}><b>${s.n}</b><small>${s.why}</small></label>`
+        : `<div class="no"><span aria-hidden="true">✕</span><b>${s.n} can't take it</b><small>${s.why}</small></div>`).join(''),
+    foot: `<button type="button" class="primary" data-go="ask" ${asked.size ? '' : 'disabled'}>${asked.size ? 'Ask ' + [...asked].join(' and ') : 'Ask'}</button><div class="why">${asked.size ? 'First yes gets it. A manager still has to approve.' : 'Pick at least one person'}</div>`
+  }),
+  track: () => ({
+    title: 'Your request', sub: 'Fri 3 – 11 pm', back: 'week',
+    body: `<ol class="steps">
+        <li class="done"><div><b>You asked ${stage >= 2 ? taker() : [...asked].join(' and ')}</b><span>They got a notification with the time and the post.</span></div></li>
+        <li class="${stage >= 2 ? 'done' : 'now'}"><div><b>${stage >= 2 ? taker() + ' said yes' : 'Waiting for a yes'}</b><span>${stage >= 2 ? 'Anyone else you asked has been told it is taken.' : 'You can cancel any time before someone accepts.'}</span></div></li>
+        <li class="${stage === 3 ? 'done' : stage === 2 ? 'now' : 'todo'}"><div><b>${stage === 3 ? 'Manager approved' : 'Manager approves'}</b><span>${stage === 3 ? 'The schedule is updated for everyone.' : 'The swap is not real until this step.'}</span></div></li>
+      </ol>`,
+    foot: stage === 1 ? `<button type="button" class="sim" data-go="accept">Prototype: ${taker()} taps yes</button><button type="button" class="sim" data-go="cancel">Cancel my request</button>`
+      : stage === 2 ? `<button type="button" class="sim" data-go="approve">Prototype: manager approves</button>`
+      : `<button type="button" class="primary" data-go="week">Back to your week</button>`
+  })
+};
+
+function render() {
+  const v = VIEWS[screen]();
+  document.getElementById('bar').innerHTML = (v.back ? `<button type="button" data-go="${v.back}">‹ Back</button>` : '') + `<b>${v.title}</b><span>${v.sub}</span>`;
+  const o = document.getElementById('owner');
+  o.className = 'owner' + (stage === 3 ? ' done' : '');
+  o.textContent = stage === 3 ? `Friday is ${taker()}'s shift now. You are off.` : stage === 2 ? `Friday is still your shift until a manager approves.` : stage === 1 ? 'Friday is still your shift. Nobody has accepted yet.' : 'Friday 3 – 11 pm is your shift.';
+  document.getElementById('body').innerHTML = v.body;
+  document.getElementById('foot').innerHTML = v.foot;
+  document.getElementById('foot').hidden = !v.foot;
+}
+document.addEventListener('change', (e) => { if (e.target.matches('.who input')) { e.target.checked ? asked.add(e.target.value) : asked.delete(e.target.value); const id = e.target.id; render(); document.getElementById(id).focus(); } });
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-go]'); if (!b) return;
+  const g = b.dataset.go;
+  if (g === 'pick') screen = stage && stage < 3 ? 'track' : stage === 3 ? 'week' : 'pick';
+  else if (g === 'ask') { stage = 1; screen = 'track'; }
+  else if (g === 'accept') stage = 2;
+  else if (g === 'approve') stage = 3;
+  else if (g === 'cancel') { stage = 0; asked.clear(); screen = 'week'; }
+  else screen = g;
+  render();
+});
+render();
+</script>
+</body>
+</html>
