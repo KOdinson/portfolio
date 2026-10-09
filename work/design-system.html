@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sheet design system | Keith Sanders II</title>
+<meta name="description" content="The design system behind this portfolio: tokens, type, components and the rules for using them.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=3">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="cs-head">
+    <p class="label">Sheet 10 of 10 · <span class="tag shipped">Built · this site</span></p>
+    <h1>Sheet: the system behind this portfolio</h1>
+    <p class="lede">Ten case studies need to look like one body of work. This site runs on a small design system: six core colour tokens, three typefaces, and a handful of components borrowed from engineering drawings. This page is its documentation, rendered with the system itself.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Tokens, type, components, usage rules</dd></div>
+      <div><dt>When</dt><dd>October 2026</dd></div>
+      <div><dt>Status</dt><dd>In use on every page here</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">The idea</p>
+    <div class="content">
+      <div class="prose">
+        <p>My background is systems engineering, where every drawing carries a title block: a ruled grid in the corner saying what the sheet is, who drew it, its revision and its status. A reader checks that block before reading anything else.</p>
+        <p>A case study has the same need. Before a hiring manager reads, they want to know my role, the scope, the date, and whether the thing shipped. So each project is a "sheet" and opens with a title block. The rest of the system follows from that one borrowed object: ruled lines, monospace labels, squared corners, one accent colour.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Colour</p>
+    <div class="content">
+      <div class="prose">
+        <p>Six tokens, each defined twice. The site follows the visitor's light or dark setting, and you are seeing one of the two sets now. Contrast ratios are measured against the page background, and every text colour clears the 4.5 to 1 minimum in both themes.</p>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Token</th><th>Job</th><th>Light</th><th>Contrast</th><th>Dark</th><th>Contrast</th></tr></thead>
+          <tbody>
+            <tr><td><b>paper</b></td><td>Page background</td><td class="sev">#EDF0F2</td><td>—</td><td class="sev">#0C1522</td><td>—</td></tr>
+            <tr><td><b>surface</b></td><td>Title blocks, tables</td><td class="sev">#F8FAFB</td><td>—</td><td class="sev">#121E2F</td><td>—</td></tr>
+            <tr><td><b>ink</b></td><td>Body text, heavy rules</td><td class="sev">#0F1B2B</td><td>15.1 : 1</td><td class="sev">#E6ECF2</td><td>15.4 : 1</td></tr>
+            <tr><td><b>ink-2</b></td><td>Labels, captions</td><td class="sev">#44546A</td><td>6.7 : 1</td><td class="sev">#9DAEC2</td><td>8.1 : 1</td></tr>
+            <tr><td><b>accent</b></td><td>Emphasis, concept tags, hover</td><td class="sev">#B0420F</td><td>5.1 : 1</td><td class="sev">#F0843F</td><td>7.0 : 1</td></tr>
+            <tr><td><b>blue</b></td><td>Links, built tags</td><td class="sev">#1B4F8A</td><td>7.2 : 1</td><td class="sev">#7AA8DC</td><td>7.4 : 1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="swatches" aria-label="Current theme swatches">
+        <div><i style="background: var(--paper);"></i>paper</div>
+        <div><i style="background: var(--surface);"></i>surface</div>
+        <div><i style="background: var(--ink);"></i>ink</div>
+        <div><i style="background: var(--ink-2);"></i>ink-2</div>
+        <div><i style="background: var(--accent);"></i>accent</div>
+        <div><i style="background: var(--blue);"></i>blue</div>
+      </div>
+      <div class="prose">
+        <p>The orange is not the same orange in both themes. The one that reads on dark navy fails on pale grey, so the light theme uses a deeper burnt orange. The neutrals lean slightly blue so that grey text sits with the navy and does not look like a default.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Type</p>
+    <div class="content">
+      <div class="rows">
+        <div><span>Display</span><div><h3 style="font-size: 2.2rem;">Big Shoulders Display</h3><small>Headlines only, always uppercase. A condensed industrial face that fits long project titles on a phone without shrinking.</small></div></div>
+        <div><span>Body</span><div><b style="font-size: 1.15rem;">Public Sans</b><small>All running text. It is the typeface of the U.S. Web Design System, which suits a portfolio that includes government-facing work. Lines are capped near 66 characters.</small></div></div>
+        <div><span>Data</span><div><b style="font: 500 1.05rem var(--mono);">IBM Plex Mono</b><small>Labels, title-block keys, tags, table headers. Small, uppercase, letter-spaced. It marks text as metadata.</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Components</p>
+    <div class="content">
+      <div class="rows">
+        <div><span>Title block</span><div>
+          <dl class="titleblock even" style="max-width: 420px;"><div><dt>Role</dt><dd>Who did what</dd></div><div><dt>Status</dt><dd>Shipped or concept</dd></div></dl>
+          <small style="margin-top: 8px;">Opens every case study. Four cells, same order every time: role, scope, when, status.</small></div></div>
+        <div><span>Tags</span><div><span class="tag shipped">Built · desktop app</span> &nbsp; <span class="tag concept">Concept · working prototype</span>
+          <small style="margin-top: 8px;">Two kinds only. Blue means it exists and runs. Orange means it is a concept. The word carries the meaning and the colour repeats it.</small></div></div>
+        <div><span>Note</span><div><p class="note">This is where a case study says what was not tested.</p>
+          <small style="margin-top: 8px;">Reserved for limits and caveats. If you see the orange rule, you are reading something I am not claiming.</small></div></div>
+        <div><span>Plate</span><div><small>A framed figure with a heavy ink border. On the home page a plate holds a live, scaled prototype or a redrawn specimen. Plates are the only place a prototype's own colours appear.</small></div></div>
+        <div><span>Button</span><div><span class="btn">Default</span> &nbsp; <span class="btn solid">Primary</span>
+          <small style="margin-top: 8px;">Squared, monospace, uppercase. One primary per page at most.</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Rules</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>Numbering means order</h3>
+          <p>"Sheet 3 of 10" is true: there are ten and this is the third. Nothing else on the site is numbered for decoration.</p>
+        </div>
+        <div class="prose">
+          <h3>Square corners, ruled lines</h3>
+          <p>Layout components have square corners and no shadows. Hierarchy comes from two line weights: a heavy ink rule between major sections, a light rule within them.</p>
+        </div>
+        <div class="prose">
+          <h3>Every case study ends the same way</h3>
+          <p>A limits note, then next steps. The structure makes honesty the default and saves me deciding each time whether to mention what is untested.</p>
+        </div>
+        <div class="prose">
+          <h3>Keyboard and motion</h3>
+          <p>Every interactive element shows a 3-pixel accent focus ring. Smooth scrolling switches off for visitors who ask their system for reduced motion. Pages hold at 375 pixels wide with no sideways scroll.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">What I'd change</p>
+    <div class="content">
+      <div class="prose">
+        <ul>
+          <li>The system lives in one stylesheet with no build step. That is right for ten pages and would not survive a team.</li>
+          <li>Uppercase condensed headlines are harder to read at length. Two of the project titles are long enough to feel it.</li>
+          <li>Specimen styles for individual case studies have crept into the shared stylesheet. They should move out.</li>
+          <li>There is no manual theme switch. The site trusts the system setting, which is correct most of the time and unhelpful when it is not.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Back to the start</span>
+    <a class="big" href="wasp-ground-station.html">Ground station for an autonomous swarm →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js?v=3"></script>
+</body>
+</html>

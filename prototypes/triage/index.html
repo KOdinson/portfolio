@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Triage | Concept prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* An analyst's working queue: one light theme by choice. Severity is shape plus word, then colour. */
+:root {
+  --bg: #F3F4F1; --panel: #FFFFFF; --line: #D6D9D2; --ink: #1A1D1A; --ink-2: #5A6259;
+  --high: #A8261C; --med: #8A5A00; --low: #4E5A66; --sel: #E9EEF7; --act: #1F4FA3; --tape: #F2C230;
+  --sans: "IBM Plex Sans", system-ui, "Segoe UI", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 14.5px/1.45 var(--sans); }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--act); outline-offset: 2px; }
+kbd { font: 500 11px/1 var(--mono); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 3px; padding: 2px 5px; background: var(--panel); }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+.app { height: 100%; display: grid; grid-template-rows: auto minmax(0, 1fr); }
+.top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; padding: 12px 18px; background: var(--panel); border-bottom: 1px solid var(--line); }
+.top b { font-size: 17px; font-weight: 600; }
+.tape { background: var(--tape); font: 500 11.5px/1 var(--mono); padding: 5px 8px; }
+.sum { flex: 1 1 260px; color: var(--ink-2); }
+.sum strong { color: var(--ink); font-weight: 600; }
+.switch { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; }
+.switch input { width: 18px; height: 18px; accent-color: var(--act); }
+
+.main { display: grid; grid-template-columns: minmax(300px, 0.9fr) minmax(0, 1.25fr); grid-template-rows: minmax(0, 1fr); min-height: 0; }
+.queue { overflow: auto; border-right: 1px solid var(--line); padding: 10px; display: grid; gap: 6px; align-content: start; }
+.item { display: grid; grid-template-columns: 84px minmax(0, 1fr) auto; gap: 2px 12px; align-items: baseline; text-align: left; width: 100%;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; }
+.item[aria-current="true"] { background: var(--sel); border-color: var(--act); box-shadow: inset 3px 0 0 var(--act); }
+.item.done { opacity: 0.55; }
+.sev { font: 500 12px/1.4 var(--mono); white-space: nowrap; }
+.sev.high { color: var(--high); } .sev.med { color: var(--med); } .sev.low { color: var(--low); }
+.item .t { font-weight: 500; }
+.item .n { font: 500 12px/1.4 var(--mono); color: var(--ink-2); }
+.item .e { grid-column: 2 / -1; color: var(--ink-2); font-size: 13px; }
+.item .st { grid-column: 2 / -1; font: 500 12px/1.4 var(--mono); color: var(--act); }
+
+.detail { overflow: auto; padding: 18px 22px; display: grid; gap: 16px; align-content: start; }
+.detail h1 { margin: 0; font-size: 20px; font-weight: 600; line-height: 1.25; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 18px; color: var(--ink-2); font-size: 13.5px; }
+.why { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--act); padding: 10px 12px; }
+.why b { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-2); font-weight: 600; margin-bottom: 2px; }
+.tl { list-style: none; margin: 0; padding: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+.tl li { display: grid; grid-template-columns: 52px 84px minmax(0, 1fr); gap: 10px; padding: 9px 12px; border-top: 1px solid var(--line); }
+.tl li:first-child { border-top: 0; }
+.tl small { display: block; color: var(--ink-2); }
+.acts { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.btn { background: var(--panel); border: 1px solid var(--ink-2); border-radius: 5px; padding: 8px 12px; font-weight: 500; }
+.btn.primary { background: var(--act); border-color: var(--act); color: #fff; }
+.btn.primary kbd { color: var(--ink); }
+.btn:hover { filter: brightness(0.96); }
+.reasons { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 12px; display: grid; gap: 8px; }
+.reasons div { display: flex; flex-wrap: wrap; gap: 8px; }
+.result { font-weight: 500; color: var(--act); }
+.keys { color: var(--ink-2); font-size: 13px; display: flex; flex-wrap: wrap; gap: 6px 16px; border-top: 1px solid var(--line); padding-top: 12px; }
+
+@media (max-width: 800px) {
+  html, body { height: auto; }
+  .app { height: auto; }
+  .main { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+  .queue { border-right: 0; border-bottom: 1px solid var(--line); overflow: visible; }
+  .detail { overflow: visible; }
+  .item { grid-template-columns: 70px minmax(0, 1fr) auto; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <b>Triage</b>
+    <span class="tape">CONCEPT · SAMPLE DATA</span>
+    <span class="sum" id="sum" aria-live="polite"></span>
+    <label class="switch"><input type="checkbox" id="group" checked> Group related alerts</label>
+  </div>
+  <div class="main">
+    <div class="queue" id="queue" aria-label="Queue"></div>
+    <div class="detail" id="detail"></div>
+  </div>
+</div>
+
+<script>
+// Sample alerts. Hosts, users and addresses are invented; addresses use documentation ranges.
+const ALERTS = [
+  { id: 1, at: '09:02', sev: 'high', ent: 'FIN-LT-014', rule: 'Office document launched PowerShell', d: 'WINWORD.EXE started powershell.exe · user m.okafor' },
+  { id: 2, at: '09:03', sev: 'high', ent: 'FIN-LT-014', rule: 'PowerShell downloaded a file from the internet', d: 'Destination 203.0.113.47 · 412 KB written to the user temp folder' },
+  { id: 3, at: '09:04', sev: 'med', ent: 'FIN-LT-014', rule: 'Connection to a domain registered 2 days ago', d: 'invoice-portal.example · 6 requests in 40 seconds' },
+  { id: 4, at: '09:09', sev: 'med', ent: 'FIN-LT-014', rule: 'New scheduled task created', d: 'Task "Updater" runs at every sign-in' },
+  { id: 5, at: '08:40', sev: 'med', ent: 'r.haines', rule: '38 failed sign-ins in 4 minutes', d: 'Source 198.51.100.23 · mail portal' },
+  { id: 6, at: '08:44', sev: 'high', ent: 'r.haines', rule: 'Successful sign-in right after the failures', d: 'Same source address · no second factor prompt recorded' },
+  { id: 7, at: '08:45', sev: 'med', ent: 'r.haines', rule: 'Sign-in from a country not seen for this user', d: 'First sign-in from this location in 90 days' },
+  { id: 8, at: '08:00', sev: 'low', ent: 'SRV-BKP-02', rule: 'Antivirus definitions update failed', d: 'Update server unreachable' },
+  { id: 9, at: '08:30', sev: 'low', ent: 'SRV-BKP-02', rule: 'Antivirus definitions update failed', d: 'Update server unreachable' },
+  { id: 10, at: '09:00', sev: 'low', ent: 'SRV-BKP-02', rule: 'Antivirus definitions update failed', d: 'Update server unreachable' },
+  { id: 11, at: '08:15', sev: 'med', ent: 'SEC-SCAN-01', rule: 'Port scan from an internal host', d: '1,024 ports on 10.20.4.0/24' },
+  { id: 12, at: '08:17', sev: 'med', ent: 'SEC-SCAN-01', rule: 'Port scan from an internal host', d: '1,024 ports on 10.20.5.0/24' },
+  { id: 13, at: '08:52', sev: 'low', ent: 'WS-RECEPTION-1', rule: 'USB storage device attached', d: 'Generic flash drive · 16 GB' }
+];
+const NOTES = {
+  'FIN-LT-014': { why: 'Four alerts on one laptop within 7 minutes, in the order an attack usually runs: open, download, call out, persist.', next: 'Isolate the laptop from the network, then pull the downloaded file for analysis.' },
+  'r.haines': { why: 'Three alerts on one account within 5 minutes. Failures followed by a success from the same address is the pattern of a guessed password.', next: 'Force a password reset and end active sessions, then call the user.' },
+  'SRV-BKP-02': { why: 'The same alert three times on one server, 30 minutes apart.', next: 'Check whether the server can reach the update service. This is a maintenance problem unless it persists.' },
+  'SEC-SCAN-01': { why: 'Two identical alerts from one host two minutes apart. The host name matches the vulnerability scanner.', next: 'Confirm against the scan schedule. If it was planned, close as a test or scan.' },
+  'WS-RECEPTION-1': { why: 'A single alert with nothing related.', next: 'Low priority. Check whether removable storage is allowed on this workstation.' }
+};
+const RANK = { high: 3, med: 2, low: 1 };
+const SEV = { high: '▲ High', med: '◆ Medium', low: '● Low' };
+const REASONS = ['Expected activity', 'Test or scan', 'Duplicate', 'Rule is wrong'];
+const status = {};            // alert id -> 'Escalated' | 'Assigned to you' | 'Closed: reason'
+let sel = 0, picking = false, grouped = true;
+const $ = (id) => document.getElementById(id);
+
+function items() {
+  const list = grouped
+    ? [...new Set(ALERTS.map((a) => a.ent))].map((ent) => ({ ent, alerts: ALERTS.filter((a) => a.ent === ent) }))
+    : ALERTS.map((a) => ({ ent: a.ent, alerts: [a] }));
+  list.forEach((it) => {
+    it.top = [...it.alerts].sort((a, b) => RANK[b.sev] - RANK[a.sev] || a.at.localeCompare(b.at))[0];
+    it.first = it.alerts.map((a) => a.at).sort()[0];
+    it.status = status[it.alerts[0].id] && it.alerts.every((a) => status[a.id] === status[it.alerts[0].id]) ? status[it.alerts[0].id] : '';
+    it.done = /^(Escalated|Closed)/.test(it.status);
+  });
+  return list.sort((a, b) => a.done - b.done || RANK[b.top.sev] - RANK[a.top.sev] || a.first.localeCompare(b.first));
+}
+
+function render() {
+  const list = items();
+  sel = Math.max(0, Math.min(sel, list.length - 1));
+  const open = list.filter((i) => !i.done).length;
+  $('sum').innerHTML = grouped
+    ? `<strong>${ALERTS.length} alerts</strong> grouped into <strong>${list.length} cases</strong> · ${open} still open`
+    : `<strong>${ALERTS.length} alerts</strong>, one row each · ${open} still open`;
+  $('queue').innerHTML = list.map((it, i) => `<button type="button" class="item ${it.done ? 'done' : ''}" data-i="${i}" aria-current="${i === sel}">
+      <span class="sev ${it.top.sev}">${SEV[it.top.sev]}</span><span class="t">${it.top.rule}</span><span class="n mono">${it.first}</span>
+      <span class="e">${it.ent}${it.alerts.length > 1 ? ' · ' + it.alerts.length + ' related alerts' : ''}</span>
+      ${it.status ? `<span class="st">${it.status}</span>` : ''}</button>`).join('');
+
+  const it = list[sel], note = NOTES[it.ent], others = ALERTS.filter((a) => a.ent === it.ent).length - it.alerts.length;
+  $('detail').innerHTML = `
+    <div><span class="sev ${it.top.sev}">${SEV[it.top.sev]}</span><h1>${it.top.rule}</h1></div>
+    <div class="meta"><span>On <strong>${it.ent}</strong></span><span>First seen <span class="mono">${it.first}</span></span><span>${it.alerts.length} alert${it.alerts.length > 1 ? 's' : ''}</span></div>
+    ${grouped ? `<div class="why"><b>Why these are together</b>${note.why}</div>`
+      : others ? `<div class="why"><b>Not the whole picture</b>${others} other alert${others > 1 ? 's' : ''} on ${it.ent} sit elsewhere in this list. Turn on grouping to see them as one case.</div>` : ''}
+    <ol class="tl">${[...it.alerts].sort((a, b) => a.at.localeCompare(b.at)).map((a) =>
+      `<li><span class="mono">${a.at}</span><span class="sev ${a.sev}">${SEV[a.sev]}</span><span>${a.rule}<small>${a.d}</small></span></li>`).join('')}</ol>
+    ${grouped ? `<div class="why"><b>Suggested first check</b>${note.next}</div>` : ''}
+    ${it.done ? `<div class="result">${it.status}. <button type="button" class="btn" data-act="reopen">Reopen</button></div>`
+      : picking ? `<div class="reasons"><span>Why is this safe to close? The answer is saved with the case.</span><div>${REASONS.map((r, n) =>
+          `<button type="button" class="btn" data-reason="${r}"><kbd>${n + 1}</kbd> ${r}</button>`).join('')}<button type="button" class="btn" data-act="cancel">Cancel</button></div></div>`
+      : `<div class="acts"><button type="button" class="btn primary" data-act="escalate"><kbd>E</kbd> Escalate</button>
+          <button type="button" class="btn" data-act="assign"><kbd>A</kbd> Assign to me</button>
+          <button type="button" class="btn" data-act="close"><kbd>C</kbd> Close as safe</button></div>`}
+    <div class="keys"><span><kbd>J</kbd> <kbd>K</kbd> next and previous</span><span><kbd>E</kbd> escalate</span><span><kbd>A</kbd> assign</span><span><kbd>C</kbd> close</span></div>`;
+}
+
+function act(name, reason) {
+  const it = items()[sel]; if (!it) return;
+  const set = (v) => it.alerts.forEach((a) => { if (v) status[a.id] = v; else delete status[a.id]; });
+  if (name === 'escalate' && !it.done) set('Escalated');
+  else if (name === 'assign' && !it.done) set('Assigned to you');
+  else if (name === 'close' && !it.done) { picking = true; return render(); }
+  else if (name === 'reason') set('Closed: ' + reason);
+  else if (name === 'reopen') set('');
+  picking = false; render();
+}
+
+$('queue').addEventListener('click', (e) => { const b = e.target.closest('.item'); if (b) { sel = +b.dataset.i; picking = false; render(); } });
+$('detail').addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.reason) act('reason', b.dataset.reason); else if (b.dataset.act === 'cancel') { picking = false; render(); } else act(b.dataset.act);
+});
+$('group').addEventListener('change', (e) => { grouped = e.target.checked; sel = 0; picking = false; render(); });
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  const k = e.key.toLowerCase();
+  if (picking && REASONS[+k - 1]) return act('reason', REASONS[+k - 1]);
+  if (picking && k === 'escape') { picking = false; return render(); }
+  if (k === 'j' || k === 'k') { sel += k === 'j' ? 1 : -1; picking = false; render(); document.querySelector('.item[aria-current="true"]').scrollIntoView({ block: 'nearest' }); }
+  else if (k === 'e') act('escalate'); else if (k === 'a') act('assign'); else if (k === 'c') act('close');
+});
+render();
+</script>
+</body>
+</html>

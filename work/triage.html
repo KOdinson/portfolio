@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Triage | Keith Sanders II</title>
+<meta name="description" content="Case study: a concept security-alert queue that groups related alerts into cases and explains why.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=3">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="cs-head">
+    <p class="label">Sheet 8 of 10 · <span class="tag concept">Concept · working prototype</span></p>
+    <h1>Triage: thirteen alerts, five decisions</h1>
+    <p class="lede">Security monitoring tools produce one row per alert. An attack produces many alerts. The analyst is left to notice that rows 3, 9, 14 and 22 are the same incident. This concept does that noticing for them and says how it did it.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Queue design, content design, coded prototype</dd></div>
+      <div><dt>When</dt><dd>October 2026</dd></div>
+      <div><dt>Status</dt><dd>Self-initiated concept. Invented data. Untested with analysts.</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">The prototype</p>
+    <div class="content">
+      <figure>
+        <div class="plate live" style="background: #F3F4F1;">
+          <iframe src="../prototypes/triage/" title="Interactive Triage prototype"></iframe>
+        </div>
+        <div class="plate-cap">
+          <span>Live and interactive. Turn "Group related alerts" off to see the same data the usual way.</span>
+          <a href="../prototypes/triage/">Open full screen →</a>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Where this comes from</p>
+    <div class="content">
+      <div class="prose">
+        <p>My degree and certifications are in security: an A.A.S. in Cyber Security, Security+, CySA+ and PenTest+. Alert monitoring was part of that training. I learned triage in a classroom and a lab, not on a night shift, and this project is labelled a concept for that reason.</p>
+        <p>What the training makes clear is the shape of the problem. Detection rules fire on single events. People attack in sequences. A flat list sorted by time or severity scatters one sequence across the screen and mixes it with routine noise.</p>
+      </div>
+      <p class="note">The problem statement comes from coursework and published guidance on alert fatigue, not from interviews. I have not observed working analysts for this project.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>The unit of work is a case</h3>
+          <p>Alerts that share a machine or an account become one row. Thirteen alerts become five cases. The header states both numbers, so the analyst can see how much the grouping is doing and is never left wondering where alerts went.</p>
+        </div>
+        <div class="prose">
+          <h3>Grouping has to explain itself</h3>
+          <p>Every case opens with "Why these are together" in one or two sentences. If the tool merged things that do not belong together, the analyst can see the reasoning and reject it. A grouping with no stated reason is one more thing to distrust.</p>
+        </div>
+        <div class="prose">
+          <h3>You can turn it off</h3>
+          <p>One switch returns the flat list. In that mode, an alert with relatives elsewhere says so: "3 other alerts on FIN-LT-014 sit elsewhere in this list." The switch is there for trust, and it also makes the argument for grouping better than any description could.</p>
+        </div>
+        <div class="prose">
+          <h3>Events in the order they happened</h3>
+          <p>Inside a case, alerts run as a timeline. The laptop case reads top to bottom as a story: a document opened a shell, the shell downloaded a file, the machine called out, a task was scheduled. The order is the evidence.</p>
+        </div>
+        <div class="prose">
+          <h3>Closing costs one keystroke more</h3>
+          <p>Closing a case asks why it is safe, with four answers on keys 1 to 4. Nearly as fast as closing blind, and the reason is saved. "Test or scan" on the scanner case is the data someone needs later to fix the rule that keeps firing.</p>
+        </div>
+        <div class="prose">
+          <h3>Hands stay on the keyboard</h3>
+          <p>J and K move through the queue, E escalates, A assigns, C closes. Every shortcut is printed on its button, so the keys are learned by using the mouse and then no longer needing it.</p>
+        </div>
+      </div>
+      <div class="prose">
+        <p>Severity is a shape and a word before it is a colour: a triangle for high, a diamond for medium, a circle for low. Rule names are written as plain sentences, such as "Office document launched PowerShell", with the raw detail one line below.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Limits and next steps</p>
+    <div class="content">
+      <p class="note">The grouping here is the simplest possible rule: same machine or same account. Real incidents cross machines and accounts, and a real product would need far better correlation. The interface question stands either way: however alerts are grouped, the grouping needs a stated reason and an off switch.</p>
+      <div class="prose">
+        <ul>
+          <li>Interview five working analysts about the last incident they caught late, and what the queue looked like at the time.</li>
+          <li>Timed comparison: the same thirteen alerts flat and grouped, measuring time to identify the two real incidents.</li>
+          <li>Test a wrong grouping on purpose. Do analysts read the reason and catch it, or trust the tool?</li>
+          <li>Design the case that spans two machines, where the simple rule fails.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Next sheet</span>
+    <a class="big" href="rounds.html">Rounds: a patrol log for the night shift →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js?v=3"></script>
+</body>
+</html>

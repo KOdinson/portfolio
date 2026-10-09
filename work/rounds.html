@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rounds | Keith Sanders II</title>
+<meta name="description" content="Case study: a concept patrol log for security guards, designed for one thumb in the dark.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=3">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="cs-head">
+    <p class="label">Sheet 9 of 10 · <span class="tag concept">Concept · working prototype</span></p>
+    <h1>Rounds: a patrol log for the night shift</h1>
+    <p class="lede">In 2021 I was head security guard for a building in Denver. I ran sweeps, planned access control and trained new guards. This is a patrol log designed for the conditions of that job: walking, one hand free, bad light, and a report due at the end.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Flow design, interaction design, coded prototype</dd></div>
+      <div><dt>When</dt><dd>October 2026</dd></div>
+      <div><dt>Status</dt><dd>Self-initiated concept. Sample site. Untested with guards.</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">The prototype</p>
+    <div class="content">
+      <figure>
+        <div class="phone-embed" style="background: #1B1E22;">
+          <iframe src="../prototypes/rounds/" title="Interactive Rounds prototype"></iframe>
+        </div>
+        <div class="plate-cap">
+          <span>Live and interactive. Clear some checkpoints, report an issue at one, then finish the round.</span>
+          <a href="../prototypes/rounds/">Open full screen →</a>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Designing for the conditions</p>
+    <div class="content">
+      <div class="prose">
+        <p>Most apps assume a person sitting still, looking at the screen, with two hands. A guard on a round is none of those. I wrote down the conditions first and let them make the decisions.</p>
+      </div>
+      <div class="rows">
+        <div><span>Walking</span><div><b>One glance, one tap</b><small>The screen answers "where am I in the round" with a segmented bar, and the usual case, all clear, is a single tap.</small></div></div>
+        <div><span>One hand</span><div><b>Everything at the bottom</b><small>Both actions sit in the lowest part of the screen at 62 pixels tall, inside the reach of a thumb. Nothing that matters is at the top.</small></div></div>
+        <div><span>Dark</span><div><b>A dark screen and a legible face</b><small>Near-black background so the phone does not light up a stairwell or wreck night vision. The typeface is Atkinson Hyperlegible, drawn for low-vision readers so similar letters stay distinct.</small></div></div>
+        <div><span>Tired</span><div><b>No typing</b><small>An issue is a type, one safety question and an optional photo. The keyboard never opens.</small></div></div>
+        <div><span>End of shift</span><div><b>The report writes itself</b><small>Finishing the round produces the handover note from the taps: counts, times, and each issue on its own line.</small></div></div>
+      </div>
+      <p class="note">These conditions are my working assumptions from doing the job, not research findings. I have not interviewed or observed other guards for this project.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>Each checkpoint says what "clear" means</h3>
+          <p>Under "Loading dock" it reads "Roll door down, side door locked". A new guard does not have to remember what to look for, and two guards mean the same thing when they tap All clear.</p>
+        </div>
+        <div class="prose">
+          <h3>The app knows where you are in the round</h3>
+          <p>The footer names the current checkpoint and the two buttons apply to it. There is no selecting a row first. The list above is a record, and the buttons are the tool.</p>
+        </div>
+        <div class="prose">
+          <h3>All clear is right, Issue is left</h3>
+          <p>The common action sits under a right thumb. The two buttons differ in colour, in word and in position, and a checked point shows a tick while a flagged one shows an exclamation mark.</p>
+        </div>
+        <div class="prose">
+          <h3>People before paperwork</h3>
+          <p>Every issue asks "Does anyone need help right now?" A yes puts the supervisor's number on screen with the line "Call now, report after." The report can wait. The form says so.</p>
+        </div>
+        <div class="prose">
+          <h3>Times are recorded, not entered</h3>
+          <p>Each tap stamps the clock. The guard never types a time, and the log cannot drift from what happened.</p>
+        </div>
+        <div class="prose">
+          <h3>The handover is plain text</h3>
+          <p>The shift note is selectable text in a box, ready to paste into whatever the site already uses. A tool for guards has to fit beside the logbook, radio and email that are already there.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Limits and next steps</p>
+    <div class="content">
+      <p class="note">The prototype assumes a fixed route and trusts the guard's tap. A real system would need proof of presence, such as a tag at each checkpoint, and that changes the interaction. It also needs to work with no signal in a basement.</p>
+      <div class="prose">
+        <ul>
+          <li>Walk a real round with it. Stairs, a flashlight in the other hand, gloves. Count mis-taps.</li>
+          <li>Interview five guards and two supervisors about what the current log is used for after it is written.</li>
+          <li>Test left-handed. The thumb-zone argument for button order flips.</li>
+          <li>Design the supervisor's morning view: last night's rounds across a site, issues first.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Next sheet</span>
+    <a class="big" href="design-system.html">Sheet: the system behind this portfolio →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js?v=3"></script>
+</body>
+</html>
