@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plain Bill | Keith Sanders II</title>
+<meta name="description" content="Case study: a concept utility bill that explains why this month is different from last month.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=4">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="cs-head">
+    <p class="label">Sheet 16 of 18 · <span class="tag concept">Concept · working prototype</span></p>
+    <h1>Plain Bill: why is it higher this month?</h1>
+    <p class="lede">A utility bill is a page of line items that adds up to a number. The question people bring to it is rarely "what do I owe". It is "why is this more than last time, and is something wrong?" This concept answers that question first, in dollars.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Information design, data visualisation, coded prototype</dd></div>
+      <div><dt>When</dt><dd>October 2026</dd></div>
+      <div><dt>Status</dt><dd>Self-initiated concept. Invented account. Untested with customers.</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">The prototype</p>
+    <div class="content">
+      <figure>
+        <div class="plate live" style="background: #EFEEE9;">
+          <iframe src="../prototypes/plain-bill/" title="Interactive Plain Bill prototype"></iframe>
+        </div>
+        <div class="plate-cap">
+          <span>Live and interactive. Hover or tab across the bars, and switch the chart to a table.</span>
+          <a href="../prototypes/plain-bill/">Open full screen →</a>
+        </div>
+      </figure>
+      <p class="note">The account, amounts and reasons are invented for this prototype.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">The design problem</p>
+    <div class="content">
+      <div class="prose">
+        <p>I spent a year doing maintenance in apartments, including heating, cooling and electrical work. The things that move an electricity bill are ordinary: the weather, the length of the billing period, a rate change. A standard bill contains all three facts, scattered across the page in units most people do not think in.</p>
+        <p>A bill that jumps with no explanation reads as an error or an overcharge. The information to settle that is already in the billing system. The design job is to do the arithmetic for the reader and present the result as an explanation.</p>
+      </div>
+      <p class="note">That people read a higher bill as a mistake is my assumption. I have not interviewed utility customers or support staff for this project.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>Lead with the change, in a sentence</h3>
+          <p>"$164 this month. That is $33 more than September, and three things explain all of it." The amount, the comparison and a promise that the difference is accounted for, before any chart or table.</p>
+        </div>
+        <div class="prose">
+          <h3>Say it is not a mistake</h3>
+          <p>"None of them is a mistake on your bill" answers the worry directly. It is a strong claim, and the page then has to earn it with the three reasons underneath.</p>
+        </div>
+        <div class="prose">
+          <h3>The reasons add up</h3>
+          <p>Three causes with a dollar figure each: $14, $10 and $9, and a total line showing they sum to the $33. Partial explanations invite suspicion. An explanation that reconciles to the cent closes the question.</p>
+        </div>
+        <div class="prose">
+          <h3>Dollars, not kilowatt-hours</h3>
+          <p>Every figure on the page is money. Usage in technical units is what the utility measures. Money is what the customer experiences, so the conversion is done once, by the system.</p>
+        </div>
+        <div class="prose">
+          <h3>One bar in colour</h3>
+          <p>The chart shows twelve months with only the current one in blue and the rest in grey. The chart has one point to make, and one colour makes it. The current bar carries its value as a label. The others give theirs on hover or keyboard focus.</p>
+        </div>
+        <div class="prose">
+          <h3>Which reasons will repeat</h3>
+          <p>The longer billing period is a one-off. The rate rise "continues every month from now on". The page says which is which, then gives a range for the next two bills so the following month is not another surprise.</p>
+        </div>
+      </div>
+      <div class="prose">
+        <p>The chart has a table view behind one button, for screen-reader users and for anyone who would rather read numbers than bars.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Limits and next steps</p>
+    <div class="content">
+      <p class="note">Splitting a bill change into exact causes is harder than the prototype makes it look. Weather and behaviour overlap, and a real system would be estimating. An estimate presented to the dollar can be more misleading than a vague one, so a real version needs to show ranges and say when it is unsure.</p>
+      <div class="prose">
+        <ul>
+          <li>Interview customers who recently called about a high bill, and the staff who took the calls.</li>
+          <li>Test the sentence "None of them is a mistake". Does it reassure, or does it sound defensive?</li>
+          <li>Design the case where something is wrong: an estimated reading, or usage that suggests a fault.</li>
+          <li>Design the bill that went down, which needs the same explanation and gets it even less often.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Next sheet</span>
+    <a class="big" href="second-step.html">Second Step: two-step sign-in setup →</a>
+  </div>
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js?v=4"></script>
+</body>
+</html>

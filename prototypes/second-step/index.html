@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Second Step | Concept prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Manrope:wght@400;600;800&display=swap">
+<style>
+/* A security setup flow: one light theme by choice. Calm, plain, and the recovery step is not skippable. */
+:root {
+  --page: #E9EDF2; --card: #FFFFFF; --ink: #111827; --ink-2: #4B5565; --line: #CDD4DE;
+  --act: #0E5A8A; --act-soft: #E3F0F8; --bad: #A4161A; --good: #17603A; --good-soft: #E3F0E7; --warn-soft: #FFF2D1; --tape: #F2C230;
+  --font: "Manrope", system-ui, "Segoe UI", Arial, sans-serif; --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 400 16px/1.5 var(--font); display: grid; place-items: start center; padding: 24px 16px 40px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--act); outline-offset: 2px; }
+h1, h2, p { margin: 0; }
+.shell { width: min(100%, 560px); display: grid; gap: 14px; }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; }
+.head b { font-size: 18px; font-weight: 800; }
+.tape { background: var(--tape); font-size: 12.5px; font-weight: 600; padding: 3px 8px; }
+.head span.s { margin-left: auto; color: var(--ink-2); font-size: 14.5px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; display: grid; gap: 16px; }
+h1 { font-size: 26px; font-weight: 800; line-height: 1.15; letter-spacing: -0.01em; text-wrap: balance; }
+.lead { color: var(--ink-2); }
+.opt { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 2px 12px; border: 1.5px solid var(--line); border-radius: 10px; padding: 14px; cursor: pointer; }
+.opt:has(input:checked) { border-color: var(--act); background: var(--act-soft); }
+.opt input { width: 20px; height: 20px; margin: 3px 0 0; accent-color: var(--act); }
+.opt b { font-weight: 800; }
+.opt small { grid-column: 2; color: var(--ink-2); font-size: 14.5px; }
+.opt .pick { font-size: 12px; font-weight: 800; background: var(--good-soft); color: var(--good); padding: 2px 7px; border-radius: 99px; margin-left: 6px; }
+.qr { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 18px; align-items: center; }
+.qr .box { width: 132px; height: 132px; border: 1px solid var(--line); display: grid; grid-template-columns: repeat(11, 1fr); padding: 6px; background: #fff; }
+.qr .box i { background: var(--ink); } .qr .box i.o { background: transparent; }
+.key { font: 500 15px var(--mono); background: var(--page); padding: 6px 8px; border-radius: 6px; user-select: all; display: inline-block; }
+@media (max-width: 460px) { .qr { grid-template-columns: minmax(0, 1fr); } }
+label.f { font-weight: 800; display: grid; gap: 6px; }
+.hint { color: var(--ink-2); font-size: 14.5px; font-weight: 400; }
+input.code { font: 500 26px var(--mono); letter-spacing: 0.3em; width: 11ch; padding: 10px 12px; border: 2px solid var(--ink-2); border-radius: 8px; color: var(--ink); background: #fff; }
+input.code[aria-invalid="true"] { border-color: var(--bad); }
+.err { color: var(--bad); font-weight: 600; }
+.codes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 18px; font: 500 16px var(--mono); background: var(--page); border-radius: 10px; padding: 16px; user-select: all; }
+.note { background: var(--warn-soft); border-radius: 10px; padding: 12px 14px; font-size: 15px; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-weight: 600; cursor: pointer; }
+.check input { width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--act); flex: none; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.btn { background: var(--act); color: #fff; border: 0; border-radius: 10px; padding: 13px 20px; font-weight: 800; }
+.btn:disabled { background: var(--line); color: var(--ink-2); cursor: not-allowed; }
+.ghost { background: none; border: 1.5px solid var(--ink-2); border-radius: 10px; padding: 11px 16px; font-weight: 600; }
+.why { color: var(--ink-2); font-size: 14.5px; }
+.done { background: var(--good-soft); border-radius: 10px; padding: 14px; }
+dl { margin: 0; display: grid; gap: 10px; }
+dt { font-weight: 800; } dd { margin: 0; color: var(--ink-2); }
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="head"><b>Second Step</b><span class="tape">Concept prototype · nothing is real</span><span class="s" id="stepLabel"></span></div>
+  <main class="card" id="card" aria-live="polite"></main>
+</div>
+
+<script>
+const METHODS = {
+  app: ['Authenticator app', 'Works with no signal, and codes cannot be redirected to someone else. Takes two minutes to set up.', 'Recommended'],
+  text: ['Text message', 'Easiest to start. Weaker, because a phone number can be taken over by someone who fools your carrier. Still far better than a password alone.', ''],
+  key: ['Security key', 'The strongest option. You need to buy a small USB or tap device and keep it with you.', '']
+};
+let step = 0, method = 'app', code = '', error = '', saved = false, copied = false;
+const rand = () => Array.from({ length: 4 }, () => 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[Math.floor(Math.random() * 31)]).join('');
+const CODES = Array.from({ length: 8 }, () => rand() + '-' + rand());
+const QR = Array.from({ length: 121 }, (_, i) => { const r = Math.floor(i / 11), c = i % 11, corner = (r < 3 && c < 3) || (r < 3 && c > 7) || (r > 7 && c < 3); return corner || (i * 7 + r * 3) % 5 < 2; });
+
+const STEPS = [
+  () => `<h1>Add a second step to signing in</h1><p class="lead">A password can be guessed or stolen. A second step means a stolen password is not enough. Pick how you want to prove it is you.</p>
+    ${Object.entries(METHODS).map(([k, [name, text, tag]]) => `<label class="opt" for="m-${k}"><input type="radio" name="m" id="m-${k}" value="${k}" ${method === k ? 'checked' : ''}><span><b>${name}</b>${tag ? `<span class="pick">${tag}</span>` : ''}</span><small>${text}</small></label>`).join('')}
+    <div class="row"><button type="button" class="btn" data-go="next">Continue with ${METHODS[method][0].toLowerCase()}</button></div>`,
+  () => (method === 'app'
+    ? `<h1>Scan this with your authenticator app</h1><div class="qr"><div class="box" role="img" aria-label="Sample pattern standing in for a QR code">${QR.map((on) => `<i class="${on ? '' : 'o'}"></i>`).join('')}</div>
+        <div><p>Open the app, choose "add account", and point the camera here.</p><p class="hint" style="margin-top:8px">Cannot scan? Type this key into the app instead:</p><span class="key">SAMPLE-KEY-NOT-REAL</span></div></div>`
+    : method === 'text' ? `<h1>We will text you a code</h1><p class="lead">It goes to the mobile number already on your account, ending in 42. If that number is out of date, change it before you continue.</p>`
+    : `<h1>Plug in or tap your security key</h1><p class="lead">When the key's light blinks, touch it. In this prototype, the next screen stands in for that touch.</p>`)
+    + `<div class="row"><button type="button" class="ghost" data-go="back">Back</button><button type="button" class="btn" data-go="next">${method === 'app' ? 'I have scanned it' : 'Continue'}</button></div>`,
+  () => `<h1>Enter the 6-digit code</h1>
+    <label class="f" for="code">Code from your ${method === 'app' ? 'app' : method === 'text' ? 'text message' : 'key'}<span class="hint" id="codeHint">Six numbers, no spaces. In this prototype any six digits work.</span>
+      ${error ? `<span class="err" id="codeErr">Error: ${error}</span>` : ''}
+      <input class="code" id="code" inputmode="numeric" autocomplete="one-time-code" maxlength="8" value="${code}" aria-describedby="codeHint${error ? ' codeErr' : ''}" aria-invalid="${!!error}"></label>
+    <div class="row"><button type="button" class="ghost" data-go="back">Back</button><button type="button" class="btn" data-go="verify">Check code</button></div>`,
+  () => `<h1>Save your backup codes before you finish</h1><p class="lead">If you lose your phone, one of these gets you back in. Each code works once.</p>
+    <div class="codes" aria-label="Backup codes">${CODES.map((c) => `<span>${c}</span>`).join('')}</div>
+    <div class="row"><button type="button" class="ghost" data-go="copy">${copied ? 'Copied' : 'Copy all 8 codes'}</button><span class="why">Print them, or put them in a password manager.</span></div>
+    <div class="note">Do not keep them only on the phone you just set up. If the phone is gone, so are they.</div>
+    <label class="check" for="saved"><input type="checkbox" id="saved" ${saved ? 'checked' : ''}>I have saved these codes somewhere other than this phone</label>
+    <div class="row"><button type="button" class="btn" data-go="next" ${saved ? '' : 'disabled'}>Finish setup</button><span class="why">${saved ? '' : 'Tick the box to finish. This is the one step people regret skipping.'}</span></div>`,
+  () => `<div class="done"><h1>Your account now has a second step</h1></div>
+    <dl><div><dt>What changes</dt><dd>Signing in on a new device asks for a code from your ${METHODS[method][0].toLowerCase()}. Devices you already use stay signed in.</dd></div>
+    <div><dt>If you lose your ${method === 'key' ? 'key' : 'phone'}</dt><dd>Use one of your 8 backup codes at the sign-in screen, then set up a new second step.</dd></div>
+    <div><dt>If you lose the backup codes too</dt><dd>Account recovery takes 3 to 5 days and needs proof of identity. That delay is deliberate. It is what stops someone else doing it.</dd></div></dl>
+    <div class="row"><button type="button" class="ghost" data-go="restart">Run the setup again</button></div>`
+];
+
+function render(focus) {
+  document.getElementById('stepLabel').textContent = step < 4 ? `Step ${step + 1} of 4` : 'Done';
+  document.getElementById('card').innerHTML = STEPS[step]();
+  const t = focus && document.getElementById(focus); if (t) t.focus();
+}
+document.addEventListener('change', (e) => {
+  if (e.target.name === 'm') { method = e.target.value; render('m-' + method); }
+  if (e.target.id === 'saved') { saved = e.target.checked; render('saved'); }
+});
+document.addEventListener('input', (e) => { if (e.target.id === 'code') code = e.target.value; });
+document.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.id === 'code') verify(); });
+function verify() {
+  const digits = code.replace(/\s/g, '');
+  error = !digits ? 'Enter the 6-digit code.' : /\D/.test(digits) ? 'Codes are numbers only. Check for a letter or symbol.' : digits.length !== 6 ? `Codes are 6 digits. You entered ${digits.length}.` : '';
+  if (error) return render('code');
+  step = 3; render();
+}
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-go]'); if (!b) return;
+  const g = b.dataset.go;
+  if (g === 'verify') return verify();
+  if (g === 'copy') { const done = () => { copied = true; render(); }; return navigator.clipboard && window.isSecureContext ? navigator.clipboard.writeText(CODES.join('\n')).then(done).catch(done) : done(); }
+  if (g === 'next') step++; else if (g === 'back') { step--; error = ''; } else if (g === 'restart') { step = 0; code = ''; error = ''; saved = false; copied = false; }
+  render();
+});
+render();
+</script>
+</body>
+</html>

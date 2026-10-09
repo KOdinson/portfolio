@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiet Hours | Concept prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap">
+<style>
+/* A settings page: one light theme by choice. The right-hand panel answers "so how often will my phone buzz?" */
+:root {
+  --page: #F2F0F5; --card: #FFFFFF; --ink: #1A1523; --ink-2: #5E586B; --line: #DAD6E2;
+  --act: #6B2FB3; --act-soft: #F0E8FB; --hold: #E7E4EE; --tape: #F2C230;
+  --font: "Outfit", system-ui, "Segoe UI", Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 400 16px/1.45 var(--font); }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--act); outline-offset: 2px; }
+h1, h2, p { margin: 0; }
+.num { font-variant-numeric: tabular-nums; }
+.wrap { max-width: 1040px; margin-inline: auto; padding: 20px 20px 40px; display: grid; gap: 16px; }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
+.head b { font-size: 20px; font-weight: 800; }
+.tape { background: var(--tape); font-size: 12.5px; font-weight: 600; padding: 3px 8px; }
+.cols { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+@media (max-width: 800px) { .cols { grid-template-columns: minmax(0, 1fr); } }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: grid; gap: 14px; }
+.card h2 { font-size: 19px; font-weight: 800; }
+.sub { color: var(--ink-2); font-size: 15px; }
+.presets { display: flex; flex-wrap: wrap; gap: 8px; }
+.presets button { background: var(--card); border: 1.5px solid var(--line); border-radius: 99px; padding: 8px 14px; font-weight: 600; }
+.presets button[aria-pressed="true"] { border-color: var(--act); background: var(--act-soft); color: var(--act); }
+
+.cat { border-top: 1px solid var(--line); padding: 12px 0 2px; display: grid; gap: 8px; justify-items: start; }
+.cat b { font-weight: 600; }
+.cat small { display: block; color: var(--ink-2); font-size: 14px; }
+.seg { display: inline-flex; border: 1.5px solid var(--line); border-radius: 9px; overflow: hidden; }
+.seg label { padding: 8px 12px; font-size: 14.5px; font-weight: 600; cursor: pointer; border-left: 1.5px solid var(--line); }
+.seg label:first-of-type { border-left: 0; }
+.seg input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.seg label:has(input:checked) { background: var(--act); color: #fff; }
+.seg label:has(input:focus-visible) { outline: 3px solid var(--act); outline-offset: -3px; }
+.locked { font-size: 14.5px; font-weight: 600; color: var(--ink-2); }
+.seg { flex-wrap: wrap; }
+.quiet { background: var(--page); border-radius: 12px; padding: 14px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
+.quiet input { width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--act); flex: none; }
+
+.preview { position: sticky; top: 16px; border: 2px solid var(--ink); }
+.big { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 14px; align-items: baseline; }
+.big b { font-size: 54px; font-weight: 800; line-height: 1; color: var(--act); }
+.big span { font-size: 18px; font-weight: 600; }
+.split { display: flex; height: 16px; border-radius: 8px; overflow: hidden; gap: 2px; background: var(--card); }
+.split i { display: block; min-width: 0; } .split .a { background: var(--act); } .split .h { background: #A99BC0; } .split .o { background: var(--hold); }
+.legend { display: grid; gap: 6px; font-size: 15px; }
+.legend div { display: grid; grid-template-columns: 14px minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+.legend i { width: 14px; height: 14px; border-radius: 3px; }
+.digest { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 6px; }
+.digest ul { margin: 0; padding-left: 1.1em; color: var(--ink-2); font-size: 15px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head"><b>Quiet Hours</b><span class="tape">Concept prototype · sample volumes</span></div>
+  <div class="cols">
+    <form class="card" id="form">
+      <h2>What should interrupt you?</h2>
+      <div class="presets" id="presets" role="group" aria-label="Presets">
+        <button type="button" data-p="all">Everything, right away</button>
+        <button type="button" data-p="needs">Only what needs me</button>
+        <button type="button" data-p="silent">Nearly silent</button>
+      </div>
+      <div id="cats"></div>
+      <label class="quiet" for="quiet"><input type="checkbox" id="quiet" checked><span><b>Quiet hours, 10 pm to 7 am</b><br><span class="sub">Anything that arrives overnight waits for the morning summary. Security alerts still come through.</span></span></label>
+    </form>
+
+    <aside class="card preview" aria-live="polite" aria-label="What a typical week looks like">
+      <h2>A typical week with these settings</h2>
+      <div class="big"><b class="num" id="count"></b><span id="countLabel"></span></div>
+      <div class="split" id="split" role="img"></div>
+      <div class="legend" id="legend"></div>
+      <div class="digest" id="digest"></div>
+      <p class="sub">Counts are based on a sample account's last four weeks.</p>
+    </aside>
+  </div>
+</div>
+
+<script>
+// Sample weekly volumes for one invented account.
+const CATS = [
+  { k: 'sec', name: 'Security alerts', desc: 'New sign-in, password change', n: 1, locked: 'Always sent right away. These are the ones you cannot afford to miss.' },
+  { k: 'mention', name: 'Mentions and replies', desc: 'Someone wrote to you by name', n: 14 },
+  { k: 'task', name: 'Tasks assigned to you', desc: 'New work with your name on it', n: 6 },
+  { k: 'activity', name: 'Activity on things you follow', desc: 'Comments, edits, status changes', n: 31 },
+  { k: 'news', name: 'Product news and tips', desc: 'From us, not from your team', n: 3 }
+];
+const PRESETS = {
+  all: { mention: 'now', task: 'now', activity: 'now', news: 'now' },
+  needs: { mention: 'now', task: 'now', activity: 'digest', news: 'off' },
+  silent: { mention: 'digest', task: 'digest', activity: 'off', news: 'off' }
+};
+const S = { ...PRESETS.needs };
+const $ = (id) => document.getElementById(id);
+const OVERNIGHT = 0.25;   // share of sample notifications that arrived during quiet hours
+
+function drawCats() {
+  $('cats').innerHTML = CATS.map((c) => `<div class="cat"><span><b>${c.name}</b><small>${c.desc} · about ${c.n} a week</small></span>` + (c.locked
+    ? `<span class="locked">${c.locked}</span>`
+    : `<span class="seg" role="radiogroup" aria-label="${c.name}">${[['now', 'Right away'], ['digest', 'Morning summary'], ['off', 'Off']].map(([v, t]) =>
+        `<label><input type="radio" name="${c.k}" value="${v}" id="${c.k}-${v}" ${S[c.k] === v ? 'checked' : ''}>${t}</label>`).join('')}</span>`) + `</div>`).join('');
+}
+
+function render() {
+  const quiet = $('quiet').checked;
+  let now = 1, held = 0, off = 0; const inDigest = [];
+  for (const c of CATS.slice(1)) {
+    if (S[c.k] === 'now') { const late = quiet ? Math.round(c.n * OVERNIGHT) : 0; now += c.n - late; held += late; if (late) inDigest.push(`${late} overnight ${c.name.toLowerCase()}`); }
+    else if (S[c.k] === 'digest') { held += c.n; inDigest.push(`${c.n} ${c.name.toLowerCase()}`); }
+    else off += c.n;
+  }
+  const total = now + held + off;
+  $('count').textContent = now;
+  $('countLabel').textContent = `interruption${now === 1 ? '' : 's'} a week, about ${now >= 7 ? Math.round(now / 7) + ' a day' : 'one every ' + Math.round(7 / now) + ' days'}`;
+  $('split').innerHTML = `<i class="a" style="flex:${now}"></i><i class="h" style="flex:${held}"></i><i class="o" style="flex:${off}"></i>`;
+  $('split').setAttribute('aria-label', `${now} sent right away, ${held} held for the morning summary, ${off} not sent, of ${total} a week`);
+  $('legend').innerHTML = `<div><i style="background:var(--act)"></i><span>Buzz your phone right away</span><b class="num">${now}</b></div>
+    <div><i style="background:#A99BC0"></i><span>Wait for the morning summary</span><b class="num">${held}</b></div>
+    <div><i style="background:var(--hold)"></i><span>Not sent at all</span><b class="num">${off}</b></div>`;
+  $('digest').innerHTML = held ? `<b>Your 7 am summary would hold, over a week:</b><ul>${inDigest.map((t) => `<li>${t}</li>`).join('')}</ul>`
+    : `<b>No morning summary.</b><span class="sub">Nothing is set to wait, so there is nothing to summarise.</span>`;
+  const match = Object.keys(PRESETS).find((p) => Object.entries(PRESETS[p]).every(([k, v]) => S[k] === v));
+  document.querySelectorAll('#presets button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.p === match));
+}
+
+$('form').addEventListener('change', (e) => { if (e.target.type === 'radio') S[e.target.name] = e.target.value; render(); });
+$('presets').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; Object.assign(S, PRESETS[b.dataset.p]); drawCats(); render(); });
+drawCats(); render();
+</script>
+</body>
+</html>

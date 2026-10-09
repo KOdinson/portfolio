@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiet Hours | Keith Sanders II</title>
+<meta name="description" content="Case study: concept notification settings that show how many interruptions a week each choice produces.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=4">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="cs-head">
+    <p class="label">Sheet 18 of 18 · <span class="tag concept">Concept · working prototype</span></p>
+    <h1>Quiet Hours: settings that show their consequences</h1>
+    <p class="lede">A notification settings page is usually a long column of switches. Each switch is easy to understand and the result of twenty of them is impossible to predict. This concept adds the one thing those pages leave out: how often your phone will buzz.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Settings design, live preview, coded prototype</dd></div>
+      <div><dt>When</dt><dd>October 2026</dd></div>
+      <div><dt>Status</dt><dd>Self-initiated concept. Sample volumes. Untested with users.</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">The prototype</p>
+    <div class="content">
+      <figure>
+        <div class="plate live" style="background: #F2F0F5;">
+          <iframe src="../prototypes/quiet-hours/" title="Interactive Quiet Hours prototype"></iframe>
+        </div>
+        <div class="plate-cap">
+          <span>Live and interactive. Try the three presets, then change one setting and watch the weekly number.</span>
+          <a href="../prototypes/quiet-hours/">Open full screen →</a>
+        </div>
+      </figure>
+      <p class="note">The weekly volumes are sample figures for one invented account.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">The design problem</p>
+    <div class="content">
+      <div class="prose">
+        <p>Security monitoring teaches a lesson that applies to every app that sends notifications: when everything alerts, people stop reading alerts, and the important one is lost with the rest. A common way to fix a noisy app is to turn all of its notifications off, and then miss the one that mattered.</p>
+        <p>The settings page is where that could be prevented, and it gives people no way to see what they are choosing. "Activity on things you follow: on" does not say whether that means twice a week or thirty times.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>One number for the whole page</h3>
+          <p>The preview panel leads with interruptions per week and translates it to a daily rate. Every control on the left moves that number. People can tune to a figure they can live with and stop.</p>
+        </div>
+        <div class="prose">
+          <h3>Each row carries its own volume</h3>
+          <p>"About 31 a week" sits under the category name. The biggest source of noise is obvious before anything is changed, and it is often not the category people would have guessed.</p>
+        </div>
+        <div class="prose">
+          <h3>Three choices, with a middle</h3>
+          <p>Each category is Right away, Morning summary or Off. The middle option is the point: most notifications are worth knowing about and not worth being interrupted for.</p>
+        </div>
+        <div class="prose">
+          <h3>Presets named by intent</h3>
+          <p>"Everything, right away", "Only what needs me" and "Nearly silent" set every row at once. A preset stays highlighted only while the rows still match it, so a custom mix never pretends to be a preset.</p>
+        </div>
+        <div class="prose">
+          <h3>One thing you cannot turn off</h3>
+          <p>Security alerts have no control, and the row says why. A locked setting with no reason reads as the product overruling you. With the reason, it reads as protection.</p>
+        </div>
+        <div class="prose">
+          <h3>Show what the summary will contain</h3>
+          <p>The panel lists what would wait for the morning summary under the current settings. Choosing "summary" stops feeling like sending things into a void.</p>
+        </div>
+      </div>
+      <div class="prose">
+        <p>The preview uses a three-part bar with a legend and a count on every part, so the split between interrupting, waiting and not sent never depends on telling the colours apart.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Limits and next steps</p>
+    <div class="content">
+      <p class="note">The preview is only as good as the history behind it. A new account has no history, and a typical week is a poor guide to an unusual one. A real version would need a sensible starting estimate and a way to say "based on very little so far".</p>
+      <div class="prose">
+        <ul>
+          <li>Test whether people set a different mix with the preview than without it, and whether they keep notifications on longer.</li>
+          <li>Ask what number feels acceptable. The design assumes people have one.</li>
+          <li>Design the feedback loop: a notification that turned out not to matter should offer "send these in the summary" on the spot.</li>
+          <li>Check the locked security row with users who feel strongly about control.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Back to the start</span>
+    <a class="big" href="wasp-ground-station.html">Ground station for an autonomous swarm →</a>
+  </div>
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js?v=4"></script>
+</body>
+</html>

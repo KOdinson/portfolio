@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plain Bill | Concept prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;800&display=swap">
+<style>
+/* A bill explainer: one light theme by choice. Emphasis chart: this month in the accent, every other month in grey. */
+:root {
+  --page: #EFEEE9; --surface: #FCFCFB; --ink: #0B0B0B; --ink-2: #52514E; --muted: #898781; --grid: #E1E0D9; --axis: #C3C2B7;
+  --series: #2A78D6; --rest: #C3C2B7; --soft: #E9F1FB; --tape: #F2C230;
+  --font: "Inter Tight", system-ui, "Segoe UI", Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 400 16px/1.45 var(--font); }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--series); outline-offset: 2px; }
+h1, h2, p { margin: 0; }
+.num { font-variant-numeric: tabular-nums; }
+.wrap { max-width: 1040px; margin-inline: auto; padding: 20px 20px 40px; display: grid; gap: 16px; }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
+.head b { font-size: 19px; font-weight: 800; }
+.tape { background: var(--tape); font-size: 12.5px; font-weight: 600; padding: 3px 8px; }
+.head span.who { margin-left: auto; color: var(--ink-2); }
+.card { background: var(--surface); border: 1px solid var(--grid); border-radius: 12px; padding: 20px 22px; display: grid; gap: 12px; }
+.hero h1 { font-size: clamp(30px, 5vw, 48px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.05; }
+.hero p { font-size: 19px; max-width: 60ch; }
+.hero .due { color: var(--ink-2); font-size: 15px; }
+.cols { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+@media (max-width: 800px) { .cols { grid-template-columns: minmax(0, 1fr); } .head span.who { margin-left: 0; } }
+.card h2 { font-size: 18px; font-weight: 800; }
+.row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.link { background: none; border: 0; padding: 0; color: var(--series); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+.chart { position: relative; }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.chart text { font-family: var(--font); font-size: 12px; fill: var(--muted); }
+.chart text.val { fill: var(--ink); font-weight: 600; font-size: 13px; }
+.bar { cursor: default; }
+.bar:focus-visible { outline: none; }
+.bar:focus-visible .m { stroke: var(--ink); stroke-width: 2; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: #fff; font-size: 13.5px; padding: 6px 9px; border-radius: 6px; transform: translate(-50%, -100%); white-space: nowrap; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); }
+td:last-child, th:last-child { text-align: right; }
+tr.cur td { font-weight: 600; }
+
+.why { display: grid; gap: 12px; }
+.why .r { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; }
+.why .r b { font-weight: 600; }
+.why .r small { grid-column: 1 / -1; color: var(--ink-2); font-size: 14.5px; }
+.why .track { grid-column: 1 / -1; height: 10px; background: var(--grid); border-radius: 0 4px 4px 0; }
+.why .track i { display: block; height: 100%; background: var(--series); border-radius: 0 4px 4px 0; }
+.sumline { border-top: 1px solid var(--grid); padding-top: 10px; display: flex; justify-content: space-between; font-weight: 800; }
+.next { background: var(--soft); border-radius: 10px; padding: 12px 14px; font-size: 15px; }
+.next b { display: block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head"><b>Plain Bill</b><span class="tape">Concept prototype · invented account</span><span class="who">Electricity · Apartment 4B · billed October 2026</span></div>
+
+  <div class="card hero">
+    <h1 class="num">$164 this month.</h1>
+    <p>That is <b>$33 more than September</b>, and three things explain all of it. None of them is a mistake on your bill.</p>
+    <span class="due">Due November 12. Paid automatically from the account ending 0142.</span>
+  </div>
+
+  <div class="cols">
+    <div class="card">
+      <div class="row"><h2>Your last 12 bills</h2><button type="button" class="link" id="toggle" aria-pressed="false">Show as a table</button></div>
+      <div class="chart" id="chart"></div>
+      <div id="tableWrap" hidden></div>
+      <p style="color: var(--ink-2); font-size: 14.5px;">October last year was $139. Winter months run highest because the heating is electric.</p>
+    </div>
+
+    <div class="card">
+      <h2>Why it went up $33</h2>
+      <div class="why" id="why"></div>
+      <div class="sumline num"><span>Total change from September</span><span>+ $33</span></div>
+      <div class="next"><b>What to expect next</b>November and December are usually your two highest bills. If this year follows last year, expect about $170 to $190.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Invented account data for this prototype.
+const BILLS = [['Nov', 142], ['Dec', 171], ['Jan', 188], ['Feb', 176], ['Mar', 151], ['Apr', 128], ['May', 119], ['Jun', 137], ['Jul', 158], ['Aug', 162], ['Sep', 131], ['Oct', 164]];
+const YEAR = ['2025', '2025', '2026', '2026', '2026', '2026', '2026', '2026', '2026', '2026', '2026', '2026'];
+const WHY = [
+  ['A longer billing period', 14, '33 days this time, 30 last time. Three extra days of normal use.'],
+  ['More electricity per day', 10, 'Nights turned cold in the second half of the month and the heating came on.'],
+  ['A higher rate', 9, 'The price per unit rose on October 1. This one continues every month from now on.']
+];
+const $ = (id) => document.getElementById(id);
+
+function drawChart() {
+  const W = 560, H = 250, L = 34, B = 26, T = 22, max = 200, plotH = H - B - T, slot = (W - L) / BILLS.length, bw = Math.min(24, slot - 2);
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Bar chart of the last 12 monthly bills. October 2026 is $164, up from $131 in September.">`;
+  for (const v of [0, 50, 100, 150, 200]) { const y = T + plotH - v / max * plotH;
+    s += `<line x1="${L}" x2="${W}" y1="${y}" y2="${y}" stroke="${v ? '#E1E0D9' : '#C3C2B7'}" stroke-width="1"/><text x="${L - 6}" y="${y + 4}" text-anchor="end">$${v}</text>`; }
+  BILLS.forEach(([m, v], i) => { const cur = i === BILLS.length - 1, h = v / max * plotH, x = L + i * slot + (slot - bw) / 2, y = T + plotH - h;
+    s += `<g class="bar" tabindex="0" data-i="${i}" aria-label="${m} ${YEAR[i]}: $${v}">
+      <rect x="${L + i * slot}" y="${T}" width="${slot}" height="${plotH + B}" fill="transparent"/>
+      <path class="m" d="M${x} ${T + plotH}V${y + 4}a4 4 0 0 1 4 -4h${bw - 8}a4 4 0 0 1 4 4V${T + plotH}Z" fill="${cur ? '#2A78D6' : '#C3C2B7'}"/>
+      <text x="${x + bw / 2}" y="${H - 8}" text-anchor="middle">${m}</text>
+      ${cur ? `<text class="val" x="${x + bw / 2}" y="${y - 6}" text-anchor="middle">$${v}</text>` : ''}</g>`; });
+  $('chart').innerHTML = s + '</svg><div class="tip" id="tip" hidden></div>';
+}
+function tip(g) {
+  const t = $('tip'); if (!g) { t.hidden = true; return; }
+  const i = +g.dataset.i, box = g.querySelector('.m').getBoundingClientRect(), host = $('chart').getBoundingClientRect(), prev = i ? BILLS[i][1] - BILLS[i - 1][1] : null;
+  t.textContent = `${BILLS[i][0]} ${YEAR[i]}: $${BILLS[i][1]}` + (prev === null ? '' : ` (${prev >= 0 ? '+' : '−'}$${Math.abs(prev)} on the month before)`);
+  t.style.left = Math.max(90, Math.min(host.width - 90, box.left - host.left + box.width / 2)) + 'px'; t.style.top = (box.top - host.top - 8) + 'px'; t.hidden = false;
+}
+drawChart();
+$('chart').addEventListener('pointermove', (e) => tip(e.target.closest('.bar')));
+$('chart').addEventListener('pointerleave', () => tip(null));
+$('chart').addEventListener('focusin', (e) => tip(e.target.closest('.bar')));
+$('chart').addEventListener('focusout', () => tip(null));
+
+$('tableWrap').innerHTML = '<table><thead><tr><th>Month</th><th>Bill</th></tr></thead><tbody>' + BILLS.map(([m, v], i) =>
+  `<tr class="${i === 11 ? 'cur' : ''}"><td>${m} ${YEAR[i]}</td><td class="num">$${v}</td></tr>`).join('') + '</tbody></table>';
+$('toggle').addEventListener('click', () => { const table = $('tableWrap').hidden; $('tableWrap').hidden = !table; $('chart').hidden = table;
+  $('toggle').textContent = table ? 'Show as a chart' : 'Show as a table'; $('toggle').setAttribute('aria-pressed', table); });
+
+$('why').innerHTML = WHY.map(([name, amt, text]) => `<div class="r"><b>${name}</b><b class="num">+ $${amt}</b><div class="track"><i style="width:${amt / 14 * 100}%"></i></div><small>${text}</small></div>`).join('');
+</script>
+</body>
+</html>

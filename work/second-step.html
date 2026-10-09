@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Second Step | Keith Sanders II</title>
+<meta name="description" content="Case study: a concept two-step sign-in setup that is honest about trade-offs and makes recovery part of setup.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=4">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="cs-head">
+    <p class="label">Sheet 17 of 18 · <span class="tag concept">Concept · working prototype</span></p>
+    <h1>Second Step: two-step sign-in people finish setting up</h1>
+    <p class="lede">Two-step sign-in is one of the most effective protections an account can have, and setup is where people give up or lock themselves out later. I hold Security+, CySA+ and PenTest+. This is the setup flow I would want a non-technical relative to meet.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Flow design, content design, coded prototype</dd></div>
+      <div><dt>When</dt><dd>October 2026</dd></div>
+      <div><dt>Status</dt><dd>Self-initiated concept. Nothing in it is real. Untested with users.</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">The prototype</p>
+    <div class="content">
+      <figure>
+        <div class="plate live" style="background: #E9EDF2;">
+          <iframe src="../prototypes/second-step/" title="Interactive Second Step prototype"></iframe>
+        </div>
+        <div class="plate-cap">
+          <span>Live and interactive. Any six digits work as the code. Try four digits first to see the error.</span>
+          <a href="../prototypes/second-step/">Open full screen →</a>
+        </div>
+      </figure>
+      <p class="note">The pattern on the scan step is a decorative stand-in, not a working code, and the setup key and backup codes are generated at random in your browser.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">The design problem</p>
+    <div class="content">
+      <div class="prose">
+        <p>Security setup usually fails in one of two ways. It hides the trade-offs, so people pick the weakest option without knowing it is the weakest. Or it treats recovery as optional, so the day a phone is lost becomes the day the account is lost.</p>
+        <p>Both are content problems before they are engineering problems. The flow has four steps, and the writing in each one does most of the work.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>Three options with their real weaknesses</h3>
+          <p>Text message is described as "Easiest to start. Weaker, because a phone number can be taken over", followed by "Still far better than a password alone". The user gets the truth and is not scared out of the option they will really use.</p>
+        </div>
+        <div class="prose">
+          <h3>One recommendation</h3>
+          <p>The authenticator app carries a "Recommended" tag and is selected to begin with. Three equal choices is a quiz. A marked default with honest alternatives is advice.</p>
+        </div>
+        <div class="prose">
+          <h3>The button repeats the choice</h3>
+          <p>"Continue with text message". The label changes with the selection, so the user confirms what they picked in the act of continuing.</p>
+        </div>
+        <div class="prose">
+          <h3>Errors that count for you</h3>
+          <p>"Codes are 6 digits. You entered 4." A code with a letter in it gets a different message. Each one says what the system saw, which tells the user what to fix.</p>
+        </div>
+        <div class="prose">
+          <h3>Backup codes cannot be skipped</h3>
+          <p>The Finish button is disabled until a box is ticked: "I have saved these codes somewhere other than this phone". The reason sits beside the button: "This is the one step people regret skipping."</p>
+        </div>
+        <div class="prose">
+          <h3>The warning is about the likely mistake</h3>
+          <p>"Do not keep them only on the phone you just set up." A screenshot of backup codes on the phone that will be lost is the common failure, so that is the one the screen names.</p>
+        </div>
+      </div>
+      <div class="prose">
+        <p>The last screen is three questions with plain answers: what changes, what happens if you lose your phone, and what happens if you lose the codes too. The third answer admits a 3 to 5 day wait and explains it: "That delay is deliberate. It is what stops someone else doing it."</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Limits and next steps</p>
+    <div class="content">
+      <p class="note">Forcing the backup-code step is a deliberate bit of friction, and friction in a security flow has a cost: some people will tick the box without saving anything. A checkbox proves a click and nothing more. Whether this step raises real recovery rates is exactly what would need measuring.</p>
+      <div class="prose">
+        <ul>
+          <li>Usability sessions with people who do not work in technology, watching where they hesitate and what they do with the backup codes.</li>
+          <li>Follow up two weeks later: can they find their codes?</li>
+          <li>Compare completion with the method descriptions against a version with names only.</li>
+          <li>Design passkeys into the first step, since they remove the code entry entirely for people whose devices support them.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Next sheet</span>
+    <a class="big" href="quiet-hours.html">Quiet Hours: notification settings →</a>
+  </div>
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js?v=4"></script>
+</body>
+</html>
