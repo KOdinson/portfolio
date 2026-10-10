@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two Shopify Themes | Keith Sanders II</title>
+<meta name="description" content="Case study: two Shopify development stores with custom theme sections for kit building, cart progress, symptom-led search, fit checking and a sticky add to cart.">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=4">
+<style>
+  .shot { aspect-ratio: 1512 / 800; background: #15171B; }
+  .shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="name" href="../">Keith Sanders II</a>
+    <nav aria-label="Site"><a href="../#work">All work</a><a href="../#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="cs-head">
+    <p class="label">Sheet 22 of 22 · <span class="tag shipped">Built · Shopify themes</span></p>
+    <h1>Two Shopify themes: selling the job, not the part</h1>
+    <p class="lede">Most of this portfolio is prototypes. These two are running Shopify stores. Each starts from Shopify's open-source Dawn theme and adds sections I wrote in Liquid, CSS and JavaScript, so the shop is organised around what the customer is trying to get done.</p>
+    <dl class="titleblock">
+      <div><dt>Role</dt><dd>Designer and builder</dd></div>
+      <div><dt>Scope</dt><dd>Five custom theme features across two stores, catalogue, artwork</dd></div>
+      <div><dt>When</dt><dd>October 2026</dd></div>
+      <div><dt>Status</dt><dd>Live on Shopify development stores. Invented products. Nothing is for sale and no shopper has tested them.</dd></div>
+    </dl>
+  </div>
+
+  <section class="cs-section">
+    <p class="label">Forge and Foam</p>
+    <div class="content">
+      <div class="prose">
+        <p>A supply shop for people building foam armour. A first-time builder does not want ten product pages. They want to know what to buy to get started, and to buy it in one go.</p>
+      </div>
+      <figure>
+        <div class="plate shot"><img src="../assets/img/shopify/forge-kit.png" alt="Home page section titled Build your starter kit. Six products shown as tick-box cards, three ticked, with a running total of 3 items, 62 dollars, and an Add kit to cart button." width="1512" height="800" loading="lazy"></div>
+        <div class="plate-cap"><span>Build a kit. Tick what you need; the count and total update as you go; one button adds everything.</span></div>
+      </figure>
+      <figure>
+        <div class="plate shot"><img src="../assets/img/shopify/forge-cart.png" alt="Cart drawer open over the page, listing four products, with the message You have free shipping above a full orange progress bar and the estimated total." width="1512" height="800" loading="lazy"></div>
+        <div class="plate-cap"><span>The cart opens itself after the kit is added. The bar counts down to free shipping, then says so in words.</span></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Fixit Supply</p>
+    <div class="content">
+      <div class="prose">
+        <p>A dishwasher parts shop, and the real-store version of <a href="parts-finder.html">Parts Finder</a>. The customer knows the symptom and not the part, so the home page asks what the machine is doing and offers the free fix before it offers anything to buy.</p>
+      </div>
+      <figure>
+        <div class="plate shot" style="background: #FFFFFF;"><img src="../assets/img/shopify/fixit-symptom.png" alt="Home page section titled What is it doing. A model selector set to DW-420, four symptom buttons, a green panel saying Step 1 costs nothing, clean the filter first, then four part cards. Three say Fits your DW-420 and one says Not confirmed, check your old part number." width="1512" height="800" loading="lazy"></div>
+        <div class="plate-cap"><span>Symptom finder. The free fix sits above the parts, and each card says whether it fits the chosen model.</span></div>
+      </figure>
+      <figure>
+        <div class="plate shot" style="background: #FFFFFF;"><img src="../assets/img/shopify/fixit-product.png" alt="Product page for a lower spray arm. Three panels under the product: Will it fit, showing Fits your DW-420; Time and tools, showing 2 minutes, no tools; and a green panel, Try this first, it costs nothing." width="1512" height="800" loading="lazy"></div>
+        <div class="plate-cap"><span>Product page. Fit, effort and the thing to try first, answered before the customer has to ask.</span></div>
+      </figure>
+      <p class="note">Both storefronts sit behind Shopify's development-store password page, so these are screenshots from the live themes. The password is available on request: <a href="../#contact">get in touch</a>.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Key decisions</p>
+    <div class="content">
+      <div class="cols2">
+        <div class="prose">
+          <h3>A kit is one decision, so it is one request</h3>
+          <p>The kit builder sends every ticked product to the cart in a single call and then opens the theme's own cart drawer. The shopper never visits a product page unless they want the detail, and the link to it is on every card.</p>
+        </div>
+        <div class="prose">
+          <h3>The bar ends in a sentence</h3>
+          <p>"You are $13.00 away from free shipping" and then "You have free shipping". The fill is a second signal. The words carry the meaning, so the bar works for someone who cannot see the colour.</p>
+        </div>
+        <div class="prose">
+          <h3>The free fix comes before the paid one</h3>
+          <p>Every symptom opens with a step that costs nothing. One symptom has no parts at all: it ends with a warning that the rest of the job needs a technician. A shop that says so is easier to trust on the parts it does sell.</p>
+        </div>
+        <div class="prose">
+          <h3>"Fits" has three states</h3>
+          <p>Fits your model, not confirmed, or pick a model first. "Not confirmed" tells the customer to check the old part number. Leaving the badge off would have looked like a yes.</p>
+        </div>
+        <div class="prose">
+          <h3>The model is asked once</h3>
+          <p>The model chosen on the home page is remembered in the browser and is already filled in on every product page.</p>
+        </div>
+        <div class="prose">
+          <h3>The sticky bar is a second handle on the same form</h3>
+          <p>Once the main button scrolls away, a bar at the bottom offers it again. It submits the theme's own product form, so errors and the cart behave the same from either button.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">How it is built</p>
+    <div class="content">
+      <div class="rows">
+        <div><span>Base</span><div>Shopify Dawn 16, which is open source. Everything listed below is added to it.</div></div>
+        <div><span>Sections</span><div>Build a kit, symptom finder, product fit, and sticky add to cart are theme sections with their own settings, so a merchant can place and edit them in the theme editor without touching code.</div></div>
+        <div><span>Cart bar</span><div>A snippet rendered inside the cart drawer and the cart page. Shopify re-renders both after every cart change, so the bar needs no JavaScript of its own. The threshold and both messages are theme settings.</div></div>
+        <div><span>Data</span><div>Fit, effort and "try first" are read from product metafields, with product tags as a fallback, so the catalogue can be loaded from a spreadsheet.</div></div>
+        <div><span>Apps</span><div>None. Everything runs in the theme.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Found by testing on the live store</p>
+    <div class="content">
+      <div class="prose">
+        <p>The free-shipping bar showed its grey track and no fill. The cause was a rule in the base theme that hides every empty <code>div</code>, and the fill was an empty <code>div</code>. It is now a <code>span</code>, with a comment saying why.</p>
+        <p>The kit builder opened the cart drawer with nothing in it. The drawer was still marked as empty from the page load, and the theme hides its contents while that mark is there. The section now clears it before showing the new cart.</p>
+        <p>Neither bug showed up in the code check. Both showed up the first time I used the feature in the store.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <p class="label">Limits and next steps</p>
+    <div class="content">
+      <p class="note">These are development stores. The products, prices and models are invented, there is no stock, and checkout cannot take a real payment. The free-shipping bar is not yet matched by a shipping rate in the store settings, which a real shop would need before making the promise. I tested each feature myself in the theme editor's preview at desktop width, and the banners at one phone width. No shopper has used either store.</p>
+      <div class="prose">
+        <ul>
+          <li>Watch someone with a real broken dishwasher use the symptom finder, and see whether the four symptoms are the ones they would choose.</li>
+          <li>Test every custom section on a phone and with a keyboard and screen reader.</li>
+          <li>Check the kit builder against products with variants and products that are sold out.</li>
+          <li>Measure what the sticky bar costs in page weight against what it is worth.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="next">
+    <span class="label">Back to the start</span>
+    <a class="big" href="wasp-ground-station.html">Ground station for an autonomous swarm →</a>
+  </div>
+
+</main>
+
+<footer class="site-foot"><div class="wrap"><span>Keith Sanders II</span><a href="../#contact">Contact</a></div></footer>
+<script src="../assets/site.js?v=4"></script>
+</body>
+</html>
